@@ -12,6 +12,7 @@ tabs:
               options:
                 tamarindo: Tamarindo
                 los_suenos: 'Los Suenos'
+                flamingo: Flamingo
               taggable: false
               push_tags: false
               placeholder: 'Choose location'

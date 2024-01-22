@@ -125,6 +125,10 @@
                                     <div x-show="destination === 'Los Suenos'">
                                         {{ partial:partials/boats/reservations_details }}
                                     </div>
+                                {{ elseif location == "flamingo" }}
+                                    <div x-show="destination === 'Flamingo'">
+                                        {{ partial:partials/boats/reservations_details }}
+                                    </div>
                                 {{ /if }}
                                     <div x-show="destination === ''">
                                         {{ partial:partials/boats/reservations_details }}
