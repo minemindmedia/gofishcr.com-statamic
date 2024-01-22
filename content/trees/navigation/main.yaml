@@ -1,0 +1,17 @@
+tree:
+  -
+    id: cafb9e87-25a9-4c54-80cd-e57b0635c1c7
+    title: Charters
+    url: /reservations
+  -
+    id: 9e03528c-3ed6-4d9b-9c6c-010a25079db7
+    title: Adventures
+    url: /adventures
+  -
+    id: e15ec03d-a699-407a-aee0-f3b397d36a34
+    title: Dining
+    url: /dining
+  -
+    id: 2f196631-2aa4-4b21-9c9a-f4684117540c
+    title: 'Why Us'
+    url: /why-us

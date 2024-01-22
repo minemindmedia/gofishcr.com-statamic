@@ -1,0 +1,53 @@
+{{#
+    @name Main desktop navigation
+    @desc The sites main desktop navigation rendered on each page. It's 2 levels deep by default and uses AlpineJS for interactivity.
+#}}
+
+<!-- /navigation/_main_desktop.antlers.html -->
+<!-- component -->
+
+
+
+    <nav class="flex justify-end w-full">
+        {{ nav:main max_depth="2" include_home="true" select="title|url" }}
+            <div @click.away="open = true" class="relative" x-data="{ open: true }">
+            <a
+            {{ if children }}
+            @click="open = !open"
+            {{ else }}
+            href="{{ url }}"
+            {{ /if }}
+            class="flex flex-row items-center w-full text-sm font-semibold text-left text-gray-900 bg-transparent bg-gray-200 rounded-lg cursor-pointer dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+                <span>{{ title }}</span>
+                {{ if children }}
+                <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-0': open, 'rotate-180': !open}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                {{ /if }}
+            </a>
+            <div x-show="!open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right md:max-w-screen-md md:w-screen">
+                <div class="px-2 pt-2 pb-4 bg-white rounded-md shadow-lg dark-mode:bg-gray-700">
+                <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    {{ if children }}
+                        {{ children }}
+                            <a class="flex items-center p-2 bg-transparent rounded-lg row dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">
+                            <div class="p-3 bg-teal-500 rounded-lg">
+
+                                {{ partial:blade-icon icon="fas-fish-fins" class="w-8" }}
+
+                            </div>
+                            <div class="ml-3">
+                                <p class="font-semibold break-keep">{{ title }}</p>
+                            </div>
+                            </a>
+                        {{ /children }}
+                    {{ /if }}
+                </div>
+                </div>
+            </div>
+            </div>
+        {{ /nav:main }}
+
+    </nav>
+
+<!-- End: /navigation/_main_desktop.antlers.html -->
+
+

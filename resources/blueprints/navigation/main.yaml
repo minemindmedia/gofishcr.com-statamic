@@ -1,0 +1,21 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        display: General
+        fields:
+          -
+            handle: blade_icon
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Blade Icon'
+              icon: text
+              instructions: 'Make sure the blade icon package is installed, then add the blade class here.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false

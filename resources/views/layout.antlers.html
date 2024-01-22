@@ -1,0 +1,49 @@
+{{#
+    @name Layout
+    @desc The default layout file.
+#}}
+
+<!-- /layout.antlers.html -->
+<!doctype html>
+<html lang="{{ site:short_locale }}" class="antialiased">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        {{ vite src="resources/css/site.css|resources/js/site.js" }}
+        {{ partial:statamic-peak-seo::snippets/seo }}
+        {{ partial:statamic-peak-browser-appearance::snippets/browser_appearance }}
+        {{ partial:statamic-peak-tools::snippets/live_preview }}
+        {{ googlefonts:main }}
+        {{ googlefonts:content }}
+    </head>
+    <body
+    x-data="{
+        destination: $persist('').using(sessionStorage).as('_x_destination'),
+        charter: $persist('').using(sessionStorage).as('_x_charterlength'),
+        dateRange: $persist([]).using(sessionStorage).as('_x_range'),
+        adults: $persist(0).using(sessionStorage).as('_x_adults'),
+        children: $persist(0).using(sessionStorage).as('_x_children')
+    }"
+    class="flex flex-col min-h-screen selection:bg-primary selection:text-white bg-brown-50">
+        {{ stack:seo_body }}
+        {{ partial:statamic-peak-tools::snippets/noscript }}
+        {{ partial:statamic-peak-tools::navigation/skip_to_content }}
+        {{ partial:statamic-peak-tools::components/toolbar }}
+
+
+            {{ partial:layout/header }}
+
+
+
+
+
+        <div class="{{ if is_homepage }} py-12 px-60 {{ else }} px-8 py-12 {{ /if }}">
+            {{ template_content }}
+        </div>
+
+
+        {{ partial:layout/footer }}
+    </body>
+</html>
+<!-- End: /layout.antlers.html -->

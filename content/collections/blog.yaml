@@ -1,0 +1,11 @@
+title: Blog
+route: '/{mount}/{slug}'
+layout: layout
+template: blog/show
+revisions: true
+date: true
+sort_dir: asc
+date_behavior:
+  past: public
+  future: private
+mount: c9c3c752-7119-408a-be09-b91cd9c712d0

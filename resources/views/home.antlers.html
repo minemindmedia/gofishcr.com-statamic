@@ -1,0 +1,154 @@
+<div class="z-10">
+
+
+
+
+
+
+    <div class="flex justify-center mb-20">
+        <h1 class="flex flex-col justify-center font-bold tracking-tighter font-main">
+            <span class="flex items-center justify-center text-6xl text-brown-950">Tamarindo's <span class="ml-4 text-transparent text-7xl bg-gradient-to-tl from-orange-200 to-orange-600 bg-clip-text">#1</span></span>
+            <span class="justify-center text-3xl text-center text-brown-900">Sport Fishing Operation!</span>
+        </h1>
+    </div>
+
+
+
+<div class="relative z-0 ">
+
+    <div class="relative w-full overflow-hidden rounded-2xl ">
+
+        <video autoplay loop muted inline class="relative top-0 left-0 opacity-100">
+            <source src="/media/cc0-videos/flower.webm" type="video/webm" />
+            <source src="/files/gfcrbgvideo.webm" type="video/mp4">
+            <img src="/images/gofishvideo_fallback.jpg" />
+          </video>
+
+
+    </div>
+
+    {{ partial:components/booking_home }}
+
+
+</div>
+
+
+
+<div class="grid max-w-2xl grid-cols-1 gap-8 mx-auto mt-8 auto-rows-fr sm:mt-8 lg:mx-0 lg:max-w-none lg:grid-cols-1">
+    <article class="relative flex flex-col justify-end p-6 space-y-6 overflow-hidden text-sm text-white bg-gradient-to-tl from-blue-600 to-blue-800 rounded-2xl">
+
+        <div x-data="{show: false}">
+
+            <div  class="flex flex-row">
+<h3 class="flex-1 text-lg font-main">We are here to personalize your trip for you...</h3>
+<div class="flex justify-end">
+    <button @click="show = (show) ? false : true" x-text="(show) ? 'Close this' : 'Learn more'" class="text-white"></button>
+</div>
+</div>
+
+            <div
+                x-show="show"
+                x-transition:enter.duration.500ms
+                x-transition:leave.duration.400ms
+                class="flex flex-col mt-12 space-y-6"
+
+            >
+            <p>
+                Welcome to Go Fish Costa Rica, your premier source for all things fishing in Costa Rica. As the leading authority in fishing, we offer a comprehensive one-stop shop for anglers. Costa Rica has consistently ranked among the top destinations for traveling anglers worldwide, and for good reason – annually surpassing many countries in setting IGFA records. Our country provides an unparalleled experience for both traveling and vacation anglers, surpassing any other Central American destination. With a safe environment, friendly people, and legendary fishing opportunities, Costa Rica stands out.
+            </p>
+
+                <p>
+                    At Go Fish Costa Rica, we take pride in equipping anglers with the necessary resources to plan the ultimate fishing trip. Whether you're seeking a serious angling adventure or planning a family trip, we've got you covered. For years, we have been connecting ordinary anglers with extraordinary fish. Collaborate with us, and we guarantee you a once-in-a-lifetime experience that not only meets but exceeds your expectations. As the Costa Rica Fishing Authority, our singular goal is to ensure our clients are put on fish and have the fishing adventure of a lifetime!
+                </p>
+            </div>
+
+
+
+
+
+          </div>
+
+
+
+    </article>
+</div>
+
+
+      <div class="grid max-w-2xl grid-cols-1 gap-8 mx-auto mt-8 auto-rows-fr sm:mt-8 lg:mx-0 lg:max-w-none lg:grid-cols-2">
+        <article class="relative flex flex-col justify-end overflow-hidden bg-gray-900 isolate rounded-2xl pt-80 sm:pt-48 lg:pt-80">
+          <img src="/images/ziplining2.avif" alt="" class="absolute inset-0 object-cover w-full h-full -z-10">
+          <div class="p-6 leading-6 text-black bg-orange-400">
+            <h3 class="mb-4 text-xl font-bold font-main">Adventures</h3>
+            <p>While you're here, check out all the other adventure tours we offer.</p>
+          </div>
+        </article>
+
+        <article class="relative flex flex-col justify-end overflow-hidden bg-gray-900 isolate rounded-2xl pt-80 sm:pt-48 lg:pt-80">
+            <img src="/images/restaurant.avif" alt="" class="absolute inset-0 object-cover w-full h-full -z-10">
+            <div class="p-6 leading-6 text-black bg-yellow-400">
+              <h3 class="mb-4 text-xl font-bold font-main">Other things to do</h3>
+              <p>Tamarindo offers a wide range of things to do while you're here. Check out our list of recommendations. </p>
+            </div>
+          </article>
+      </div>
+
+
+      <div class="grid max-w-2xl grid-cols-1 gap-8 mx-auto mt-16 auto-rows-fr sm:mt-8 lg:mx-0 lg:max-w-none ">
+        <article class="relative p-16 text-white bg-gradient-to-tl from-green-400 to-green-700 rounded-xl">
+          <div class="max-w-2xl mx-auto carousel"
+          data-flickity='{ "wrapAround": true, "autoPlay": 2000, "prevNextButtons": false, "pageDots": false, "selectedAttraction": 0.08, "friction": 0.2 }'>
+          <div class="carousel-cell">
+              <img src="/images/tripadvisor-certificate-of-excellence-2020.svg" alt="" class="h-full mx-auto">
+          </div>
+          <div class="carousel-cell">
+              <img src="/images/tripadvisor-travelers-choice-2020.svg" alt="" class="h-full mx-auto">
+          </div>
+          <div class="carousel-cell">
+              <img src="/images/tripadvisor-certificate-of-excellence-2021.svg" alt="" class="h-full mx-auto">
+          </div>
+          <div class="carousel-cell">
+              <img src="/images/tripadvisor-travelers-choice-2021.svg" alt="" class="h-full mx-auto">
+          </div>
+          <div class="carousel-cell">
+              <img src="/images/tripadvisor-certificate-of-excellence-2022.svg" alt="" class="h-full mx-auto">
+          </div>
+          <div class="carousel-cell">
+              <img src="/images/tripadvisor-travelers-choice-2022.svg" alt="" class="h-full mx-auto">
+          </div>
+          <div class="carousel-cell">
+              <img src="/images/tripadvisor-certificate-of-excellence-2023.svg" alt="" class="h-full mx-auto">
+          </div>
+          <div class="carousel-cell">
+              <img src="/images/tripadvisor-travelers-choice-2023.svg" alt="" class="h-full mx-auto">
+          </div>
+        </div>
+          <div class="mt-16 leading-6 text-center text-white max-w-s">
+            <div class="flex flex-row justify-center mb-4 space-x-2">
+                {{ partial:blade-icon icon="phosphor-star-fill" class="w-10" }}
+                {{ partial:blade-icon icon="phosphor-star-fill" class="w-10" }}
+                {{ partial:blade-icon icon="phosphor-star-fill" class="w-10" }}
+                {{ partial:blade-icon icon="phosphor-star-fill" class="w-10" }}
+                {{ partial:blade-icon icon="phosphor-star-fill" class="w-10" }}
+            </div>
+            <h3 class="mb-12 text-xl font-main">We maintain a five star rating on Trip Advisor year after year...</h3>
+            <a href="https://www.tripadvisor.com/Attraction_Review-g309253-d1474067-Reviews-Go_Fish_Costa_Rica-Tamarindo_Province_of_Guanacaste.html" target="_blank" class="px-5 py-2.5 relative rounded group overflow-hidden font-medium border-white border-2 text-white inline-block">
+                <span class="absolute top-0 left-0 flex w-full h-0 mb-0 transition-all duration-200 ease-out transform translate-y-0 bg-white group-hover:h-full opacity-90"></span>
+                <span class="relative group-hover:text-green-700">View Our Trip Advisor Page</span>
+                </a>
+
+
+
+
+          </div>
+        </article>
+
+
+      </div>
+
+
+
+
+
+
+
+

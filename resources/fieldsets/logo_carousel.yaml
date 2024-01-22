@@ -1,0 +1,7 @@
+title: 'Logo Carousel'
+fields:
+  -
+    handle: image
+    field: common.image
+    config:
+      min_files: 3

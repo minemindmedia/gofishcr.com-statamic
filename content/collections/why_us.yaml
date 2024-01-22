@@ -1,0 +1,11 @@
+title: Why Us
+route: '/{mount}/{slug}'
+layout: layout
+template: why_us/show
+revisions: true
+date: false
+sort_dir: asc
+date_behavior:
+  past: public
+  future: private
+mount: 02819d61-37ac-4606-939f-cbc162c7ff54

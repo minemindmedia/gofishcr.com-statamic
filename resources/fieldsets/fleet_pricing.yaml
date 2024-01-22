@@ -1,0 +1,122 @@
+title: 'Fleet & Pricing'
+fields:
+  -
+    handle: charter_details
+    field: cards.cards
+    config:
+      display: Charter
+      sets:
+        cards:
+          display: Cards
+          instructions: null
+          icon: null
+          sets:
+            charter_details:
+              display: 'Charter Details'
+              instructions: null
+              icon: null
+              fields:
+                -
+                  handle: title
+                  field:
+                    input_type: text
+                    type: text
+                    localizable: true
+                    listable: hidden
+                    validate:
+                      - required
+                    display: Title
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    antlers: false
+                    hide_display: false
+                -
+                  handle: charter_image
+                  field:
+                    mode: grid
+                    container: images
+                    restrict: false
+                    allow_uploads: true
+                    show_filename: true
+                    show_set_alt: true
+                    type: assets
+                    display: 'Charter image'
+                    icon: assets
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    max_files: 1
+                    min_files: 1
+                -
+                  handle: charter_details
+                  field:
+                    type: list
+                    display: 'Charter details'
+                    icon: list
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: charter_pricing
+                  field:
+                    fields:
+                      -
+                        handle: full_day
+                        field:
+                          input_type: text
+                          antlers: false
+                          type: text
+                          display: 'Full Day'
+                          icon: text
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                          prepend: $
+                      -
+                        handle: three_quarter_day
+                        field:
+                          input_type: text
+                          antlers: false
+                          type: text
+                          display: '3/4 day'
+                          icon: text
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                          prepend: $
+                      -
+                        handle: half_day
+                        field:
+                          input_type: text
+                          antlers: false
+                          type: text
+                          display: '1/2 day'
+                          icon: text
+                          listable: hidden
+                          instructions_position: above
+                          visibility: visible
+                          replicator_preview: true
+                          hide_display: false
+                          prepend: $
+                    mode: stacked
+                    max_rows: 1
+                    min_rows: 1
+                    reorderable: false
+                    fullscreen: false
+                    type: grid
+                    display: 'Charter pricing'
+                    icon: grid
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false

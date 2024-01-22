@@ -1,0 +1,42 @@
+{{#
+    @name Header
+    @desc The sites header rendered on each page.
+#}}
+
+<!-- /layout/_header.antlers.html -->
+
+
+
+
+<header class="w-full my-12">
+
+    <div
+    class="
+    {{ if is_homepage || slug == "fishing-charters" || collection:handle == "fishing_charters" }}
+        max-w-5xl
+        mx-auto
+    {{ else }}
+        mx-12
+        mx-auto
+    {{ /if }}
+        "
+    >
+        <div class="flex items-center space-x-12">
+            <div class="">
+                {{ partial:components/logo }}
+            </div>
+            <div class="">
+                {{ if slug == "reservations" }}
+                    {{ partial:components/booking_header }}
+                {{ /if }}
+            </div>
+            <div class="flex-1">
+                {{ partial:navigation/main }}
+            </div>
+        </div>
+    </div>
+</header>
+<!-- End: /layout/_header.antlers.html -->
+
+
+

@@ -1,0 +1,11 @@
+title: Things To Do
+route: '/{mount}/{slug}'
+layout: layout
+template: things_to_do/show
+revisions: true
+date: false
+sort_dir: asc
+date_behavior:
+  past: public
+  future: private
+mount: ddcd3bd1-9392-4718-8c20-d3011edf4678

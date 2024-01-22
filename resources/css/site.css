@@ -1,0 +1,60 @@
+@import "tailwindcss/base";
+@import "custom";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import 'flickity';
+@import 'flatpickr';
+
+html { overflow-y: scroll; }
+
+.font-main {
+    font-family: 'Rubik';
+}
+
+.font-content {
+    font-family: 'Robotic Mono';
+}
+
+.flatpickr-calendar {
+    @apply
+    p-4
+    mt-2
+    -ml-9
+}
+
+  .carousel-cell {
+    width: 33.3%;
+    height: 200px;
+    margin-right: 10px;
+    border-radius: 5px;
+    counter-increment: gallery-cell;
+    padding: 40px;
+  }
+
+  .carousel-cell.is-selected {
+    padding: 0;
+  }
+
+
+
+    .xcarousel-cell {
+        width: 100%;
+      }
+
+
+
+      .fade-out-in{
+        -webkit-animation: fade-out-in 5s;
+        animation: fade-out-in 5s;
+      }
+
+      @keyframes fade-out-in {
+        0%   { opacity: 1;}
+        50%  {opacity: 0;}
+        100% {opacity: 1;}
+      }
+
+      .flatpickr-input {
+        @apply
+        w-auto !important
+      }
