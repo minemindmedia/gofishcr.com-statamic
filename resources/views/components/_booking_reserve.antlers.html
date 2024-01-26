@@ -8,30 +8,11 @@
 
 
 
-    <div class="flex flex-col w-full">
-
-            <div x-text="
-            if (charter === '') return '';
-            return `${charter}`;
-            "
-            class="flex space-y-12 "></div>
-
-
-        <div x-if="guests" class="flex space-x-1 text-sm">
-            <span x-text="if ((adults + children) === 0) return '';
-            if ((adults + children) === 1) return `1 guest`;
-            return `${adults + children} guests`">
-            </span>
-        </div>
-    </div>
 
 
     <!-- ### date range calendar -->
     <div x-data="{
         thePicker: null,
-
-
-
         init() {
             this.thePicker = flatpickr(this.$refs.picker, {
                 mode: 'range',
@@ -45,8 +26,8 @@
 
     }"
     >
-
-        <div class="flex items-center justify-center w-full overflow-hidden text-sm text-black bg-white border border-gray-400 rounded-lg ">
+    <div class="mb-1 text-xs">Modify your dates:</div>
+        <div class="flex items-center w-full overflow-hidden text-sm text-black bg-white border border-gray-400 rounded-lg ">
 
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="ml-4 bi bi-calendar-event-fill" viewBox="0 0 16 16">
                 <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/>
@@ -54,7 +35,7 @@
             <input type="text"
                 x-ref="picker"
                 placeholder="Add dates"
-                class="px-4 py-2 text-sm placeholder-gray-600 border-0 bg-none focus:ring-0 "
+                class="px-4 py-2 text-sm text-black border-0 bg-none focus:ring-0 "
             >
         </div>
     </div>
@@ -91,6 +72,7 @@
             class="relative w-full"
         >
             <div>
+                <div class="mb-1 text-xs">Modify your guests:</div>
                 <button
                     x-ref="button"
                     x-on:click="toggle()"
@@ -105,7 +87,7 @@
                     </svg>
 
                         <div class="flex space-x-2">
-                            <span class="ml-2 text-sm" x-text="if ((adults + children) === 0) return 'Add guests';
+                            <span class="ml-1 text-sm text-black" x-text="if ((adults + children) === 0) return 'Add guests';
                             if ((adults + children) === 1) return `1 guest`;
                             return `${adults + children} guests`"></span>
                         </div>
@@ -151,81 +133,9 @@
         </div>
     </div>
 
-    <div
-    x-data="{ open: false }"
-    @click.away="open = false"
-    class="relative flex-1"
-    >
-        <!-- Button -->
-
-        <button @click="open = !open"
-            class="flex items-center justify-between flex-1 w-full gap-2 px-4 py-2 text-left bg-white border border-gray-400 rounded-lg"
-            :class="{'text-black': charter !== '', 'text-gray-500': charter === ''}"
-
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
-            </svg>
-
-            <span class="w-full ml-2 overflow-hidden text-sm text-gray-600 whitespace-nowrap"
-                x-text="charter === '' ? 'Add charter length' : charter"
-            ></span>
-        </button>
-        <div x-show="open"
-            class="absolute left-0 z-50 w-full p-4 mt-2 text-sm bg-white rounded-md shadow-md"
-            x-cloak
-        >
-            <ul class="overflow-auto [&>li]:text-gray-500 [&>li]:px-4 [&>li]:py-2 hover:[&>li]:bg-gray-100 [&>li]:cursor-pointer space-y-2"
-            >
-            {{ pricing }}
-            {{ if half_day }}<li @click="charter = $el.textContent; open = false;" class=" whitespace-nowrap"><span>1/2 Day: </span><span class="font-bold">${{ half_day }}.00 </li>{{ /if }}
-                {{ if three_quarter_day }}<li @click="charter = $el.textContent; open = false;" class="whitespace-nowrap"><span>3/4 Day: </span><span class="font-bold">${{ three_quarter_day }}.00 </li>{{ /if }}
-                    {{ if full_day }} <li @click="charter = $el.textContent; open = false;" class="whitespace-nowrap"><span>Full Day: </span><span class="font-bold">${{ full_day }}.00 </li>{{ /if }}
-            </ul>
-            {{ /pricing }}
-        </div>
-    </div>
-
-        <!-- ### hidden boat title -->
-        <div
-        >
-
-            <div class="hidden">
-
-                <input
-                    id="boat"
-                    value="{{ title }}"
-                    hidden
-                >
-            </div>
-        </div>
-
-        <!-- ### hidden boat image url -->
-        <div
-        >
-
-            <div class="hidden">
-
-                <input
-                    id="boat_image"
-                    value="{{ boat }}"
-
-                >
-            </div>
-        </div>
 
 
 
-    <button id="reservation"  class="relative z-10 px-4 py-2 overflow-hidden text-sm font-medium font-bold tracking-wide bg-orange-600 border border-orange-100 rounded-lg shadow-inner text-orange-50 group">
-        <span class="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-orange-300 group-hover:w-full ease"></span>
-        <span class="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-orange-300 group-hover:w-full ease"></span>
-        <span class="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-300 group-hover:h-full ease"></span>
-        <span class="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-300 group-hover:h-full ease"></span>
-        <span class="absolute inset-0 w-full h-full duration-300 delay-300 bg-orange-900 opacity-0 group-hover:opacity-100"></span>
-        <span class="relative transition-colors duration-300 delay-200 group-hover:text-white ease">
-            Reserve
-        </span>
-    </button>
 
 
 

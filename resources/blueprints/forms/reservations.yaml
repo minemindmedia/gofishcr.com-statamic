@@ -1,0 +1,158 @@
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        fields:
+          -
+            handle: destination
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Destination
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: start_date
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Start Date'
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: end_date
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'End Date'
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: adults
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Adults
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: children
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Children
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: charter_length
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Charter Length'
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: first_name
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'First Name'
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: last_name
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Last Name'
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: email
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Email
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              validate:
+                - required
+                - email
+          -
+            handle: phone
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Phone
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              validate:
+                - required
+          -
+            handle: other_activities
+            field:
+              taggable: false
+              push_tags: false
+              multiple: true
+              clearable: false
+              searchable: true
+              cast_booleans: false
+              type: select
+              display: 'Other Activities'
+              icon: select
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false

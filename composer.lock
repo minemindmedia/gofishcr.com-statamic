@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc0a452b0e845a1859a8e896e30f88fe",
+    "content-hash": "f740ae47d3ba4221055d9b8eeb6ed2d2",
     "packages": [
         {
             "name": "aerni/livewire-forms",

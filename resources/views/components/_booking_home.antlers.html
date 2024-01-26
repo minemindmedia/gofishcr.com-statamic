@@ -37,10 +37,10 @@
                 <!-- Dropdown Menu -->
 
                 <div x-show="open"
-                    class="absolute left-0 p-4 mt-2 bg-white rounded-md shadow-md"
+                    class="absolute left-0 w-full p-4 mt-2 bg-white rounded-md shadow-md"
                     x-cloak
                 >
-                    <ul class="max-h-[140px] overflow-auto [&>li]:text-gray-500 [&>li]:px-4 [&>li]:py-2 hover:[&>li]:bg-gray-100 [&>li]:cursor-pointer space-y-2"
+                    <ul class="w-full overflow-auto [&>li]:text-gray-500 [&>li]:px-4 [&>li]:py-2 hover:[&>li]:bg-gray-100 [&>li]:cursor-pointer space-y-2"
                     >
                     <li @click="destination = $el.textContent; open = false;">Flamingo</li>
                         <li @click="destination = $el.textContent; open = false;">Los Suenos</li>
@@ -55,18 +55,33 @@
 
             <div x-data="{
                 thePicker: null,
-
-
                 init() {
+
+                    const rewriteRange = (selectedDates, dateStr, instance) => {
+                        const year0 = selectedDates[0]?.getFullYear();
+                        if (selectedDates[0]  &&  year0 === selectedDates[1]?.getFullYear())
+                            instance.element.value = dateStr.replaceAll (' ' + year0, '');
+                    };
+
                     this.thePicker = flatpickr(this.$refs.picker, {
                         mode: 'range',
                         inline: false,
-                        dateFormat: 'M j',
+                        dateFormat: 'M j Y',
                         showMonths: 2,
                         defaultDate: this.dateRange,
-                        onChange: (selectedDates) => {this.dateRange = [...selectedDates];}
+
+                        onChange: (selectedDates, dateStr, instance) => {
+                            this.dateRange = [...selectedDates];
+                            rewriteRange (selectedDates, dateStr, instance);
+                        },
+
+                        onReady: (selectedDates, dateStr, instance) => {
+                            rewriteRange (selectedDates, dateStr, instance);
+                        }
                     });
                 },
+
+
             }"
             >
 
@@ -81,7 +96,6 @@
                         class="p-0 py-4 placeholder-gray-600 border-0 bg-none focus:ring-0"
                     >
                 </div>
-
             </div>
 
 
@@ -111,16 +125,16 @@
                     x-on:keydown.escape.prevent.stop="close($refs.button)"
                     x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
                     x-id="['dropdown-button']"
-                    class="relative w-full"
+                    class="relative w-full h-full"
                 >
-                    <div>
+                    <div class="h-full">
                         <button
                             x-ref="button"
                             x-on:click="toggle()"
                             :aria-expanded="open"
                             :aria-controls="$id('dropdown-button')"
                             type="button"
-                            class="flex items-center w-full gap-2 p-4 text-gray-600 border border-gray-500 rounded-md"
+                            class="flex items-center w-full h-full gap-2 p-4 text-gray-600 border border-gray-500 rounded-md"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
                                 <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
@@ -128,7 +142,7 @@
                             </svg>
                             <div class="flex space-x-4">
                                 <div class="flex space-x-2">
-                                    <span class="text-sm" x-text="if ((adults + children) === 0) return 'Add guests';
+                                    <span class="text-md" x-text="if ((adults + children) === 0) return 'Add guests';
                                     if ((adults + children) === 1) return `1 guest`;
                                     return `${adults + children} guests`"></span>
                                 </div>
