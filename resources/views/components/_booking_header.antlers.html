@@ -15,7 +15,7 @@
                         <!-- Button -->
 
                         <button @click="open = !open"
-                                class="flex items-center justify-between flex-1 w-full gap-2 px-4 py-2 text-left bg-white border border-r-0 border-gray-300 rounded-l-full"
+                                class="flex items-center justify-between flex-1 w-48 gap-2 px-4 py-2 text-left bg-white border border-r-0 border-gray-300 rounded-l-full"
                                 :class="{'text-black': destination !== '', 'text-gray-500': destination === ''}"
 
                         >
@@ -32,10 +32,10 @@
                         <!-- Dropdown Menu -->
 
                         <div x-show="open"
-                            class="absolute left-0 p-4 mt-2 text-sm bg-white rounded-md shadow-md"
+                            class="absolute left-0 w-full p-2 mt-2 text-sm bg-white rounded-md shadow-md"
                             x-cloak
                         >
-                            <ul class="max-h-[140px] overflow-auto [&>li]:text-gray-500 [&>li]:px-4 [&>li]:py-2 hover:[&>li]:bg-gray-100 [&>li]:cursor-pointer space-y-2"
+                            <ul class="w-full overflow-auto [&>li]:text-gray-500 [&>li]:px-2 [&>li]:py-2 hover:[&>li]:bg-gray-100 [&>li]:cursor-pointer"
                             >
                             <li @click="destination = $el.textContent; open = false; window.location.reload();" class=" whitespace-nowrap">Flamingo</li>
                                 <li @click="destination = $el.textContent; open = false; window.location.reload();" class="whitespace-nowrap">Los Suenos</li>
@@ -59,7 +59,7 @@
                                 dateFormat: 'M j',
                                 showMonths: 2,
                                 defaultDate: this.dateRange,
-                                onChange: (selectedDates) => {this.dateRange = [...selectedDates];}
+                                onChange: (selectedDates) => {this.dateRange = [selectedDates];}
                             });
                         },
 
@@ -140,23 +140,23 @@
                                 <div class="flex flex-col gap-4">
                                     <div class="flex gap-12">
                                         <div class="flex-1">
-                                            <p class="text-black text-md">Adults</p>
+                                            <p class="text-sm text-black">Adults</p>
                                             <p class="text-sm text-gray-500 whitespace-nowrap ">Ages 16 and above</p>
                                         </div>
                                         <div class="flex items-center gap-2">
                                             <button x-on:click="adults = adults > 0 ? adults-1 : adults;" class="flex items-center justify-center w-8 h-8 p-2 text-black border border-gray-500 rounded-full">-</button>
-                                                <span x-init="0" x-text="adults" class="flex items-center justify-center w-8 h-8 text-lg text-black box_price" id="adults"></span>
+                                                <span x-init="0" x-text="adults" class="flex items-center justify-center w-8 h-8 text-black text-md box_price" id="adults"></span>
                                             <button x-on:click="adults++" class="flex items-center justify-center w-8 h-8 p-2 text-black border border-gray-500 rounded-full">+</button>
                                         </div>
                                     </div>
                                     <div class="flex gap-12">
                                         <div class="flex-1">
-                                            <p class="text-black text-md">Children</p>
+                                            <p class="text-sm text-black">Children</p>
                                             <p class="text-sm text-gray-500 whitespace-nowrap ">Ages 15 to 4</p>
                                         </div>
                                         <div class="flex items-center gap-2">
                                             <button x-on:click="children = children > 0 ? children-1 : children;" class="flex items-center justify-center w-8 h-8 p-2 text-black border border-gray-500 rounded-full">-</button>
-                                                <span x-init="0" x-text="children" class="flex items-center justify-center w-8 h-8 text-lg text-black box_price" id="children"></span>
+                                                <span x-init="0" x-text="children" class="flex items-center justify-center w-8 h-8 text-black text-md box_price" id="children"></span>
                                             <button x-on:click="children++" class="flex items-center justify-center w-8 h-8 p-2 text-black border border-gray-500 rounded-full">+</button>
                                         </div>
                                     </div>

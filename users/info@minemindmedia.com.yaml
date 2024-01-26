@@ -10,3 +10,13 @@ preferences:
         - location
         - og_image
         - status
+  forms:
+    reservations:
+      columns:
+        - start_date
+        - end_date
+        - destination
+        - charter_length
+        - adults
+        - children
+        - datestamp

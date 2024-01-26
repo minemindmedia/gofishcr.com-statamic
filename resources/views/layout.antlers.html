@@ -10,6 +10,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <script src="/vendor/statamic/frontend/js/helpers.js"></script>
         {{ vite src="resources/css/site.css|resources/js/site.js" }}
         {{ partial:statamic-peak-seo::snippets/seo }}
         {{ partial:statamic-peak-browser-appearance::snippets/browser_appearance }}
@@ -25,6 +26,7 @@
         adults: $persist(0).using(sessionStorage).as('_x_adults'),
         children: $persist(0).using(sessionStorage).as('_x_children')
     }"
+    x-init="$watch('message', (val) => localStorage.setItem('msg', val))"
     class="flex flex-col min-h-screen selection:bg-primary selection:text-white bg-brown-50">
         {{ stack:seo_body }}
         {{ partial:statamic-peak-tools::snippets/noscript }}
