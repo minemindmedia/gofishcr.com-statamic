@@ -3,6 +3,10 @@
 
         <div class="col-span-7">
             <div class="flex flex-col space-y-4">
+                <div class="overflow-hidden border border-b border-gray-400 rounded-lg ">
+                <img src="http://gofishcr.com.test/images/21_custom_center_console.jpg" alt="" class="relative w-full p-8 ">
+            </div>
+
                 <h1 class="mb-8 text-3xl font-bold">Things to know</h1>
 
                 <h2 class="text-2xl">Please remember, we will always try our best but <span class="font-bold">"It's fishing, not catching."</span></h2>
@@ -13,6 +17,10 @@
 
                 <p>Fishing licenses are your responsibility. The link is provided below (we strongly suggest to take a screenshot for proof of payment).<br>
                 <a href="http://www.incopesca.go.cr/carnets/tramites/SolicitudTraducido.aspx" class="text-orange-700 underline ">http://www.incopesca.go.cr/carnets/tramites/SolicitudTraducido.aspx</a> </p>
+
+                <p>* By submitting your reservation you agree to provide us with your contact information so we may contact you to establish a relationship and set you up with the best fishing charter service
+                    available in all of Costa Rica. We will not share your information with anyone and promise to provide you with the best service you can receive - Steve & Liisa
+                </p>
             </div>
 
 
@@ -20,18 +28,17 @@
         </div>
 
         <div class="col-span-5 ">
-            <div class="p-4 border border-orange-700 bg-gray-50">
+
+            <div class="p-8 border border-orange-700 rounded-lg bg-gray-50">
                 <div class="mb-6">
                     <h3 class="mb-1 font-bold text-md">Your Dream Fishing Trip</h3>
                     <p class="text-sm">We will personally respond to you via email to confirm and setup your dream fishing trip.</p>
                 </div>
             <div class="flex p-4 space-x-4 border border-gray-400">
 
+
                 <div>
-                    <img src="http://gofishcr.com.test/images/21_custom_center_console.jpg" alt="" class="w-32">
-                </div>
-                <div>
-                    <div class="flex flex-col text-xs">
+                    <div class="flex flex-col font-bold text-md">
                         <div x-html="destination"></div>
                         <div x-text="sessionStorage.getItem('_x_boat')"></div>
                         <div x-html="charter"></div>
@@ -241,7 +248,17 @@
                 <textarea name="details" rows="5"></textarea>
             </div>
             <div class="flex flex-col">
-                <button>Submit</button>
+                <button id="reservation"  class="relative z-10 px-4 py-2 overflow-hidden text-sm font-medium font-bold tracking-wide bg-orange-600 border border-orange-100 rounded-lg shadow-inner text-orange-50 group">
+                    <span class="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-orange-300 group-hover:w-full ease"></span>
+                    <span class="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-orange-300 group-hover:w-full ease"></span>
+                    <span class="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-300 group-hover:h-full ease"></span>
+                    <span class="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-300 group-hover:h-full ease"></span>
+                    <span class="absolute inset-0 w-full h-full duration-300 delay-300 bg-orange-900 opacity-0 group-hover:opacity-100"></span>
+                    <span class="relative transition-colors duration-300 delay-200 group-hover:text-white ease">
+                        Submit
+                    </span>
+                </button>
+                <p class="mt-4 text-sm font-bold text-center">* No payment required to reserve</p>
             </div>
         </div>
 
