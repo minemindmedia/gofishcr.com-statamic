@@ -117,16 +117,8 @@
                     {{ collection:fishing_charters sort="title" paginate="true" limit="10" as="items" }}
                         {{ unless no_results }}
                             {{ items }}
-                                {{ if location == "tamarindo" }}
-                                    <div x-show="destination === 'Tamarindo'">
-                                        {{ partial:partials/boats/reservations_details }}
-                                    </div>
-                                {{ elseif location == "los_suenos" }}
-                                    <div x-show="destination === 'Los Suenos'">
-                                        {{ partial:partials/boats/reservations_details }}
-                                    </div>
-                                {{ elseif location == "flamingo" }}
-                                    <div x-show="destination === 'Flamingo'">
+                                {{ if {{ location:title }} == "{{ location:title }}" }}
+                                    <div x-show="destination === '{{ location:title }}'">
                                         {{ partial:partials/boats/reservations_details }}
                                     </div>
                                 {{ /if }}

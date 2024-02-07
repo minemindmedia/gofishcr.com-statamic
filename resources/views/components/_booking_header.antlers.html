@@ -5,181 +5,184 @@
 
 <!-- /components/_booking.antlers.html -->
 
-                <div class="flex flex-row">
-                    <!-- ### destination drop down -->
-                    <div
-                    x-data="{ open: false }"
-                    @click.away="open = false"
-                    class="relative flex-1"
-                    >
-                        <!-- Button -->
 
-                        <button @click="open = !open"
-                                class="flex items-center justify-between flex-1 w-48 gap-2 px-4 py-2 text-left bg-white border border-r-0 border-gray-300 rounded-l-full"
-                                :class="{'text-black': destination !== '', 'text-gray-500': destination === ''}"
+<div class="flex flex-row">
+    <!-- ### destination drop down -->
+    <div
+    x-data="{ open: false }"
+    @click.away="open = false"
+    class="relative flex-1"
+    >
+        <!-- Button -->
 
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
-                            </svg>
+        <button @click="open = !open"
+                class="flex items-center justify-between flex-1 w-48 gap-2 px-4 py-2 text-left bg-white border border-r-0 border-gray-300 rounded-l-full"
+                :class="{'text-black': destination !== '', 'text-gray-500': destination === ''}"
 
-                            <span class="w-full overflow-hidden text-sm text-gray-600 whitespace-nowrap"
-                                x-text="destination === '' ? 'Add destination' : destination"
-                            ></span>
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+            </svg>
 
-                        </button>
+            <span class="w-full overflow-hidden text-sm text-gray-600 whitespace-nowrap"
+                x-text="destination === '' ? 'Add destination' : destination"
+            ></span>
 
-                        <!-- Dropdown Menu -->
+        </button>
 
-                        <div x-show="open"
-                            class="absolute left-0 w-full p-2 mt-2 text-sm bg-white rounded-md shadow-md"
-                            x-cloak
-                        >
-                            <ul class="w-full overflow-auto [&>li]:text-gray-500 [&>li]:px-2 [&>li]:py-2 hover:[&>li]:bg-gray-100 [&>li]:cursor-pointer"
-                            >
-                            <li @click="destination = $el.textContent; open = false; window.location.reload();" class=" whitespace-nowrap">Flamingo</li>
-                                <li @click="destination = $el.textContent; open = false; window.location.reload();" class="whitespace-nowrap">Los Suenos</li>
-                                <li @click="destination = $el.textContent; open = false; window.location.reload();" class=" whitespace-nowrap">Tamarindo</li>
-                            </ul>
+        <!-- Dropdown Menu -->
+
+        <div x-show="open"
+            class="absolute left-0 w-full p-2 mt-2 text-sm bg-white rounded-md shadow-md"
+            x-cloak
+        >
+            <ul class="w-full overflow-auto [&>li]:text-gray-500 [&>li]:px-2 [&>li]:py-2 hover:[&>li]:bg-gray-100 [&>li]:cursor-pointer"
+            >
+                {{ collection:locations }}
+                    <li @click="destination = $el.textContent; open = false;" class=" whitespace-nowrap">{{ title }}</li>
+                {{ /collection:locations }}
+            </ul>
+        </div>
+
+
+    </div>
+
+    <!-- ### date range calendar -->
+    <div x-data="{
+        thePicker: null,
+        init() {
+
+            const rewriteRange = (selectedDates, dateStr, instance) => {
+                const year0 = selectedDates[0]?.getFullYear();
+                if (selectedDates[0]  &&  year0 === selectedDates[1]?.getFullYear())
+                    instance.element.value = dateStr.replaceAll (' ' + year0, '');
+            };
+
+            this.thePicker = flatpickr(this.$refs.picker, {
+                mode: 'range',
+                inline: false,
+                dateFormat: 'M j Y',
+                showMonths: 2,
+                defaultDate: this.dateRange,
+
+                onChange: (selectedDates, dateStr, instance) => {
+                    this.dateRange = [...selectedDates];
+                    rewriteRange (selectedDates, dateStr, instance);
+                },
+
+                onReady: (selectedDates, dateStr, instance) => {
+                    rewriteRange (selectedDates, dateStr, instance);
+                }
+            });
+        },
+
+
+    }"
+    >
+
+        <div class="flex items-center justify-center overflow-hidden text-sm text-black bg-white border border-gray-300 border-x-0 ">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="ml-4 bi bi-calendar-event-fill" viewBox="0 0 16 16">
+                <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/>
+            </svg>
+            <input type="text"
+                x-ref="picker"
+                placeholder="Add dates"
+                class="px-4 py-2 text-sm placeholder-gray-600 border-0 bg-none focus:ring-0 "
+            >
+        </div>
+    </div>
+
+
+<div class="justify-center">
+    <div
+        x-data="{
+            open: false,
+            toggle() {
+                if (this.open) {
+                    return this.close()
+                }
+
+                this.$refs.button.focus()
+
+                this.open = true
+            },
+            close(focusAfter) {
+                if (! this.open) return
+
+                this.open = false
+
+                focusAfter && focusAfter.focus()
+            }
+        }"
+        x-on:keydown.escape.prevent.stop="close($refs.button)"
+        x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+        x-id="['dropdown-button']"
+        class="relative w-full"
+    >
+        <div>
+            <button
+                x-ref="button"
+                x-on:click="toggle()"
+                :aria-expanded="open"
+                :aria-controls="$id('dropdown-button')"
+                type="button"
+                class="flex items-center gap-2 px-4 py-2 text-gray-600 bg-white border border-l-0 border-r border-gray-300 rounded-r-full"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
+                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                    <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4"/>
+                </svg>
+
+                <div class="flex space-x-2">
+                    <span class="text-sm whitespace-nowrap " x-text="if ((adults + children) === 0) return 'Add guests';
+                    if ((adults + children) === 1) return `1 guest`;
+                    return `${adults + children} guests`"></span>
+                </div>
+
+
+            </button>
+            <div
+                x-ref="panel"
+                x-show="open"
+                x-transition.origin.top.left
+                x-on:click.outside="close($refs.button)"
+                :id="$id('dropdown-button')"
+                style="display: none;"
+                class="absolute left-0 p-4 mt-2 bg-white rounded-md shadow-md"
+            >
+                <div class="flex flex-col gap-4">
+                    <div class="flex gap-12">
+                        <div class="flex-1">
+                            <p class="text-sm text-black">Adults</p>
+                            <p class="text-sm text-gray-500 whitespace-nowrap ">Ages 16 and above</p>
                         </div>
-
-
+                        <div class="flex items-center gap-2">
+                            <button x-on:click="adults = adults > 0 ? adults-1 : adults;" class="flex items-center justify-center w-8 h-8 p-2 text-black border border-gray-500 rounded-full">-</button>
+                                <span x-init="0" x-text="adults" class="flex items-center justify-center w-8 h-8 text-black text-md box_price" id="adults"></span>
+                            <button x-on:click="adults++" class="flex items-center justify-center w-8 h-8 p-2 text-black border border-gray-500 rounded-full">+</button>
+                        </div>
                     </div>
-
-                    <!-- ### date range calendar -->
-                    <div x-data="{
-                        thePicker: null,
-
-
-
-                        init() {
-                            this.thePicker = flatpickr(this.$refs.picker, {
-                                mode: 'range',
-                                inline: false,
-                                dateFormat: 'M j',
-                                showMonths: 2,
-                                defaultDate: this.dateRange,
-                                onChange: (selectedDates) => {this.dateRange = [selectedDates];}
-                            });
-                        },
-
-                    }"
-                    >
-
-                        <div class="flex items-center justify-center overflow-hidden text-sm text-black bg-white border border-gray-300 border-x-0 ">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="ml-4 bi bi-calendar-event-fill" viewBox="0 0 16 16">
-                                <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-3.5-7h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5"/>
-                            </svg>
-                            <input type="text"
-                                x-ref="picker"
-                                placeholder="Add dates"
-                                class="px-4 py-2 text-sm placeholder-gray-600 border-0 bg-none focus:ring-0 "
-                            >
+                    <div class="flex gap-12">
+                        <div class="flex-1">
+                            <p class="text-sm text-black">Children</p>
+                            <p class="text-sm text-gray-500 whitespace-nowrap ">Ages 15 to 4</p>
                         </div>
-                    </div>
-
-
-                <div class="justify-center">
-                    <div
-                        x-data="{
-                            open: false,
-                            toggle() {
-                                if (this.open) {
-                                    return this.close()
-                                }
-
-                                this.$refs.button.focus()
-
-                                this.open = true
-                            },
-                            close(focusAfter) {
-                                if (! this.open) return
-
-                                this.open = false
-
-                                focusAfter && focusAfter.focus()
-                            }
-                        }"
-                        x-on:keydown.escape.prevent.stop="close($refs.button)"
-                        x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
-                        x-id="['dropdown-button']"
-                        class="relative w-full"
-                    >
-                        <div>
-                            <button
-                                x-ref="button"
-                                x-on:click="toggle()"
-                                :aria-expanded="open"
-                                :aria-controls="$id('dropdown-button')"
-                                type="button"
-                                class="flex items-center gap-2 px-4 py-2 text-gray-600 bg-white border border-gray-300 border-x-0 rounded-r-0"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill-add" viewBox="0 0 16 16">
-                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0m-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                                    <path d="M2 13c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4"/>
-                                </svg>
-
-                                <div class="flex space-x-2">
-                                    <span class="text-sm whitespace-nowrap " x-text="if ((adults + children) === 0) return 'Add guests';
-                                    if ((adults + children) === 1) return `1 guest`;
-                                    return `${adults + children} guests`"></span>
-                                </div>
-
-
-                            </button>
-                            <div
-                                x-ref="panel"
-                                x-show="open"
-                                x-transition.origin.top.left
-                                x-on:click.outside="close($refs.button)"
-                                :id="$id('dropdown-button')"
-                                style="display: none;"
-                                class="absolute left-0 p-4 mt-2 bg-white rounded-md shadow-md"
-                            >
-                                <div class="flex flex-col gap-4">
-                                    <div class="flex gap-12">
-                                        <div class="flex-1">
-                                            <p class="text-sm text-black">Adults</p>
-                                            <p class="text-sm text-gray-500 whitespace-nowrap ">Ages 16 and above</p>
-                                        </div>
-                                        <div class="flex items-center gap-2">
-                                            <button x-on:click="adults = adults > 0 ? adults-1 : adults;" class="flex items-center justify-center w-8 h-8 p-2 text-black border border-gray-500 rounded-full">-</button>
-                                                <span x-init="0" x-text="adults" class="flex items-center justify-center w-8 h-8 text-black text-md box_price" id="adults"></span>
-                                            <button x-on:click="adults++" class="flex items-center justify-center w-8 h-8 p-2 text-black border border-gray-500 rounded-full">+</button>
-                                        </div>
-                                    </div>
-                                    <div class="flex gap-12">
-                                        <div class="flex-1">
-                                            <p class="text-sm text-black">Children</p>
-                                            <p class="text-sm text-gray-500 whitespace-nowrap ">Ages 15 to 4</p>
-                                        </div>
-                                        <div class="flex items-center gap-2">
-                                            <button x-on:click="children = children > 0 ? children-1 : children;" class="flex items-center justify-center w-8 h-8 p-2 text-black border border-gray-500 rounded-full">-</button>
-                                                <span x-init="0" x-text="children" class="flex items-center justify-center w-8 h-8 text-black text-md box_price" id="children"></span>
-                                            <button x-on:click="children++" class="flex items-center justify-center w-8 h-8 p-2 text-black border border-gray-500 rounded-full">+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="flex items-center gap-2">
+                            <button x-on:click="children = children > 0 ? children-1 : children;" class="flex items-center justify-center w-8 h-8 p-2 text-black border border-gray-500 rounded-full">-</button>
+                                <span x-init="0" x-text="children" class="flex items-center justify-center w-8 h-8 text-black text-md box_price" id="children"></span>
+                            <button x-on:click="children++" class="flex items-center justify-center w-8 h-8 p-2 text-black border border-gray-500 rounded-full">+</button>
                         </div>
-
                     </div>
                 </div>
-                <button onclick=" location.href='reservations'; dateRange();" class="relative px-4 py-2 overflow-hidden text-sm font-medium font-bold tracking-wide bg-orange-600 border border-orange-100 rounded-r-full shadow-inner text-orange-50 group">
-                    <span class="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-orange-300 group-hover:w-full ease"></span>
-                    <span class="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-orange-300 group-hover:w-full ease"></span>
-                    <span class="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-300 group-hover:h-full ease"></span>
-                    <span class="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-300 group-hover:h-full ease"></span>
-                    <span class="absolute inset-0 w-full h-full duration-300 delay-300 bg-orange-900 opacity-0 group-hover:opacity-100"></span>
-                    <span class="relative transition-colors duration-300 delay-200 group-hover:text-white ease">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                        </svg>
-                    </span>
-                </button>
+            </div>
+        </div>
 
-                </div>
+    </div>
+</div>
+
+
+</div>
 
 
 

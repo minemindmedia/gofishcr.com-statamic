@@ -42,9 +42,10 @@
                 >
                     <ul class="w-full overflow-auto [&>li]:text-gray-500 [&>li]:px-4 [&>li]:py-2 hover:[&>li]:bg-gray-100 [&>li]:cursor-pointer space-y-2"
                     >
-                    <li @click="destination = $el.textContent; open = false;">Flamingo</li>
-                        <li @click="destination = $el.textContent; open = false;">Los Suenos</li>
-                        <li @click="destination = $el.textContent; open = false;">Tamarindo</li>
+                    {{ collection:locations }}
+                    <li @click="destination = $el.textContent; open = false;">{{ title }}</li>
+                    {{ /collection:locations }}
+
                     </ul>
                 </div>
 

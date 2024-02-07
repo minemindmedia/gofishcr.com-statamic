@@ -7,29 +7,7 @@ tabs:
         display: General
         fields:
           -
-            handle: location
-            field:
-              options:
-                tamarindo: Tamarindo
-                los_suenos: 'Los Suenos'
-                flamingo: Flamingo
-              taggable: false
-              push_tags: false
-              placeholder: 'Choose location'
-              multiple: false
-              clearable: false
-              searchable: true
-              cast_booleans: false
-              type: select
-              display: Location
-              icon: select
-              listable: true
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
-              validate:
-                - required
+            import: location
           -
             handle: title
             field:
@@ -51,7 +29,6 @@ tabs:
               cast_booleans: false
               type: radio
               display: 'Inshore or Offshore'
-              icon: radio
               width: 50
               listable: hidden
               instructions_position: above
@@ -66,7 +43,6 @@ tabs:
               default: false
               type: toggle
               display: 'Popular?'
-              icon: toggle
               width: 50
               listable: hidden
               instructions_position: above
@@ -80,7 +56,6 @@ tabs:
               antlers: false
               type: text
               display: 'Number of passengers'
-              icon: text
               instructions: 'Enter the number of passengers for this boat.'
               listable: hidden
               instructions_position: above
@@ -92,7 +67,6 @@ tabs:
             field:
               type: list
               display: 'Boat Features'
-              icon: list
               listable: hidden
               instructions_position: above
               visibility: visible
@@ -151,7 +125,6 @@ tabs:
               fullscreen: false
               type: grid
               display: Pricing
-              icon: grid
               listable: hidden
               instructions_position: above
               visibility: visible
@@ -227,7 +200,6 @@ tabs:
               show_set_alt: true
               type: assets
               display: 'Additional Photos'
-              icon: assets
               listable: hidden
               instructions_position: above
               visibility: visible

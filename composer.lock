@@ -6202,16 +6202,16 @@
         },
         {
             "name": "statamic/cms",
-            "version": "v4.42.0",
+            "version": "v4.47.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statamic/cms.git",
-                "reference": "a96c34386226d1c5c9ff18199dfaccba1e7f8ef7"
+                "reference": "35200d1c8f6ebdd74bf5d3db5b648ddc20a298f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statamic/cms/zipball/a96c34386226d1c5c9ff18199dfaccba1e7f8ef7",
-                "reference": "a96c34386226d1c5c9ff18199dfaccba1e7f8ef7",
+                "url": "https://api.github.com/repos/statamic/cms/zipball/35200d1c8f6ebdd74bf5d3db5b648ddc20a298f9",
+                "reference": "35200d1c8f6ebdd74bf5d3db5b648ddc20a298f9",
                 "shasum": ""
             },
             "require": {
@@ -6243,6 +6243,7 @@
                 "wilderborn/partyline": "^1.0"
             },
             "require-dev": {
+                "doctrine/dbal": "^3.6",
                 "fakerphp/faker": "~1.10",
                 "google/cloud-translate": "^1.6",
                 "laravel/pint": "^1.0",
@@ -6293,7 +6294,7 @@
             ],
             "support": {
                 "issues": "https://github.com/statamic/cms/issues",
-                "source": "https://github.com/statamic/cms/tree/v4.42.0"
+                "source": "https://github.com/statamic/cms/tree/v4.47.0"
             },
             "funding": [
                 {
@@ -6301,7 +6302,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-12-18T15:25:15+00:00"
+            "time": "2024-01-31T19:55:55+00:00"
         },
         {
             "name": "statamic/stringy",

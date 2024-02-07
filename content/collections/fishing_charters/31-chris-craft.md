@@ -1,7 +1,7 @@
 ---
 id: 491bce4d-5757-4a7b-a358-099689952100
 blueprint: fishing_charters
-location: tamarindo
+location: a654855b-2bac-4e11-bd80-05cdc6a79ea8
 title: "31' Chris Craft"
 passengers: 'Priced for 4 pass. (6 max)'
 features:
@@ -21,7 +21,10 @@ sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 boat: 31_chris_craft.jpg
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1705350600
+updated_at: 1707254022
 inshore_or_offshore: offshore
 popular: false
+locations: 7625cffe-90d7-4cde-85dd-cc8352ddf0bb
+additional_photos:
+  - 31_chris_craft.jpg
 ---

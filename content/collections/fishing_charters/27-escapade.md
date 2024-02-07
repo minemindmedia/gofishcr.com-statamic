@@ -8,9 +8,9 @@ seo_canonical_type: entry
 sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1705350245
+updated_at: 1707253980
 boat: 27_escapade.jpg
-location: tamarindo
+location: 18450c67-a47c-4e60-8e93-13622f6664a3
 pricing:
   -
     id: 226faAAC
@@ -26,4 +26,7 @@ features:
   - 'Crewed by solo captain'
 inshore_or_offshore: offshore
 popular: true
+locations: a654855b-2bac-4e11-bd80-05cdc6a79ea8
+additional_photos:
+  - 27_escapade.jpg
 ---

@@ -1,0 +1,13 @@
+destination: Tamarindo
+start_date: 'Feb 5, 2024'
+end_date: 'Feb 8, 2024'
+adults: '2'
+children: '2'
+charter_length: '3/4 Day: $600.00'
+first_name: Josh
+last_name: Busnelli
+email: josh@busnelli.com
+phone: '9200943434'
+other_activities:
+  - scuba
+  - surf
