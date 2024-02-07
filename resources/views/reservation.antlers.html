@@ -181,7 +181,7 @@
                             @keydown.arrow-down.prevent="if ($el.nextElementSibling != null) $el.nextElementSibling.focus();">
 
                             <p class="p-2"
-                            x-text="option.text"></p>
+                            x-text="option.text" x-on:click="isOpen = false"></p>
                         </div>
                     </template>
                 </div>

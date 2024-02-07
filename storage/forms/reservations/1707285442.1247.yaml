@@ -1,0 +1,13 @@
+start_date: 'Mar 4, 2024'
+end_date: 'Mar 12, 2024'
+adults: '1'
+children: '0'
+charter_length: '1/2 Day: $850.00'
+first_name: jamie
+last_name: miller
+email: miller@jamie.com
+phone: '9998888888'
+other_activities:
+  - catamaran
+  - horseback
+  - zipline
