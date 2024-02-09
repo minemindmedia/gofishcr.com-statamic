@@ -1,0 +1,45 @@
+{{#
+    @name Date Range Picker
+    @desc Date Range Picker with Flatpickr
+#}}
+
+<!-- /components/_date_range_picker.antlers.html -->
+
+<div x-data="{
+    init() {
+        this.$nextTick(() => {
+            flatpickr(this.$refs.datepicker, {
+                mode: 'range',
+                minDate: 'today',
+                dateFormat: 'M j',
+                showMonths: 2,
+                onClose: this.onClose,
+                onReady: this.onReady
+            });
+        });
+    },
+    onClose(selectedDates, dateStr, instance) {
+        sessionStorage.setItem('_gfcr_date_range', dateStr);
+    },
+    onReady(selectedDates, dateStr, instance) {
+        const storedDates = sessionStorage.getItem('_gfcr_date_range');
+        if (storedDates) {
+            instance.setDate(storedDates.split(' to '), true);
+        }
+    }
+}" x-init="init" class="date-picker">
+<div class="
+    {{ if is_homepage }} h-16 {{ /if }}
+    {{ if slug == "charters" }} rounded-none border-x-0 {{ /if }}
+    items-center w-full px-3 flex text-sm leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+    <i class="fa-solid fa-calendar-days"></i>
+    <input
+    x-ref="datepicker"
+    type="text"
+    class="h-full border-none focus:ring-0"
+    placeholder="Add dates"
+    id="bookingDates"
+    >
+    <i class="fa-solid fa-angle-down"></i>
+</div>
+</div>

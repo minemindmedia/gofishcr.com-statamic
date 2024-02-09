@@ -1,6 +1,6 @@
 ---
 id: f5034cfc-82a3-4eb7-9193-f02c76347036
-blueprint: fishing_charters
+blueprint: charters
 title: "21' Custom Center Console"
 seo_noindex: false
 seo_nofollow: false

@@ -19,6 +19,16 @@ tabs:
               display: Title
               validate:
                 - required
+          -
+            handle: what
+            field:
+              type: list
+              display: "What's included?"
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
   seo:
     display: SEO
     sections:

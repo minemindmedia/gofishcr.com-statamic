@@ -1,6 +1,6 @@
 ---
 id: dfd2317a-f48c-418e-a478-8ed53ad8550f
-blueprint: fishing_charters
+blueprint: charters
 title: "29' Center Console"
 seo_noindex: false
 seo_nofollow: false

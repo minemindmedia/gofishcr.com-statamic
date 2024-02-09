@@ -12,7 +12,7 @@
 
     <div
     class="
-    {{ if is_homepage || slug == "fishing-charters" || slug == "reservation" || collection:handle == "fishing_charters" }}
+    {{ if is_homepage || slug == "fishing-charters" || slug == "reservation" || collection:handle == "charters" }}
         max-w-5xl
         mx-auto
     {{ else }}
@@ -21,15 +21,17 @@
         "
     >
         <div class="flex items-center space-x-12">
-            <div class="">
+            <div class="w-48">
                 {{ partial:components/logo }}
             </div>
-            <div class="">
-                {{ if slug == "reservations" }}
-                    {{ partial:components/booking_header }}
+            <div class="w-full">
+                {{ if collection == 'charters' && is_entry || is_homepage || slug == "reservation" }}
+
+                {{ else }}
+                    {{ partial:components/booking }}
                 {{ /if }}
             </div>
-            <div class="flex-1">
+            <div class="flex-1 whitespace-nowrap">
                 {{ partial:navigation/main }}
             </div>
         </div>

@@ -1,0 +1,66 @@
+{{#
+    @name Charter Picker
+    @desc Choose charter length for given charter
+#}}
+
+<!-- /components/_charter_picker.antlers.html -->
+
+
+<div x-data="{
+    isOpen: false,
+    selectedOption: 'Select Option',
+    showMessage: false,
+    init() {
+        this.isOpen = false; // Keep the dropdown closed to indicate a selection is required
+        const storedOption = sessionStorage.getItem('_gfcr_charterlength');
+        if (storedOption) {
+            this.selectedOption = 'Add length'; // Reset to default value to require re-selection
+        }
+    },
+    selectOption(option, updateSession = true) {
+        this.selectedOption = option;
+        this.showMessage = false; // Hide message once an option is selected
+        if (updateSession) {
+            sessionStorage.setItem('_gfcr_charterlength', option);
+        }
+        this.isOpen = false;
+    },
+    checkSelection() {
+        if (this.selectedOption === 'Add length') {
+            this.showMessage = true; // Show message if no selection is made
+        } else {
+            window.location.href = this.generateLink();
+        }
+    },
+    generateLink() {
+        return this.selectedOption !== 'Select Option' ? ('{{ if collection == 'charters' && is_entry }}/reservation{{ else }}charters{{ /if }}') : '#_';
+    }
+}" class="relative" x-init="init()">
+
+    <!-- Display Selected Option / Toggle Dropdown -->
+    <button @click="isOpen = !isOpen" :class="{'border-red-500': selectedOption === 'Select Option', 'border-gray-300': selectedOption !== 'Select Option'}" class="flex items-center w-full px-3 py-3 space-x-4 leading-4 text-left text-gray-700 bg-white border rounded-md shadow-sm text-md focus:outline-none focus:ring-1 focus:ring-blue-500">
+        <span x-text="selectedOption" class="flex-1"></span>
+        <i class="fa-solid fa-angle-down"></i>
+    </button>
+    <span x-show="showMessage" class="text-xs text-red-500">Please choose a charter length</span>
+
+    <!-- Dropdown Options -->
+    <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-50 w-48 mt-2 bg-white border rounded-md shadow-lg">
+        <ul class="py-1">
+            {{# Options generated with Antlers templating #}}
+            {{ pricing }}
+                <li @click="selectOption('Half day: {{ half_day }}')" class="px-4 py-2 cursor-pointer hover:bg-gray-100">Half day: {{ half_day }}</li>
+                <li @click="selectOption('3/4 day: {{ three_quarter_day}}')" class="px-4 py-2 cursor-pointer hover:bg-gray-100">3/4 day: {{ three_quarter_day }}</li>
+                <li @click="selectOption('Full day: {{ full_day }}')" class="px-4 py-2 cursor-pointer hover:bg-gray-100">Full day:{{ full_day }}</li>
+            {{ /pricing }}
+        </ul>
+    </div>
+    <a href="#_" @click="checkSelection" class="inline-flex items-center justify-center w-full px-6 py-3 mt-4 text-lg text-white bg-green-500 rounded-md hover:bg-green-400">
+        Get Started
+        <i class="ml-4 fa-solid fa-arrow-right-long"></i>
+    </a>
+
+</div>
+
+
+

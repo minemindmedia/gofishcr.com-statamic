@@ -1,4 +1,4 @@
-title: 'Fishing Charters'
+title: Charters
 tabs:
   main:
     display: Main
@@ -205,3 +205,12 @@ tabs:
               visibility: visible
               replicator_preview: true
               hide_display: false
+          -
+            handle: parent
+            field:
+              type: entries
+              collections:
+                - charters
+              max_items: 1
+              listable: false
+              localizable: true

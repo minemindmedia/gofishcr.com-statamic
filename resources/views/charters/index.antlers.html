@@ -1,0 +1,59 @@
+{{#
+    @name Charters index
+    @desc Charters index template.
+#}}
+
+
+
+
+<!-- Location -->
+<template x-if="destination">
+    <div class="flex justify-center mb-8">
+        <div class="flex items-center justify-center px-4 py-4 space-x-2 text-2xl bg-orange-100 border-t border-orange-500 rounded-t-2xl border-x">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                  </svg>
+            </div>
+            <div x-html="destination" class="flex justify-center"></div>
+        </div>
+
+    </div>
+</template>
+<template x-if="!destination">
+    <div class="flex justify-center">All Locations</div>
+</template>
+
+
+
+<!-- /charters/index.antlers.html -->
+<main class="" id="content">
+    {{ page_builder scope="block" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+</main>
+<!-- End: /charters/index.antlers.html -->
+
+{{ section:index_content }}
+
+    {{ collection:charters sort="title" paginate="true" limit="10" as="items" }}
+    <div class="grid grid-cols-12 gap-4">
+
+        {{ items }}
+
+                {{ if {{ location:title }} == "{{ location:title }}" }}
+                <div x-show="destination === '{{ location:title }}'" class="col-span-4">
+                    {{ partial:partials/charters/reservations_details }}
+                </div>
+                {{ /if }}
+
+                <div x-show="destination === ''" class="col-span-4">
+                    {{ partial:partials/charters/reservations_details }}
+                </div>
+
+
+        {{ /items }}
+    </div>
+
+    {{ /collection:charters }}
+{{ /section:index_content }}

@@ -32,19 +32,25 @@
 <!-- Tabs -->
 <div
     x-data="{
-        selectedId: null,
+        selectedId: $persist(null),
         init() {
             // Set the first available tab on the page on page load.
-            this.$nextTick(() => this.select(this.$id('tab', 1)))
+            this.$nextTick(() => {
+                if (this.selectedId === null) {
+                    this.select(this.$id('tab', 1));
+                } else {
+                    this.select(this.selectedId);
+                }
+            })
         },
         select(id) {
-            this.selectedId = id
+            this.selectedId = id;
         },
         isSelected(id) {
-            return this.selectedId === id
+            return this.selectedId === id;
         },
         whichChild(el, parent) {
-            return Array.from(parent.children).indexOf(el) + 1
+            return Array.from(parent.children).indexOf(el) + 1;
         }
     }"
     x-id="['tab']"
@@ -103,18 +109,18 @@
             role="tabpanel"
             class="p-8 border border-brown-100 bg-gray-50"
         >
-           <!-- /fishing_charters/index.antlers.html -->
+           <!-- /charters/index.antlers.html -->
             <main class="" id="content">
                 {{ page_builder scope="block" }}
                     {{ partial src="page_builder/{type}" }}
                 {{ /page_builder }}
             </main>
-            <!-- End: /fishing_charters/index.antlers.html -->
+            <!-- End: /charters/index.antlers.html -->
 
             {{ section:index_content }}
-                <!-- /fishing_charters/index.antlers.html -->
+                <!-- /charters/index.antlers.html -->
                 <div class="grid gap-8 md:grid-cols-3 ">
-                    {{ collection:fishing_charters sort="title" paginate="true" limit="10" as="items" }}
+                    {{ collection:charters sort="title" paginate="true" limit="10" as="items" }}
                         {{ unless no_results }}
                             {{ items }}
                                 {{ if {{ location:title }} == "{{ location:title }}" }}
@@ -132,9 +138,9 @@
                             </div>
                         {{ /unless }}
                         {{ partial:statamic-peak-tools::components/pagination class="md:col-span-12" }}
-                    {{ /collection:fishing_charters }}
+                    {{ /collection:charters }}
                 </div>
-                <!-- End: /fishing_charters/index.antlers.html -->
+                <!-- End: /charters/index.antlers.html -->
             {{ /section:index_content }}
         </section>
 
@@ -144,8 +150,39 @@
             role="tabpanel"
             class="p-8 bg-brown-100"
         >
-            <h2 class="text-xl font-bold">Go Fish Packages</h2>
-            <p class="mt-2 text-gray-500">Fugiat odit alias, eaque optio quas nobis minima reiciendis voluptate dolorem nisi facere debitis ea laboriosam vitae omnis ut voluptatum eos. Fugiat?</p>
+        <!-- /go_fish_packages/index.antlers.html -->
+        <main class="" id="content">
+            {{ page_builder scope="block" }}
+                {{ partial src="page_builder/{type}" }}
+            {{ /page_builder }}
+        </main>
+        <!-- End: /go_fish_packages/index.antlers.html -->
+
+        {{ section:index_content }}
+            <!-- /go_fish_packages/index.antlers.html -->
+            <div class="grid gap-8 md:grid-cols-3 ">
+                {{ collection:go_fish_packages sort="title" paginate="true" limit="10" as="items" }}
+                    {{ unless no_results }}
+                        {{ items }}
+                            {{ if {{ location:title }} == "{{ location:title }}" }}
+                                <div x-show="destination === '{{ location:title }}'">
+                                    {{ partial:partials/packages/reservations_details }}
+                                </div>
+                            {{ /if }}
+                                <div x-show="destination === ''">
+                                    {{ partial:partials/packages/reservations_details }}
+                                </div>
+                        {{ /items }}
+                    {{ else }}
+                        <div class="md:col-span-6">
+                            {{ trans:strings.no_results }}
+                        </div>
+                    {{ /unless }}
+                    {{ partial:statamic-peak-tools::components/pagination class="md:col-span-12" }}
+                {{ /collection:go_fish_packages }}
+            </div>
+            <!-- End: /go_fish_packages/index.antlers.html -->
+        {{ /section:index_content }}
 
         </section>
     </div>

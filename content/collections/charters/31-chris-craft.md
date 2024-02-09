@@ -1,6 +1,6 @@
 ---
 id: 491bce4d-5757-4a7b-a358-099689952100
-blueprint: fishing_charters
+blueprint: charters
 location: a654855b-2bac-4e11-bd80-05cdc6a79ea8
 title: "31' Chris Craft"
 passengers: 'Priced for 4 pass. (6 max)'

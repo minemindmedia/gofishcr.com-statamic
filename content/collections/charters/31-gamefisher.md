@@ -1,6 +1,6 @@
 ---
 id: 0c43b4c0-80e9-43c0-a50d-1ef91f27a514
-blueprint: fishing_charters
+blueprint: charters
 location: 7625cffe-90d7-4cde-85dd-cc8352ddf0bb
 title: "31' Gamefisher"
 passengers: 'Priced for 4 pass. (6 max)'

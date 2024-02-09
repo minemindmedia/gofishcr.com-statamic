@@ -4,7 +4,7 @@ id: c69010f5-4ef6-4fb1-b93b-5d19a5331586
 password_hash: $2y$10$xHMSZpZduVom1qD7OBKOY.1Zpg7tHOQ/Fq3R/q1UIn.XwTpRDFhXK
 preferences:
   collections:
-    fishing_charters:
+    charters:
       columns:
         - title
         - location

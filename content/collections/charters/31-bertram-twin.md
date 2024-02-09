@@ -1,6 +1,6 @@
 ---
 id: 617b7977-fa51-4401-ba84-48644778bc40
-blueprint: fishing_charters
+blueprint: charters
 location: 18450c67-a47c-4e60-8e93-13622f6664a3
 title: "31' Bertram Twin"
 passengers: '5 to 6 pass. (max)'

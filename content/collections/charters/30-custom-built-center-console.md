@@ -1,6 +1,6 @@
 ---
 id: 6d93c9bc-291a-4e6e-a52e-86a1a9fcf363
-blueprint: fishing_charters
+blueprint: charters
 location: 7625cffe-90d7-4cde-85dd-cc8352ddf0bb
 title: "30' Custom Built Center Console"
 passengers: 'Priced for 4 pass. (6 maxx)'

@@ -1,5 +1,5 @@
-<div class="h-full mb-8 border-b border-gray-300 md:col-span-1">
-    <a class="flex flex-col gap-2 itesm-stretch" href="{{ url }}">
+
+    <a class="flex flex-col gap-2 itesm-stretch" href="{{ url }}" @click="destination = '{{ location:title }}'">
         <img src="{{ boat }}" alt="{{ boat:alt }}" class="rounded-lg">
         <div class="flex text-sm">
             <div class="flex-1">
@@ -58,5 +58,5 @@
         {{ /pricing }}
 
     </a>
-</div>
+
 

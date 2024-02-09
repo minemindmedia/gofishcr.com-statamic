@@ -11,6 +11,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
         <script src="/vendor/statamic/frontend/js/helpers.js"></script>
+        <script src="https://kit.fontawesome.com/f181052d3d.js" crossorigin="anonymous"></script>
         {{ vite src="resources/css/site.css|resources/js/site.js" }}
         {{ partial:statamic-peak-seo::snippets/seo }}
         {{ partial:statamic-peak-browser-appearance::snippets/browser_appearance }}
@@ -19,15 +20,17 @@
         {{ googlefonts:content }}
     </head>
     <body
+    x-cloak
     x-data="{
-        destination: $persist('').using(sessionStorage).as('_x_destination'),
-        charter: $persist('').using(sessionStorage).as('_x_charterlength'),
-        dateRange: $persist([]).using(sessionStorage).as('_x_range'),
-        adults: $persist(0).using(sessionStorage).as('_x_adults'),
-        children: $persist(0).using(sessionStorage).as('_x_children')
+        destination: sessionStorage.getItem('_gfcr_destination'),
+        charter: sessionStorage.getItem('_gfcr_charterlength'),
+        dateRange: sessionStorage.getItem('_gfcr_range'),
+        adults: sessionStorage.getItem('_gfcr_adults'),
+        children: sessionStorage.getItem('_gfcr_children'),
+        guests: sessionStorage.getItem('_gfcr_guests'),
     }"
-    x-init="$watch('message', (val) => localStorage.setItem('msg', val))"
-    class="flex flex-col min-h-screen selection:bg-primary selection:text-white bg-brown-50">
+    class="flex flex-col min-h-screen selection:bg-primary selection:text-white bg-brown-50 "
+    >
         {{ stack:seo_body }}
         {{ partial:statamic-peak-tools::snippets/noscript }}
         {{ partial:statamic-peak-tools::navigation/skip_to_content }}

@@ -1,6 +1,6 @@
 ---
 id: 6e737132-3f7d-4f49-b3a9-0908a9972211
-blueprint: fishing_charters
+blueprint: charters
 title: "27' Escapade"
 seo_noindex: false
 seo_nofollow: false

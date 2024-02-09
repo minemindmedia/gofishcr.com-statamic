@@ -1,5 +1,5 @@
-title: 'Fishing Charters'
-template: fishing_charters/show
+title: Charters
+template: charters/show
 layout: layout
 mount: c7ddec6a-aa6b-4292-8517-bd882d9d41b2
 revisions: false
@@ -13,3 +13,5 @@ preview_targets:
     label: Entry
     url: '{permalink}'
     refresh: true
+structure:
+  root: false

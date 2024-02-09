@@ -1,6 +1,6 @@
 ---
 id: 1f858682-7d07-41c1-ae63-871dee2b85d9
-blueprint: fishing_charters
+blueprint: charters
 title: "28' Whitewater Center Console"
 seo_noindex: false
 seo_nofollow: false
