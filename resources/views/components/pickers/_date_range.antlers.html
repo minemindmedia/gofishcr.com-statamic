@@ -5,34 +5,67 @@
 
 <!-- /components/_charter_picker.antlers.html -->
 
-<div x-data="{ dateRange: null, error: '' }" x-init="initDateRangePicker">
-  <input x-ref="dateRangePicker" type="text" placeholder="Select Date Range" class="flatpickr-input">
-  <span x-text="error" class="text-red-500"></span>
-  <script>
-    function initDateRangePicker() {
-      flatpickr(this.$refs.dateRangePicker, {
-        mode: "range",
-        dateFormat: "Y-m-d",
-        showMonths: 2,
-        minDate: "today",
-        onClose: function(selectedDates) {
-          if (selectedDates.length === 2) {
-            const diffTime = Math.abs(selectedDates[1] - selectedDates[0]);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            if (diffDays < 3) {
-              this.error = "Please select at least a span of 3 days.";
-              this.clear();
-            } else {
-              this.dateRange = selectedDates.map(date => this.formatDate(date, "Y-m-d")).join(" to ");
-              this.error = ""; // Clear error message
-            }
-          }
-        }.bind(this), // Bind this to have access to Alpine component's data
-      });
-    }
-  </script>
+<div x-data="{ open: false }" class="w-full ">
+    <div :class="{'text-electric-red ': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate}" class="relative flex items-center h-12 text-gray-600 border-gray-400 rounded-md">
+        <!-- FontAwesome Icon -->
+        <i class="absolute ml-2 fa-solid fa-calendar" style="pointer-events: none;"></i>
+        <!-- Input Field -->
+        <input type="text" style="width:100% !important; padding-left: 2rem;" class="flex h-full pl-8 border-gray-400 rounded-md date-range focus:border-gray-400 focus:ring-0" x-ref="dateRange" placeholder="Choose dates" :class="{'border-electric-red placeholder-electric-red ': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate}" @click="open = !open" readonly>
+        <i class="absolute right-0 mr-2 pointer-events-none fa-solid fa-angle-down"></i>
+        <div x-show="open" @click.away="open = false" class="absolute z-50 mt-2 bg-white rounded-md shadow-lg">
+            <!-- Date range picker will be displayed here -->
+        </div>
+    </div>
+    <!-- Inline error message display -->
+
 </div>
-
-
+<div x-text="Alpine.store('dateRangePicker').errorMessage" class="text-xs text-red-500"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Alpine.store('dateRangePicker', {
+            startDate: null,
+            endDate: null,
+            errorMessage: '',
+            init() {
+                this.loadSessionDates(); // Load dates from session storage
+                this.initFlatpickr();
+            },
+            initFlatpickr() {
+                flatpickr(".date-range", {
+                    mode: "range",
+                    dateFormat: "M j",
+                    defaultDate: [this.startDate, this.endDate], // Set default dates
+                    onChange: this.updateDates.bind(this),
+                });
+            },
+            updateDates(selectedDates) {
+                this.startDate = selectedDates[0];
+                this.endDate = selectedDates[1];
+                this.updateSessionDates(); // Update session storage with new dates
+                this.errorMessage = ''; // Clear error message when dates are selected
+            },
+            loadSessionDates() {
+                const arrivalDate = sessionStorage.getItem('_gfcr_arrival_date');
+                const departureDate = sessionStorage.getItem('_gfcr_departure_date');
+                if (arrivalDate && departureDate) {
+                    this.startDate = new Date(arrivalDate);
+                    this.endDate = new Date(departureDate);
+                    this.errorMessage = ''; // Clear any error message if valid dates are found
+                }
+            },
+            updateSessionDates() {
+                sessionStorage.setItem('_gfcr_arrival_date', this.startDate);
+                sessionStorage.setItem('_gfcr_departure_date', this.endDate);
+            },
+            checkDateRange() {
+                if (!this.startDate || !this.endDate) {
+                    this.errorMessage = "Please select a date range.";
+                    return false;
+                }
+                return true;
+            },
+        });
+    });
+</script>
 
 

@@ -22,12 +22,7 @@ html { overflow-y: scroll; }
     -ml-9
 }
 
-#bookingDates {
-    @apply
-    !w-full
-    flex
-    mx-0
-}
+
 
   .carousel-cell {
     width: 33.3%;

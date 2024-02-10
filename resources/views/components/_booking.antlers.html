@@ -17,28 +17,29 @@ absolute top-0 right-0 flex items-center w-full p-8 -mt-20
     {{ if slug == "charters" }}
     p-0 flex space-x-0
     {{ elseif collection == 'charters' && is_entry }}
-    flex flex-col w-full space-y-4
+    flex flex-col w-full space-y-3
     {{ else }}
     flex w-full p-8 space-x-4 bg-white rounded-2xl
     {{ /if }}">
-        <div class="{{ if slug == "charters" }} flex-shrink w-48 {{ else }} flex-grow {{ /if }}">
-            {{ partial:components/pickers/_location }}
-        </div>
-        <div class="{{ if slug == "charters" }} flex-shrink {{ else }} flex-grow {{ /if }}">
+        {{ if collection != 'charters' && is_entry }}
+            <div class="{{ if slug == "charters" }} w-48 {{ else }} flex-grow {{ /if }}">
+                {{ partial:components/pickers/_location }}
+            </div>
+        {{ /if }}
+        <div class="{{ if slug == "charters" }} {{ else }} flex-grow {{ /if }}">
             {{ partial:components/pickers/_date_range }}
         </div>
-        <div class="{{ if slug == "charters" }} flex-shrink w-48 {{ else }} flex-grow {{ /if }}">
+        <div class="{{ if slug == "charters" }} w-48 {{ else }} flex-grow {{ /if }}">
             {{ partial:components/pickers/_guests }}
         </div>
         {{ if collection == 'charters' && is_entry }}
-            <div class="{{ if slug == "charters" }} flex-shrink w-48 {{ else }} flex-grow {{ /if }}">
-
-            {{ partial:components/pickers/_charter }}
-        </div>
+            <div class="{{ if slug == "charters" }} w-48 {{ else }} flex-grow {{ /if }}">
+                {{ partial:components/pickers/_charter }}
+            </div>
         {{ /if }}
-        <div class="{{ if slug == "charters" }} hidden {{ else }} flex-grow {{ /if }}">
-            {{ partial:components/buttons/_booking }}
-        </div>
+            <div class="{{ if slug == "charters" }} hidden {{ else }} flex-grow items-center {{ /if }}">
+                {{ partial:components/buttons/_booking }}
+            </div>
     </div>
 </div>
 
