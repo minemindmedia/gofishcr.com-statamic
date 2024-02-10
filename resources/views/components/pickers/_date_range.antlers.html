@@ -6,11 +6,11 @@
 <!-- /components/_charter_picker.antlers.html -->
 
 <div x-data="{ open: false }" class="w-full ">
-    <div :class="{'text-electric-red ': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate}" class="relative flex items-center h-12 text-gray-600 border-gray-400 rounded-md">
+    <div :class="{'text-electric-red ': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate && '{{ collection }}' == 'charters' && '{{ is_entry }}'}" class="relative flex items-center h-12 text-gray-600 border-gray-400 rounded-md">
         <!-- FontAwesome Icon -->
         <i class="absolute ml-2 fa-solid fa-calendar" style="pointer-events: none;"></i>
         <!-- Input Field -->
-        <input type="text" style="width:100% !important; padding-left: 2rem;" class="flex h-full pl-8 border-gray-400 rounded-md date-range focus:border-gray-400 focus:ring-0" x-ref="dateRange" placeholder="Choose dates" :class="{'border-electric-red placeholder-electric-red ': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate}" @click="open = !open" readonly>
+        <input type="text" style="width:100% !important; padding-left: 2rem;" class="flex h-full pl-8 border-gray-400 rounded-md date-range focus:border-gray-400 focus:ring-0" x-ref="dateRange" placeholder="Choose dates" :class="{'border-electric-red placeholder-electric-red ': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate && '{{ collection }}' == 'charters' && '{{ is_entry }}'}" @click="open = !open" readonly>
         <i class="absolute right-0 mr-2 pointer-events-none fa-solid fa-angle-down"></i>
         <div x-show="open" @click.away="open = false" class="absolute z-50 mt-2 bg-white rounded-md shadow-lg">
             <!-- Date range picker will be displayed here -->
@@ -19,7 +19,7 @@
     <!-- Inline error message display -->
 
 </div>
-<div x-text="Alpine.store('dateRangePicker').errorMessage" class="text-xs text-red-500"></div>
+<div x-text="Alpine.store('dateRangePicker').errorMessage" class="text-xs text-red-500" x-show="'{{ collection }}' == 'charters' && '{{ is_entry }}'"></div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         Alpine.store('dateRangePicker', {
@@ -42,7 +42,9 @@
                 this.startDate = selectedDates[0];
                 this.endDate = selectedDates[1];
                 this.updateSessionDates(); // Update session storage with new dates
-                this.errorMessage = ''; // Clear error message when dates are selected
+                if ('{{ collection }}' == 'charters' && '{{ is_entry }}') {
+                    this.errorMessage = ''; // Clear error message when dates are selected
+                }
             },
             loadSessionDates() {
                 const arrivalDate = sessionStorage.getItem('_gfcr_arrival_date');
@@ -50,7 +52,9 @@
                 if (arrivalDate && departureDate) {
                     this.startDate = new Date(arrivalDate);
                     this.endDate = new Date(departureDate);
-                    this.errorMessage = ''; // Clear any error message if valid dates are found
+                    if ('{{ collection }}' == 'charters' && '{{ is_entry }}') {
+                        this.errorMessage = ''; // Clear any error message if valid dates are found
+                    }
                 }
             },
             updateSessionDates() {
@@ -59,7 +63,9 @@
             },
             checkDateRange() {
                 if (!this.startDate || !this.endDate) {
-                    this.errorMessage = "Please select a date range.";
+                    if ('{{ collection }}' == 'charters' && '{{ is_entry }}') {
+                        this.errorMessage = "Please select a date range.";
+                    }
                     return false;
                 }
                 return true;

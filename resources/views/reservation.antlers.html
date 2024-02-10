@@ -327,4 +327,15 @@ class="max-w-5xl mx-auto"
 
 </div>
 
+<script>
 
+
+
+    // If boat was not selected from *reservations* page, do not allow access to *reservation* page
+    if (sessionStorage.getItem("_gfcr_destination") !== null) {
+
+    } else {
+        window.location.replace("/charters");
+    }
+
+</script>

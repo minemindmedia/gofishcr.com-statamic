@@ -6,7 +6,7 @@
 <!-- /components/_guests_picker.antlers.html -->
 
 <div x-data="{ open: false }" class="relative ">
-    <button @click="open = !open" :class="{'border-electric-red border text-electric-red': Alpine.store('guestPicker').adults === 0, 'border-gray-400 border': Alpine.store('guestPicker').adults > 0}" class="flex items-center justify-start w-full h-12 px-2 py-2 space-x-2 text-left text-gray-600 border border-gray-400 rounded-md px-09 focus:outline-none">
+    <button @click="open = !open" :class="{'border-electric-red border text-electric-red': Alpine.store('guestPicker').adults === 0 && '{{ collection }}' == 'charters' && '{{ is_entry }}', 'border-gray-400 border': Alpine.store('guestPicker').adults > 0 || '{{ collection }}' != 'charters' || '{{ is_entry }}' == false}" class="flex items-center justify-start w-full h-12 px-2 py-2 space-x-2 text-left text-gray-600 border border-gray-400 rounded-md px-09 focus:outline-none">
         <i class="text-xl fa-solid fa-person"></i>
         <span class="flex-1" x-text="Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 0 ? 'Add Guests' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 1 ? '1 Guest' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children + ' Guests'"></span>
         <i class="fa-solid fa-angle-down"></i>
@@ -29,7 +29,7 @@
 
  </div>
 
- <div x-text="Alpine.store('guestPicker').message" class="text-xs text-electric-red"></div>
+ <div x-text="Alpine.store('guestPicker').message" class="text-xs text-electric-red" x-show="'{{ collection }}' == 'charters' && '{{ is_entry }}'"></div>
 
 <script>
 document.addEventListener('alpine:init', () => {
@@ -69,7 +69,9 @@ document.addEventListener('alpine:init', () => {
                 this.message = ""; // Clear message if adults >= 1
                 return true; // Ensure there is a true statement
             } else {
-                this.message = "Please select at least one adult."; // Show message if no adults selected
+                if ('{{ collection }}' == 'charters' && '{{ is_entry }}') {
+                    this.message = "Please select at least one adult."; // Show message if no adults selected
+                }
                 return false; // Ensure there is a true statement
             }
         }
