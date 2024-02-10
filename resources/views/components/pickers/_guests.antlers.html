@@ -6,30 +6,5 @@
 <!-- /components/_guests_picker.antlers.html -->
 
 
-<div x-data="{ adults: sessionStorage.getItem('_gfcr_adults') ? parseInt(sessionStorage.getItem('_gfcr_adults')) : 0, children: sessionStorage.getItem('_gfcr_children') ? parseInt(sessionStorage.getItem('_gfcr_children')) : 0, open: false }" class="relative">
-    <button @click="open = !open" class="px-4 py-2 bg-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-400">
-        <span x-text="(adults + children === 1) ? '1 Guest' : (adults + children) + ' Guests'"></span>
-    </button>
-    <div x-show="open" @click.away="open = false" class="absolute z-10 w-48 py-2 mt-2 bg-white rounded-md shadow-xl">
-        <div class="px-4 py-2">
-            <div class="flex items-center justify-between">
-                <span>Adults</span>
-                <div class="flex items-center">
-                    <button @click="adults = Math.max(0, adults - 1); if (adults === 0) { children = 0; }; $persist(sessionStorage.setItem('_gfcr_adults', adults)); sessionStorage.setItem('_gfcr_guests', adults + children); sessionStorage.setItem('_gfcr_children', children);" class="px-2 py-1 text-gray-600 bg-gray-200 rounded-md">-</button>
-                    <span x-text="adults" class="px-4"></span>
-                    <button @click="adults++; $persist(sessionStorage.setItem('_gfcr_adults', adults)); sessionStorage.setItem('_gfcr_guests', adults + children)" class="px-2 py-1 text-gray-600 bg-gray-200 rounded-md">+</button>
-                </div>
-            </div>
-            <div class="flex items-center justify-between mt-2">
-                <span>Children</span>
-                <div class="flex items-center">
-                    <button :disabled="adults < 1" @click="children = Math.max(0, children - 1); $persist(sessionStorage.setItem('_gfcr_children', children)); sessionStorage.setItem('_gfcr_guests', adults + children)" class="px-2 py-1 text-gray-600 bg-gray-200 rounded-md">-</button>
-                    <span x-text="children" class="px-4"></span>
-                    <button :disabled="adults < 1" @click="children++; $persist(sessionStorage.setItem('_gfcr_children', children)); sessionStorage.setItem('_gfcr_guests', adults + children)" class="px-2 py-1 text-gray-600 bg-gray-200 rounded-md">+</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 

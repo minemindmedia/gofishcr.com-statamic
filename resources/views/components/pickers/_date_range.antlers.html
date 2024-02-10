@@ -1,45 +1,38 @@
 {{#
-    @name Date Range Picker
-    @desc Date Range Picker with Flatpickr
+    @name Date range picker
+    @desc Date range picker with flatpickr
 #}}
 
-<!-- /components/_date_range_picker.antlers.html -->
+<!-- /components/_charter_picker.antlers.html -->
 
-<div x-data="{
-    init() {
-        this.$nextTick(() => {
-            flatpickr(this.$refs.datepicker, {
-                mode: 'range',
-                minDate: 'today',
-                dateFormat: 'M j',
-                showMonths: 2,
-                onClose: this.onClose,
-                onReady: this.onReady
-            });
-        });
-    },
-    onClose(selectedDates, dateStr, instance) {
-        sessionStorage.setItem('_gfcr_date_range', dateStr);
-    },
-    onReady(selectedDates, dateStr, instance) {
-        const storedDates = sessionStorage.getItem('_gfcr_date_range');
-        if (storedDates) {
-            instance.setDate(storedDates.split(' to '), true);
-        }
+<div x-data="{ dateRange: null, error: '' }" x-init="initDateRangePicker">
+  <input x-ref="dateRangePicker" type="text" placeholder="Select Date Range" class="flatpickr-input">
+  <span x-text="error" class="text-red-500"></span>
+  <script>
+    function initDateRangePicker() {
+      flatpickr(this.$refs.dateRangePicker, {
+        mode: "range",
+        dateFormat: "Y-m-d",
+        showMonths: 2,
+        minDate: "today",
+        onClose: function(selectedDates) {
+          if (selectedDates.length === 2) {
+            const diffTime = Math.abs(selectedDates[1] - selectedDates[0]);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            if (diffDays < 3) {
+              this.error = "Please select at least a span of 3 days.";
+              this.clear();
+            } else {
+              this.dateRange = selectedDates.map(date => this.formatDate(date, "Y-m-d")).join(" to ");
+              this.error = ""; // Clear error message
+            }
+          }
+        }.bind(this), // Bind this to have access to Alpine component's data
+      });
     }
-}" x-init="init" class="date-picker">
-<div class="
-    {{ if is_homepage }} h-16 {{ /if }}
-    {{ if slug == "charters" }} rounded-none border-x-0 {{ /if }}
-    items-center w-full px-3 flex text-sm leading-4 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
-    <i class="fa-solid fa-calendar-days"></i>
-    <input
-    x-ref="datepicker"
-    type="text"
-    class="h-full border-none focus:ring-0"
-    placeholder="Add dates"
-    id="bookingDates"
-    >
-    <i class="fa-solid fa-angle-down"></i>
+  </script>
 </div>
-</div>
+
+
+
+
