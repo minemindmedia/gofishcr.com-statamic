@@ -15,7 +15,7 @@ class="flex flex-col w-full space-y-8"
                 {{ /additional_photos }}
                 <a href="" class="absolute bottom-0 right-0 px-4 py-2 m-4 text-sm bg-white rounded-lg hover:bg-gray-100">
                     View all images
-                </a>
+                </a>xxxx
             </div>
 
         </div>
@@ -112,7 +112,17 @@ class="flex flex-col w-full space-y-8"
 
 </div>
 
-
 <script>
-    sessionStorage.removeItem("_x_charterlength");
+    function init() {
+        console.log("Setting item in sessionStorage");
+        sessionStorage.setItem("_gfcr_boat", "Test Title");
+        console.log("Item set:", sessionStorage.getItem("_gfcr_boat"));
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        // `DOMContentLoaded` already fired
+        init();
+    }
 </script>

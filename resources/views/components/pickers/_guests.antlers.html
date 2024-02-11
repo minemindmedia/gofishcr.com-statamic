@@ -6,21 +6,21 @@
 <!-- /components/_guests_picker.antlers.html -->
 
 <div x-data="{ open: false }" class="relative ">
-    <button @click="open = !open" :class="{'border-electric-red border text-electric-red': Alpine.store('guestPicker').adults === 0 && '{{ collection }}' == 'charters' && '{{ is_entry }}', 'border-gray-400 border': Alpine.store('guestPicker').adults > 0 || '{{ collection }}' != 'charters' || '{{ is_entry }}' == false}" class="flex items-center justify-start w-full h-12 px-2 py-2 space-x-2 text-left text-gray-600 border border-gray-400 rounded-md px-09 focus:outline-none">
-        <i class="text-xl fa-solid fa-person"></i>
+    <button @click="open = !open" :class="{'border-red-500 border text-red-500': Alpine.store('guestPicker').adults === 0 && '{{ collection }}' == 'charters' && '{{ is_entry }}', 'border-gray-400 border': Alpine.store('guestPicker').adults > 0 || '{{ collection }}' != 'charters' || '{{ is_entry }}' == false}" class="{{ if is_homepage }} h-16 {{ elseif slug == "charters" }} border-l-0 rounded-l-none {{ /if }} flex items-center justify-start w-full px-2 py-2 space-x-2 text-left text-gray-600 border border-gray-400 rounded-md px-09 focus:outline-none bg-white">
+        <i class="text-xl {{ if slug == "charters" }} text-xs {{ /if }} fa-solid fa-person"></i>
         <span class="flex-1" x-text="Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 0 ? 'Add Guests' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 1 ? '1 Guest' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children + ' Guests'"></span>
         <i class="fa-solid fa-angle-down"></i>
     </button>
     <div x-show="open" @click.away="open = false" class="absolute z-50 w-48 w-full mt-2 bg-white rounded-md shadow-lg">
         <!-- Adults -->
         <div class="px-4 py-2">
-            <button @click="Alpine.store('guestPicker').decrementAdults()" class="px-2 py-1 text-white rounded-md bg-electric-red focus:outline-none">-</button>
+            <button @click="Alpine.store('guestPicker').decrementAdults()" class="px-2 py-1 text-white bg-red-500 rounded-md focus:outline-none">-</button>
             <span x-text="Alpine.store('guestPicker').adults + ' Adult' + (Alpine.store('guestPicker').adults >= 2 ? 's' : '')" class="px-4"></span>
             <button @click="Alpine.store('guestPicker').incrementAdults()" class="px-2 py-1 text-white bg-green-500 rounded-md focus:outline-none">+</button>
         </div>
         <!-- Children -->
         <div class="px-4 py-2">
-            <button :disabled="Alpine.store('guestPicker').adults < 1" @click="Alpine.store('guestPicker').decrementChildren()" class="px-2 py-1 text-white rounded-md bg-electric-red focus:outline-none">-</button>
+            <button :disabled="Alpine.store('guestPicker').adults < 1" @click="Alpine.store('guestPicker').decrementChildren()" class="px-2 py-1 text-white bg-red-500 rounded-md focus:outline-none">-</button>
             <span x-text="Alpine.store('guestPicker').children + (Alpine.store('guestPicker').children === 1 ? ' Child' : ' Children')" class="px-4"></span>
             <button :disabled="Alpine.store('guestPicker').adults < 1" @click="Alpine.store('guestPicker').incrementChildren()" class="px-2 py-1 text-white bg-green-500 rounded-md focus:outline-none">+</button>
         </div>
@@ -29,7 +29,7 @@
 
  </div>
 
- <div x-text="Alpine.store('guestPicker').message" class="text-xs text-electric-red" x-show="'{{ collection }}' == 'charters' && '{{ is_entry }}'"></div>
+ <div x-text="Alpine.store('guestPicker').message" class="text-xs text-red-500" x-show="'{{ collection }}' == 'charters' && '{{ is_entry }}'"></div>
 
 <script>
 document.addEventListener('alpine:init', () => {

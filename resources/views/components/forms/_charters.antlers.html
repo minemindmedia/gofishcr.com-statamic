@@ -1,0 +1,113 @@
+{{#
+    @name Form - Charters
+    @desc Charters booking form
+#}}
+
+<!-- /components/_booking.antlers.html -->
+<div class="flex flex-col space-y-4">
+
+
+
+
+
+    {{ form:create in="reservations" id="reservationsForm" }}
+
+
+
+
+    <div x-data="{
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        firstNameError: '',
+        lastNameError: '',
+        emailError: '',
+        phoneNumberError: '',
+        validateForm: function() {
+            this.firstNameError = this.firstName.trim() === '' ? 'First name is required' : '';
+            this.lastNameError = this.lastName.trim() === '' ? 'Last name is required' : '';
+            this.emailError = validateEmail(this.email);
+            this.phoneNumberError = validatePhoneNumber(this.phoneNumber);
+            if (this.firstNameError === '' && this.lastNameError === '' && this.emailError === '' && this.phoneNumberError === '') {
+                this.submitForm();
+            }
+        },
+        submitForm: function() {
+            document.getElementById('reservationsForm').submit();
+        }
+    }">
+        <div class="flex flex-col space-y-4">
+            <!-- First Name -->
+            <label for="first_name" class="text-sm">First Name</label>
+            <input type="text" id="first_name" name="first_name" x-model="firstName" @input="firstNameError = firstName.trim() === '' ? 'First name is required' : ''" class="h-12 text-sm text-gray-600 border-gray-400 rounded-md focus:outline-none focus:ring-0 focus:border-gray-400" />
+            <template x-if="firstNameError">
+                <p x-text="firstNameError" class="text-xs text-red-500"></p>
+            </template>
+
+            <!-- Last Name -->
+            <label for="last_name" class="text-sm">Last Name</label>
+            <input type="text" id="last_name" name="last_name" x-model="lastName" @input="lastNameError = lastName.trim() === '' ? 'Last name is required' : ''" class="h-12 text-sm text-gray-600 border-gray-400 rounded-md focus:outline-none focus:ring-0 focus:border-gray-400" />
+            <template x-if="lastNameError">
+                <p x-text="lastNameError" class="text-xs text-red-500"></p>
+            </template>
+
+            <!-- Email Address -->
+            <label for="email" class="text-sm">Email Address</label>
+            <input type="email" id="email" name="email" x-model="email" @input="emailError = validateEmail(email)" class="h-12 text-sm text-gray-600 border-gray-400 rounded-md focus:outline-none focus:ring-0 focus:border-gray-400" />
+            <template x-if="emailError">
+                <p x-text="emailError" class="text-xs text-red-500"></p>
+            </template>
+
+            <!-- Phone Number -->
+            <label for="phone_number" class="text-sm">Phone Number</label>
+            <input type="tel" id="phone_number" name="phone" x-model="phoneNumber" @input="phoneNumberError = validatePhoneNumber(phoneNumber)" class="h-12 text-sm text-gray-600 border-gray-400 rounded-md focus:outline-none focus:ring-0 focus:border-gray-400" />
+            <template x-if="phoneNumberError">
+                <p x-text="phoneNumberError" class="text-xs text-red-500"></p>
+            </template>
+        </div>
+        <div class="flex flex-col">
+            <button @click.prevent="validateForm()" class="px-4 py-2 font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700">
+                Submit
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return email.trim() === '' ? 'Email is required' : (!re.test(email) ? 'Email is invalid' : '');
+        }
+
+        function validatePhoneNumber(phoneNumber) {
+            const re = /^\+?([0-9]{1,3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4,5})$/;
+            return phoneNumber.trim() === '' ? 'Phone number is required' : (!re.test(phoneNumber) ? 'Phone number is invalid' : '');
+        }
+
+    function validateForm() {
+        this.firstNameError = this.firstName.trim() === '' ? 'First name is required' : '';
+        this.lastNameError = this.lastName.trim() === '' ? 'Last name is required' : '';
+        this.emailError = validateEmail(this.email);
+        this.phoneNumberError = validatePhoneNumber(this.phoneNumber);
+        if (this.firstNameError === '' && this.lastNameError === '' && this.emailError === '' && this.phoneNumberError === '') {
+            // Submit logic here
+        }
+    }
+    </script>
+
+
+{{ /form:create }}
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<!-- End: /components/_booking.antlers.html -->
+

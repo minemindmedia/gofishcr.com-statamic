@@ -5,12 +5,12 @@
 
 <!-- /components/_charter_picker.antlers.html -->
 
-<div x-data="{ open: false }" class="w-full ">
-    <div :class="{'text-electric-red ': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate && '{{ collection }}' == 'charters' && '{{ is_entry }}'}" class="relative flex items-center h-12 text-gray-600 border-gray-400 rounded-md">
+<div x-data="{ open: false }" class="w-full flex items-center {{ if is_homepage }} h-16  {{ /if }}">
+    <div :class="{'text-red-500 ': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate && '{{ collection }}' == 'charters' && '{{ is_entry }}'}" class="{{ if is_homepage }} h-full  {{ /if }} relative flex items-center h-12 h-full text-gray-600 border-gray-400 rounded-md">
         <!-- FontAwesome Icon -->
         <i class="absolute ml-2 fa-solid fa-calendar" style="pointer-events: none;"></i>
         <!-- Input Field -->
-        <input type="text" style="width:100% !important; padding-left: 2rem;" class="flex h-full pl-8 border-gray-400 rounded-md date-range focus:border-gray-400 focus:ring-0" x-ref="dateRange" placeholder="Choose dates" :class="{'border-electric-red placeholder-electric-red ': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate && '{{ collection }}' == 'charters' && '{{ is_entry }}'}" @click="open = !open" readonly>
+        <input type="text" style="width:100% !important; padding-left: 2rem;" class="{{ if is_homepage }} !h-16 w-full {{ elseif slug == "charters" }} border-x-0 rounded-l-none rounded-r-none {{ /if }} flex h-full pl-8 border-gray-400 rounded-md date-range focus:border-gray-400 focus:ring-0" x-ref="dateRange" placeholder="Choose dates" :class="{'border border-red-500 placeholder-red-500': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate && '{{ collection }}' == 'charters' && '{{ is_entry }}'}" @click="open = !open" readonly>
         <i class="absolute right-0 mr-2 pointer-events-none fa-solid fa-angle-down"></i>
         <div x-show="open" @click.away="open = false" class="absolute z-50 mt-2 bg-white rounded-md shadow-lg">
             <!-- Date range picker will be displayed here -->
@@ -33,6 +33,7 @@
             initFlatpickr() {
                 flatpickr(".date-range", {
                     mode: "range",
+                    showMonths: '2',
                     dateFormat: "M j",
                     defaultDate: [this.startDate, this.endDate], // Set default dates
                     onChange: this.updateDates.bind(this),

@@ -1,12 +1,12 @@
 <div
 class="max-w-5xl mx-auto"
 >
-    <div class="grid grid-cols-12 gap-8">
+    <div class="grid grid-cols-12 gap-4">
 
         <div class="col-span-7">
             <div class="flex flex-col space-y-4">
-                <div class="overflow-hidden border border-b border-gray-400 rounded-lg ">
-                <img src="http://gofishcr.com.test/images/21_custom_center_console.jpg" alt="" class="relative w-full p-8 ">
+                <div class="overflow-hidden bg-gray-100 border border-b border-gray-400 rounded-lg ">
+                <img src="http://gofishcr.com.test/images/21_custom_center_console.jpg" alt="" class="relative w-full p-4 ">
             </div>
 
                 <h1 class="mb-8 text-3xl font-bold">Things to know</h1>
@@ -34,7 +34,7 @@ class="max-w-5xl mx-auto"
 
 
 
-            <div class="p-8 border border-orange-700 rounded-lg bg-gray-50">
+            <div class="p-4 border border-orange-700 rounded-lg bg-gray-50">
                 <div class="mb-6">
                     <h3 class="mb-1 font-bold text-md">Your Dream Fishing Trip</h3>
                     <p class="text-sm">We will personally respond to you via email to confirm and setup your dream fishing trip.</p>
@@ -42,8 +42,8 @@ class="max-w-5xl mx-auto"
             <div class="flex p-4 space-x-4 bg-white border border-gray-400 rounded-lg">
 
 
-                <div>
-                    <div class="flex flex-col space-y-2 font-bold text-md">
+
+                    <div class="flex flex-col w-full space-y-2 font-bold text-md">
                         <div class="flex items-center space-x-4">
                             <div class="w-6 text-center">
                                 <i class="fa-solid fa-earth-americas"></i>
@@ -55,13 +55,17 @@ class="max-w-5xl mx-auto"
                             <div class="w-6 text-center">
                                 <i class="fa-solid fa-ship"></i>
                             </div>
-                            <div x-text="sessionStorage.getItem('_x_boat')"></div>
+                            <div x-text="sessionStorage.getItem('_gfcr_boat')"></div>
                         </div>
                         <div class="flex items-center space-x-4">
                             <div class="w-6 text-center">
                                 <i class="fa-regular fa-calendar"></i>
                             </div>
-                            <div x-html="displayRange" ></div>
+                           <div class="flex space-x-2">
+                            <div x-text="new Date(sessionStorage.getItem('_gfcr_arrival_date')).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })" ></div>
+                            <div>to</div>
+                            <div x-text="new Date(sessionStorage.getItem('_gfcr_departure_date')).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })" ></div>
+                           </div>
                         </div>
 
                         <div class="flex space-x-4">
@@ -95,7 +99,18 @@ class="max-w-5xl mx-auto"
                             <div class="w-6 text-center">
                                 <i class="fa-solid fa-dollar-sign"></i>
                             </div>
-                            <div x-html="charter" ></div>
+                            <div x-text="sessionStorage.getItem('_gfcr_charter')"></div>
+                        </div>
+
+                        <div class="pt-4">
+                            <div class="grid grid-cols-12 gap-4">
+                                <div class="col-span-6">
+                                <a href="javascript:history.back()" class="flex justify-center w-full p-1 text-xs text-center text-gray-700 bg-gray-200 rounded-md hover:underline">Make Changes</a>
+                                </div>
+                                <div class="col-span-6">
+                                    <a href="/charters" class="flex justify-center w-full p-1 text-xs text-center text-gray-700 bg-gray-200 rounded-md hover:underline">Start Over</a>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -104,218 +119,12 @@ class="max-w-5xl mx-auto"
 
 
 
-                </div>
+
             </div>
-            <div class="mt-8">
-                {{ partial:components/booking_reserve }}
-
-                {{ form:create in="reservations" }}
-
-        {{ if errors }}
-            <div class="p-2 text-white bg-red-300">
-                {{ errors }}
-                    {{ value }}<br>
-                {{ /errors }}
-            </div>
-        {{ /if }}
-
-        {{ if success }}
-            <div class="p-2 text-white bg-green-300">
-                {{ success }}
-            </div>
-        {{ /if }}
-
-        <div class="flex flex-col space-y-4">
-            <div class="mt-8 mb-8 text-center">
-                <h4 class="font-bold text-center text-md">Provide a few more details to continue</h4>
-                <a href="/" class="text-sm underline">Start over to change your location</a>
-            </div>
+            <div class="mt-4">
+                {{ partial:components/forms/charters }}
 
 
-                <input type="text" name="destination" x-model="destination" hidden />
-                <input type="text" name="boat" x-model="sessionStorage.getItem('_x_boat')" hidden />
-                <input type="text" name="start_date" x-model="displayStartDate" x-html="displayStartDate" hidden />
-                <input type="text" name="end_date" x-model="displayEndDate" x-html="displayEndDate" hidden />
-                <input type="text" name="adults" x-model="adults" hidden />
-                <input type="text" name="children" x-model="children"  hidden />
-                <input type="text" name="charter_length" x-model="charter"  hidden />
-
-            <div class="flex flex-col">
-                <label for="first_name" class="text-sm">First Name</label>
-                <input type="text" name="first_name" />
-            </div>
-            <div class="flex flex-col">
-                <label for="last_name" class="text-sm">Last Name</label>
-                <input type="text" name="last_name" />
-            </div>
-            <div class="flex flex-col">
-                <label for="last_name" class="text-sm">Email Address</label>
-                <input type="text" name="email" />
-            </div>
-            <div class="flex flex-col">
-                <label for="last_name" class="text-sm">Phone Number</label>
-                <input type="text" name="phone" />
-            </div>
-
-
-
-            <!-- other activities -->
-
-            <label for="other_activites" class="text-sm">Other activities</label>
-            <select id="other_activities" name="other_activities[]" class="hidden" multiple>
-                <option value="catamaran">Sunset Catamaran Tour</option>
-                <option value="atv">ATV Beach & Mountain Tour</option>
-                <option value="scuba">Scuba or Snorkeling</option>
-                <option value="surf">Surf Trips</option>
-                <option value="horseback">Horseback Riding</option>
-                <option value="zipline">Zipline / Canopy Tours</option>
-                <option value="yoga">Yoga Classes</option>
-                <option value="Volcano">Volcano Trips</option>
-                <option value="turtle">Turtle Tours</option>
-                <option value="spa">Spa Trips</option>
-                <option value="massage">In-House Massage</option>
-                <option value="forest">Rain or Cloud Forest Trips</option>
-            </select>
-
-            <div class="relative flex" x-data="{ ...selectMultiple('other_activities') }">
-
-                <!-- Selected -->
-                <div class="flex flex-wrap w-full -mt-4"
-                    @click="isOpen = true;"
-                    @keydown.arrow-down.prevent="if(dropdown.length > 0) document.getElementById(elSelect.id+'_'+dropdown[0].index).focus();">
-
-
-
-                    <template x-for="(option,index) in selected;" :key="option.value">
-                        <div class="flex items-center px-2 py-1 mt-1 mr-1 bg-orange-400 rounded-lg cursor-pointer" @click="toggle(option)">
-                            <div>
-                                <p class="self-center text-xs whitespace-nowrap"
-                                    x-text="option.text"
-                                    @click="toggle(option)">
-                                </p>
-                            </div>
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                                  </svg>
-                            </div>
-                        </div>
-                    </template>
-                    <input type="text" placeholder="Choose from list" class="w-full h-10 pl-2 mt-2 text-sm rounded-lg"
-                    x-model="term"
-                    x-ref="input" />
-
-                </div>
-
-                <!-- Dropdown -->
-                <div class="absolute z-10 w-full mt-10 overflow-y-auto bg-white border border-gray-400 max-h-72 rounded-xl "
-                    x-show="isOpen"
-                    @mousedown.away="isOpen = false">
-
-                    <template x-for="(option,index) in dropdown" :key="option.value">
-                        <div class="text-sm cursor-pointer hover:bg-teal-200 focus:bg-teal-300 focus:outline-none"
-                            :class="(term.length > 0 && !option.text.toLowerCase().includes(term.toLowerCase())) && 'hidden';"
-                            x-init="$el.id = elSelect.id + '_' + option.index; $el.tabIndex = option.index;"
-                            @click="toggle(option)"
-                            @keydown.enter.prevent="toggle(option);"
-                            @keydown.arrow-up.prevent="if ($el.previousElementSibling != null) $el.previousElementSibling.focus();"
-                            @keydown.arrow-down.prevent="if ($el.nextElementSibling != null) $el.nextElementSibling.focus();">
-
-                            <p class="p-2"
-                            x-text="option.text" x-on:click="isOpen = false"></p>
-                        </div>
-                    </template>
-                </div>
-            </div>
-
-            <script>
-                document.addEventListener('alpine:init', () => {
-                    Alpine.data('selectMultiple', (elSelectId) => ({
-
-                        elSelect: document.getElementById(elSelectId),
-                        isOpen: false,
-                        term: '',
-
-                        selected: [],
-                        dropdown: [],
-
-                        // in the <select> element, set the attributes :
-                        //  "multiple" to avoid to Always set "selected" to the first item
-                        //  class="hidden" (better than hide it with javascript which has a slow reaction)
-                        init()
-                        {
-                            for(var index=0; index < this.elSelect.options.length; index++)
-                            {
-                                if (this.elSelect.options[index].selected)
-                                    this.selected.push(this.elSelect.options[index]);
-                                else
-                                    this.dropdown.push(this.elSelect.options[index]);
-                            }
-                        },
-
-                        toggle(option)
-                        {
-                            var property1 = (option.selected == true) ? 'dropdown' : 'selected';
-                            var property2 = (option.selected == true) ? 'selected' : 'dropdown';
-
-                            option.selected = !option.selected;
-
-                            // add
-                            this[property1].push(option);
-
-                            // remove
-                            this[property2] = this[property2].filter((opt, index)=>{
-                                return opt.value != option.value;
-                            });
-
-                            // reorder this.dropdown to their original select.options indexes
-                            if (property1 == 'dropdown')
-                                this.dropdown.sort((opt1, opt2) => (opt1.index > opt2.index) ? 1 : -1)
-
-                            // after adding, re-focus the input
-                            if (option.selected)
-                                this.$refs.input.focus();
-                        },
-                    }))
-                });
-            </script>
-
-
-            <!-- end  other activities -->
-
-
-            <div class="flex flex-col">
-                <label class="text-sm">Additional details</label>
-                <textarea name="details" rows="5"></textarea>
-            </div>
-            <div class="flex flex-col">
-                <button id="reservation"  class="relative z-10 px-4 py-2 overflow-hidden text-sm font-medium font-bold tracking-wide bg-orange-600 border border-orange-100 rounded-lg shadow-inner text-orange-50 group">
-                    <span class="absolute top-0 left-0 w-0 h-0 transition-all duration-200 border-t-2 border-orange-300 group-hover:w-full ease"></span>
-                    <span class="absolute bottom-0 right-0 w-0 h-0 transition-all duration-200 border-b-2 border-orange-300 group-hover:w-full ease"></span>
-                    <span class="absolute top-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-300 group-hover:h-full ease"></span>
-                    <span class="absolute bottom-0 left-0 w-full h-0 transition-all duration-300 delay-200 bg-orange-300 group-hover:h-full ease"></span>
-                    <span class="absolute inset-0 w-full h-full duration-300 delay-300 bg-orange-900 opacity-0 group-hover:opacity-100"></span>
-                    <span class="relative transition-colors duration-300 delay-200 group-hover:text-white ease">
-                        Submit
-                    </span>
-                </button>
-                <p class="mt-4 text-sm font-bold text-center">* No payment required to reserve</p>
-            </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {{ /form:create }}
 
             </div>
 
@@ -332,7 +141,7 @@ class="max-w-5xl mx-auto"
 
 
     // If boat was not selected from *reservations* page, do not allow access to *reservation* page
-    if (sessionStorage.getItem("_gfcr_destination") !== null) {
+    if (sessionStorage.getItem("_gfcr_destination") !== null && sessionStorage.getItem("_gfcr_charter") !== null) {
 
     } else {
         window.location.replace("/charters");

@@ -124,4 +124,18 @@ class="flex flex-col w-full space-y-8"
     if (!sessionStorage.getItem("_gfcr_destination")) {
         window.location.href = "/charters";
     }
+
+    function storeBoatTitle() {
+        const boatTitle = `{{ title }}`;
+        sessionStorage.setItem("_gfcr_boat", boatTitle);
+        console.log("Boat title stored in sessionStorage:", boatTitle);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", storeBoatTitle);
+    } else {
+        // `DOMContentLoaded` already fired
+        storeBoatTitle();
+    }
+
 </script>
