@@ -15,12 +15,18 @@ html { overflow-y: scroll; }
     font-family: 'Robotic Mono';
 }
 
+.date-range {
+    @apply
+    !w-full
+}
+
 .flatpickr-calendar {
     @apply
     p-4
     mt-2
-    -ml-9
 }
+
+
 
   .carousel-cell {
     width: 33.3%;

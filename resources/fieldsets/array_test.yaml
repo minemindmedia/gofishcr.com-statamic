@@ -1,0 +1,17 @@
+title: 'array test'
+fields:
+  -
+    handle: numberos
+    field:
+      mode: keyed
+      keys:
+        numero_uno: uno
+        numero_dos: dos
+        numero_tres: tres
+      type: array
+      display: numberos
+      listable: hidden
+      instructions_position: above
+      visibility: visible
+      replicator_preview: true
+      hide_display: false

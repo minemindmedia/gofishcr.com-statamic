@@ -1,0 +1,49 @@
+{{#
+    @name Booking - Homepage
+    @desc Homepage booking form
+#}}
+
+<!-- /components/_home_booking.antlers.html -->
+
+<div class="
+{{ if slug == "charters" }}
+relative w-full
+{{ elseif collection == 'charters' && is_entry }}
+flex
+{{ elseif is_homepage }}
+absolute top-0 right-0 flex items-center w-full p-8 -mt-20
+{{ else }}
+hidden
+{{ /if }}">
+    <div class="
+    {{ if slug == "charters" }}
+    p-0 flex space-x-0
+    {{ elseif collection == 'charters' && is_entry }}
+    flex flex-col w-full space-y-3
+    {{ else }}
+    grid grid-cols-12 w-full p-8 space-x-3 bg-white rounded-2xl
+    {{ /if }}">
+        {{ if collection != 'charters' && is_entry }}
+            <div class="{{ if slug == "charters" }} w-48 {{ else }} col-span-3  {{ /if }}">
+                {{ partial:components/pickers/_location }}
+            </div>
+        {{ /if }}
+        <div class="{{ if slug == "charters" }}  {{ else }}  col-span-3 {{ /if }}">
+            {{ partial:components/pickers/_date_range }}
+        </div>
+        <div class="{{ if slug == "charters" }} w-48 {{ else }}  col-span-3 {{ /if }}">
+            {{ partial:components/pickers/_guests }}
+        </div>
+        {{ if collection == 'charters' && is_entry }}
+            <div class="{{ if slug == "charters" }} w-48 {{ else }}  col-span-3 {{ /if }}">
+                {{ partial:components/pickers/_charter }}
+            </div>
+        {{ /if }}
+            <div class="{{ if slug == "charters" }} hidden {{ else }}   col-span-3 {{ /if }}">
+                {{ partial:components/buttons/_booking }}
+            </div>
+    </div>
+</div>
+
+<!-- End: /components/_home_booking.antlers.html -->
+

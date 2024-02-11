@@ -1,0 +1,11 @@
+title: Locations
+route: '/{mount}/{slug}'
+layout: layout
+template: locations/show
+revisions: false
+date: false
+sort_dir: asc
+date_behavior:
+  past: public
+  future: private
+mount: 44175c74-8e22-4a57-9491-f803ce689889

@@ -1,0 +1,216 @@
+title: Charters
+tabs:
+  main:
+    display: Main
+    sections:
+      -
+        display: General
+        fields:
+          -
+            import: location
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              input_type: text
+              localizable: true
+              listable: true
+              display: Title
+              validate:
+                - required
+          -
+            handle: inshore_or_offshore
+            field:
+              options:
+                inshore: Inshore
+                offshore: Offshore
+              inline: true
+              cast_booleans: false
+              type: radio
+              display: 'Inshore or Offshore'
+              width: 50
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: popular
+            field:
+              inline_label: 'Yes'
+              inline_label_when_true: 'Yes'
+              default: false
+              type: toggle
+              display: 'Popular?'
+              width: 50
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: passengers
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Number of passengers'
+              instructions: 'Enter the number of passengers for this boat.'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: features
+            field:
+              type: list
+              display: 'Boat Features'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: pricing
+            field:
+              fields:
+                -
+                  handle: half_day
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Half Day'
+                    icon: text
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    append: '.00'
+                -
+                  handle: three_quarter_day
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: '3/4 Day'
+                    icon: text
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    append: '.00'
+                -
+                  handle: full_day
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Full Day'
+                    icon: text
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    append: '.00'
+              mode: table
+              max_rows: 1
+              min_rows: 1
+              reorderable: false
+              fullscreen: false
+              type: grid
+              display: Pricing
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+  seo:
+    display: SEO
+    sections:
+      -
+        display: Basic
+        instructions: 'Basic SEO settings.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_basic'
+      -
+        display: Advanced
+        instructions: 'Advanced SEO settings.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_advanced'
+      -
+        display: 'Open Graph'
+        instructions: 'Open Graph meta tags for social sharing.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_open_graph'
+      -
+        display: Sitemap
+        instructions: 'Sitemap configuration.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_sitemap'
+      -
+        display: 'JSON-ld Schema'
+        instructions: 'Custom JSON-ld schema objects.'
+        fields:
+          -
+            import: 'statamic-peak-seo::seo_jsonld'
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        display: Meta
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate:
+                - required
+              generate: true
+              listable: hidden
+              display: Slug
+          -
+            handle: boat
+            field: common.image
+            config:
+              display: Boat
+              instructions: 'Upload main boat image here'
+              validate:
+                - required
+          -
+            handle: additional_photos
+            field:
+              max_files: 10
+              min_files: 1
+              mode: list
+              container: images
+              restrict: false
+              allow_uploads: true
+              show_filename: true
+              show_set_alt: true
+              type: assets
+              display: 'Additional Photos'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: parent
+            field:
+              type: entries
+              collections:
+                - charters
+              max_items: 1
+              listable: false
+              localizable: true

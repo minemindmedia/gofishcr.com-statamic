@@ -1,0 +1,270 @@
+{{#
+    @name Form - Charters
+    @desc Charters booking form
+#}}
+
+<!-- /components/_booking.antlers.html -->
+<div class="flex flex-col space-y-4">
+
+
+
+
+
+
+    <form method="POST" action="/!/forms/reservations" id="reservationsForm">
+        <input type="hidden" name="_token" value="{{ csrf_token }}" autocomplete="off">
+
+
+
+
+    <div x-data="{
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        firstNameError: '',
+        lastNameError: '',
+        emailError: '',
+        phoneNumberError: '',
+        validateForm: function() {
+            this.firstNameError = this.firstName.trim() === '' ? 'First name is required' : '';
+            this.lastNameError = this.lastName.trim() === '' ? 'Last name is required' : '';
+            this.emailError = validateEmail(this.email);
+            this.phoneNumberError = validatePhoneNumber(this.phoneNumber);
+            if (this.firstNameError === '' && this.lastNameError === '' && this.emailError === '' && this.phoneNumberError === '') {
+                this.submitForm();
+            }
+        },
+        submitForm: function() {
+            document.getElementById('reservationsForm').submit();
+        }
+    }">
+
+    <input type="text" name="destination" x-model="destination" hidden />
+    <input type="text" name="boat" x-model="sessionStorage.getItem('_gfcr_boat')" hidden />
+    <input type="text" name="start_date" x-model="sessionStorage.getItem('_gfcr_arrival_date')" hidden />
+    <input type="text" name="end_date" x-model="sessionStorage.getItem('_gfcr_departure_date')" hidden />
+    <input type="text" name="adults" x-model="sessionStorage.getItem('_gfcr_adults')" hidden />
+    <input type="text" name="children" x-model="sessionStorage.getItem('_gfcr_children')" hidden />
+    <input type="text" name="charter_length" x-model="sessionStorage.getItem('_gfcr_charter')" hidden />
+
+
+        <div class="flex flex-col space-y-4">
+            <!-- First Name -->
+            <label for="first_name" class="text-sm">First Name</label>
+            <input type="text" id="first_name" name="first_name" x-model="firstName" @input="firstNameError = firstName.trim() === '' ? 'First name is required' : ''" class="h-12 text-sm text-gray-600 border-gray-400 rounded-md focus:outline-none focus:ring-0 focus:border-gray-400" />
+            <template x-if="firstNameError">
+                <p x-text="firstNameError" class="text-xs text-red-500"></p>
+            </template>
+
+            <!-- Last Name -->
+            <label for="last_name" class="text-sm">Last Name</label>
+            <input type="text" id="last_name" name="last_name" x-model="lastName" @input="lastNameError = lastName.trim() === '' ? 'Last name is required' : ''" class="h-12 text-sm text-gray-600 border-gray-400 rounded-md focus:outline-none focus:ring-0 focus:border-gray-400" />
+            <template x-if="lastNameError">
+                <p x-text="lastNameError" class="text-xs text-red-500"></p>
+            </template>
+
+            <!-- Email Address -->
+            <label for="email" class="text-sm">Email Address</label>
+            <input type="email" id="email" name="email" x-model="email" @input="emailError = validateEmail(email)" class="h-12 text-sm text-gray-600 border-gray-400 rounded-md focus:outline-none focus:ring-0 focus:border-gray-400" />
+            <template x-if="emailError">
+                <p x-text="emailError" class="text-xs text-red-500"></p>
+            </template>
+
+            <!-- Phone Number -->
+            <label for="phone_number" class="text-sm">Phone Number</label>
+            <input type="tel" id="phone_number" name="phone" x-model="phoneNumber" @input="phoneNumberError = validatePhoneNumber(phoneNumber)" class="h-12 text-sm text-gray-600 border-gray-400 rounded-md focus:outline-none focus:ring-0 focus:border-gray-400" />
+            <template x-if="phoneNumberError">
+                <p x-text="phoneNumberError" class="text-xs text-red-500"></p>
+            </template>
+
+            <!-- other activities -->
+
+            <label for="other_activites" class="text-sm">Other activities</label>
+            <select id="other_activities" name="other_activities[]" class="hidden" multiple>
+                <option value="catamaran">Sunset Catamaran Tour</option>
+                <option value="atv">ATV Beach & Mountain Tour</option>
+                <option value="scuba">Scuba or Snorkeling</option>
+                <option value="surf">Surf Trips</option>
+                <option value="horseback">Horseback Riding</option>
+                <option value="zipline">Zipline / Canopy Tours</option>
+                <option value="yoga">Yoga Classes</option>
+                <option value="Volcano">Volcano Trips</option>
+                <option value="turtle">Turtle Tours</option>
+                <option value="spa">Spa Trips</option>
+                <option value="massage">In-House Massage</option>
+                <option value="forest">Rain or Cloud Forest Trips</option>
+            </select>
+
+            <div class="relative flex" x-data="{ ...selectMultiple('other_activities') }">
+
+                <!-- Selected -->
+                <div class="flex flex-wrap w-full -mt-4"
+                    @click="isOpen = true;"
+                    @keydown.arrow-down.prevent="if(dropdown.length > 0) document.getElementById(elSelect.id+'_'+dropdown[0].index).focus();">
+
+
+
+                    <template x-for="(option,index) in selected;" :key="option.value">
+                        <div class="flex items-center px-2 py-1 mt-1 mr-1 bg-orange-400 rounded-lg cursor-pointer" @click="toggle(option)">
+                            <div>
+                                <p class="self-center text-xs whitespace-nowrap"
+                                    x-text="option.text"
+                                    @click="toggle(option)">
+                                </p>
+                            </div>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </template>
+                    <input type="text" placeholder="Choose from list" class="w-full h-10 pl-2 mt-2 text-sm rounded-lg"
+                    x-model="term"
+                    x-ref="input" />
+
+                </div>
+
+                <!-- Dropdown -->
+                <div class="absolute z-50 w-full p-4 mt-4 overflow-y-auto bg-white border border-gray-400 shadow-lg max-h-72 rounded-xl"
+                    x-show="isOpen"
+                    @mousedown.away="isOpen = false">
+
+                    <template x-for="(option,index) in dropdown" :key="option.value">
+                        <div class="text-sm cursor-pointer hover:bg-teal-200 focus:bg-teal-300 focus:outline-none"
+                            :class="(term.length > 0 && !option.text.toLowerCase().includes(term.toLowerCase())) && 'hidden';"
+                            x-init="$el.id = elSelect.id + '_' + option.index; $el.tabIndex = option.index;"
+                            @click="toggle(option)"
+                            @keydown.enter.prevent="toggle(option);"
+                            @keydown.arrow-up.prevent="if ($el.previousElementSibling != null) $el.previousElementSibling.focus();"
+                            @keydown.arrow-down.prevent="if ($el.nextElementSibling != null) $el.nextElementSibling.focus();">
+
+                            <p class="p-2"
+                            x-text="option.text" x-on:click="isOpen = false"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="flex flex-col">
+                <label class="text-sm">Additional details</label>
+                <textarea x-model="details" name="details" rows="5" x-init="sessionStorage.setItem('details', window.btoa(details))"></textarea>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <button @click.prevent="validateForm()" class="px-4 py-2 font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700">
+                Submit
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return email.trim() === '' ? 'Email is required' : (!re.test(email) ? 'Email is invalid' : '');
+        }
+
+        function validatePhoneNumber(phoneNumber) {
+            const re = /^\+?([0-9]{1,3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4,5})$/;
+            return phoneNumber.trim() === '' ? 'Phone number is required' : (!re.test(phoneNumber) ? 'Phone number is invalid' : '');
+        }
+
+        function validateForm() {
+            this.firstNameError = this.firstName.trim() === '' ? 'First name is required' : '';
+            this.lastNameError = this.lastName.trim() === '' ? 'Last name is required' : '';
+            this.emailError = validateEmail(this.email);
+            this.phoneNumberError = validatePhoneNumber(this.phoneNumber);
+            if (this.firstNameError === '' && this.lastNameError === '' && this.emailError === '' && this.phoneNumberError === '') {
+                // Submit logic here
+            }
+        }
+
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('selectMultiple', (elSelectId) => ({
+
+                elSelect: document.getElementById(elSelectId),
+                isOpen: false,
+                term: '',
+
+                selected: [],
+                dropdown: [],
+
+                // in the <select> element, set the attributes :
+                //  "multiple" to avoid to Always set "selected" to the first item
+                //  class="hidden" (better than hide it with javascript which has a slow reaction)
+                init()
+                {
+                    for(var index=0; index < this.elSelect.options.length; index++)
+                    {
+                        if (this.elSelect.options[index].selected)
+                            this.selected.push(this.elSelect.options[index]);
+                        else
+                            this.dropdown.push(this.elSelect.options[index]);
+                    }
+                },
+
+                toggle(option)
+                {
+                    var property1 = (option.selected == true) ? 'dropdown' : 'selected';
+                    var property2 = (option.selected == true) ? 'selected' : 'dropdown';
+
+                    option.selected = !option.selected;
+
+                    // add
+                    this[property1].push(option);
+
+                    // remove
+                    this[property2] = this[property2].filter((opt, index)=>{
+                        return opt.value != option.value;
+                    });
+
+                    // reorder this.dropdown to their original select.options indexes
+                    if (property1 == 'dropdown')
+                        this.dropdown.sort((opt1, opt2) => (opt1.index > opt2.index) ? 1 : -1)
+
+                    // after adding, re-focus the input
+                    if (option.selected)
+                        this.$refs.input.focus();
+                },
+            }))
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('reservationsForm').addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent the default form submission
+                var formData = new FormData(this);
+
+                fetch('/!/forms/reservations', { // Your endpoint to handle the form submission
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest', // Important for Laravel to recognize the AJAX request
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.redirect_to) {
+                        window.location.href = data.redirect_to; // Redirect based on the response
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        });
+
+    </script>
+
+
+</form>
+
+
+
+
+
+
+</div>
+
+
+<!-- End: /components/_booking.antlers.html -->
+

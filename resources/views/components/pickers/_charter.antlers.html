@@ -1,0 +1,77 @@
+{{#
+    @name Charter Picker
+    @desc Choose charter length for given charter
+#}}
+
+<!-- /components/_charter_picker.antlers.html -->
+
+<div x-data="{ isOpen: false }" class="relative" x-init="$store.charterPicker.init()">
+    <!-- Component internals here -->
+    <!-- Display Selected Option / Toggle Dropdown -->
+    <button
+    @click="isOpen = !isOpen"
+    :class="{'border-red-500 text-red-500': $store.charterPicker.selectedOption === 'Choose charter length', 'border-gray-400': $store.charterPicker.selectedOption !== 'Choose charter length'}"
+    class="flex items-center w-full h-12 px-2 py-3 leading-4 text-left text-gray-600 bg-white border rounded-md shadow-sm text-md focus:outline-none focus:ring-0">
+        <i class="mr-2 fa-solid fa-clock"></i>
+        <span x-text="$store.charterPicker.selectedOption" class="flex-1"></span>
+        <i class="fa-solid fa-angle-down"></i>
+    </button>
+
+
+    <!-- Dropdown Options -->
+    <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-50 w-48 mt-2 bg-white border rounded-md shadow-lg ">
+        <ul class="py-1">
+            <!-- Options generated with Antlers templating -->
+            {{ pricing }}
+                <li @click="$store.charterPicker.selectOption('Half day: {{ half_day }}'); isOpen = false" class="px-4 py-2 cursor-pointer hover:bg-gray-100">Half day: {{ half_day }}</li>
+                <li @click="$store.charterPicker.selectOption('3/4 day: {{ three_quarter_day}}'); isOpen = false" class="px-4 py-2 cursor-pointer hover:bg-gray-100">3/4 day: {{ three_quarter_day }}</li>
+                <li @click="$store.charterPicker.selectOption('Full day: {{ full_day }}'); isOpen = false" class="px-4 py-2 cursor-pointer hover:bg-gray-100">Full day:{{ full_day }}</li>
+            {{ /pricing }}
+        </ul>
+    </div>
+
+ </div>
+ <div x-show="$store.charterPicker.showMessage" class="text-xs text-red-500">Please choose a charter length</div>
+
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.store('charterPicker', {
+        selectedOption: 'Choose charter length', // Default option set to prompt reselection
+        showMessage: false,
+        currentPage: '',
+        init() {
+            this.currentPage = window.location.href;
+            const storedPage = sessionStorage.getItem('_gfcr_page');
+            const storedOption = sessionStorage.getItem('_gfcr_charter');
+            if (storedPage !== this.currentPage || !storedOption) {
+                this.requireReselection();
+            } else {
+                this.selectedOption = storedOption;
+            }
+        },
+        requireReselection() {
+            this.selectedOption = 'Choose charter length';
+            this.showMessage = false;
+            sessionStorage.removeItem('_gfcr_charter'); // Ensure reselection by removing stored option
+        },
+        selectOption(option) {
+            this.selectedOption = option;
+            this.showMessage = false;
+            sessionStorage.setItem('_gfcr_charter', option); // Store in session storage
+            sessionStorage.setItem('_gfcr_page', this.currentPage); // Store current page URL in session storage
+        },
+        checkSelection() {
+            if (this.selectedOption === 'Choose charter length') {
+                this.showMessage = true;
+                return false; // Ensure there is a false statement when the selection is default
+            } else {
+                // Redirect or other logic here
+                return true; // Ensure there is a true statement when a selection has been made
+            }
+        },
+        // Additional methods or properties here
+    });
+});
+</script>
+
+
