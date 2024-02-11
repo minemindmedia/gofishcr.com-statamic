@@ -147,10 +147,7 @@
                 </div>
             </div>
 
-            <div class="flex flex-col">
-                <label class="text-sm">Additional details</label>
-                <textarea x-model="details" name="details" rows="5" x-init="sessionStorage.setItem('details', window.btoa(details))"></textarea>
-            </div>
+
         </div>
         <div class="flex flex-col">
             <button @click.prevent="validateForm()" class="px-4 py-2 font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700">
@@ -230,30 +227,14 @@
             }))
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('reservationsForm').addEventListener('submit', function(e) {
-                e.preventDefault(); // Prevent the default form submission
-                var formData = new FormData(this);
 
-                fetch('/!/forms/reservations', { // Your endpoint to handle the form submission
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest', // Important for Laravel to recognize the AJAX request
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.redirect_to) {
-                        window.location.href = data.redirect_to; // Redirect based on the response
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-            });
-        });
 
     </script>
+
+
+    {{ if {form:success} }}
+    {{ redirect to="/thank-you" }}
+  {{ /if }}
 
 
 </form>
