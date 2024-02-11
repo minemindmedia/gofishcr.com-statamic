@@ -1,7 +1,6 @@
 <?php
 
-
-use App\Http\Controllers\FormSubmissionController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +17,4 @@ use App\Http\Controllers\FormSubmissionController;
 //    'title' => 'Example'
 // ]);
 
-Route::post('/!/forms/reservations', [FormSubmissionController::class, 'handle']);
+
