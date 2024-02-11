@@ -11,7 +11,8 @@
 
 
 
-    <form method="POST" action="/!/forms/reservations" id="reservationsForm">
+
+        <form method="POST" action="/!/forms/reservations" id="reservationsForm" handle="reservation">
         <input type="hidden" name="_token" value="{{ csrf_token }}" autocomplete="off">
 
 
@@ -231,10 +232,6 @@
 
     </script>
 
-
-    {{ if {form:success} }}
-    {{ redirect to="/thank-you" }}
-  {{ /if }}
 
 
 </form>
