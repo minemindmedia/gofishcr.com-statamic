@@ -10,8 +10,10 @@
 relative w-full
 {{ elseif collection == 'charters' && is_entry }}
 flex
-{{ else }}
+{{ elseif is_homepage }}
 absolute top-0 right-0 flex items-center w-full p-8 -mt-20
+{{ else }}
+hidden
 {{ /if }}">
     <div class="
     {{ if slug == "charters" }}
