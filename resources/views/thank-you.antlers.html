@@ -1,0 +1,10 @@
+<div class="p-32 text-white bg-black w-ful">
+    THANKS, see you soon.
+    <div x-html="destination"></div>
+</div>
+
+<script>
+    window.addEventListener('beforeunload', function() {
+        sessionStorage.clear();
+    });
+</script>
