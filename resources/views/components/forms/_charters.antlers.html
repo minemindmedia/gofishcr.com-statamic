@@ -13,6 +13,7 @@
 
 
         <form method="POST" action="/!/forms/reservations" id="reservationsForm" handle="reservation">
+
         <input type="hidden" name="_token" value="{{ csrf_token }}" autocomplete="off">
 
 
@@ -151,7 +152,8 @@
 
         </div>
         <div class="flex flex-col">
-            <button @click.prevent="validateForm()" class="px-4 py-2 font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700">
+
+                <button @click.prevent="validateForm()" class="px-4 py-2 font-bold text-white bg-blue-500 rounded cursor-pointer hover:bg-blue-700">
                 Submit
             </button>
         </div>
@@ -227,6 +229,8 @@
                 },
             }))
         });
+
+
 
 
 

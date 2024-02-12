@@ -8,6 +8,8 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use Statamic\Events\EntryDeleting;
+use Statamic\Events\FormSubmitted;
+use App\Listeners\RedirectAfterReservationSubmission;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         EntryDeleting::class => [
             PreventDeletingMounts::class,
+        ],
+        FormSubmitted::class => [
+            RedirectAfterReservationSubmission::class,
         ],
     ];
 

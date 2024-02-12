@@ -31,23 +31,7 @@
 <!-- End: /layout/_footer.antlers.html -->
 
 <script>
-    var save_button = document.getElementById('reservation')
-    save_button.onclick = saveBoat;
 
-    function saveBoat(){
-      var boat = document.getElementById("boat");
-      sessionStorage.setItem("_x_boat", boat.value);
-      var storedBoat = sessionStorage.getItem("_x_boat");
-
-      var boatImage = document.getElementById("boat_image");
-      sessionStorage.setItem("_x_boat_image", boatImage.value);
-      var storedBoatURL = sessionStorage.getItem("_x_boat_image");
-
-
-
-
-      window.location.href = "/reservation";
-    }
 
     function displayRange() {
         return new Date(this.dateRange[0]).toLocaleDateString('en-us',{day: 'numeric', month: 'short'}) +

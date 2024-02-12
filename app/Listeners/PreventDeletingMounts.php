@@ -2,18 +2,20 @@
 
 namespace App\Listeners;
 
-use Statamic\Facades\Collection;
-use Statamic\Events\EntryDeleting;
+use Statamic\Events\FormSubmitted;
 
-class PreventDeletingMounts
+class HandleFormSubmission
 {
-    /**
-     * Handle the event.
-     */
-    public function handle(EntryDeleting $event): void
+    public function handle(FormSubmitted $event)
     {
-        if (Collection::findByMount($event->entry)) {
-            throw new \Exception(trans('strings.collection_mounted', ['title' => $event->entry['title']]));
+        $form = $event->submission->form();
+
+        if ($form->handle() === 'reservations') {
+            // Assuming 'charters' is the handle of your form
+            session()->flash('success', 'Form submitted successfully.');
+
+            // Redirect to a specific route
+            return redirect()->route('submission.success');
         }
     }
 }
