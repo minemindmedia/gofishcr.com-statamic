@@ -17,7 +17,6 @@
             <i class="fa-solid fa-angle-down"></i>
         </button>
     </div>
-
     <!-- Dropdown Options -->
     <div x-show.transition.opacity="locationOpen" @click.away="locationOpen = false" class="absolute z-50 w-full mt-2 bg-white border border-gray-300 rounded-md shadow-lg">
         <ul class="py-1">
@@ -26,4 +25,10 @@
             {{ /collection:locations }}
         </ul>
     </div>
+    {{ if !is_homepage }}
+    <div x-show.transition.opacity="showPrompt && selectedLocation === 'Select Location' && sessionStorage.getItem('_gfcr_location_prompt') !== 'false'" @click="showPrompt = false; $nextTick(() => sessionStorage.setItem('_gfcr_location_prompt', 'false'))" class="absolute left-0 w-full px-2 py-1 mt-3 text-xs text-center text-green-900 bg-green-400 border border-gray-300 rounded-md shadow-lg cursor-pointer animate-bounce">
+        <div class="absolute top-[-5px] left-3 w-3 h-3 bg-green-400 transform rotate-45 border-t border-l border-gray-300"></div>
+        <div>Narrow your search</div>
+    </div>
+    {{ /if }}
 </div>
