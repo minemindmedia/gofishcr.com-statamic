@@ -11,7 +11,7 @@
     <button
     @click="isOpen = !isOpen"
     :class="{
-        'border-green-500 text-green-500': $store.charterPicker.selectedOption === 'Choose charter length',
+        'border-red-500 text-red-500': $store.charterPicker.selectedOption === 'Choose charter length',
         'border-gray-400': $store.charterPicker.selectedOption !== 'Choose charter length',
 
     }"
@@ -34,7 +34,7 @@
 
 
     <!-- Dropdown Options -->
-    <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-50 w-full mt-2 bg-white rounded-md shadow-lg" :class="{'border border-green-500': isOpen && $store.charterPicker.selectedOption === 'Choose charter length', 'border border-gray-400': !isOpen || $store.charterPicker.selectedOption !== 'Choose charter length'}">
+    <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-50 w-full mt-2 bg-white rounded-md shadow-lg" :class="{'border border-red-500': isOpen && $store.charterPicker.selectedOption === 'Choose charter length', 'border border-gray-400': !isOpen || $store.charterPicker.selectedOption !== 'Choose charter length'}">
         <ul>
             <!-- Options generated with Antlers templating -->
             {{ pricing }}
@@ -55,7 +55,7 @@
     </div>
 
  </div>
- <div x-show="$store.charterPicker.showMessage" class="text-xs text-green-500">Please choose a charter length</div>
+ <div x-show="$store.charterPicker.showMessage" class="text-xs text-red-500">Please choose a charter length</div>
 
 <script>
 document.addEventListener('alpine:init', () => {
