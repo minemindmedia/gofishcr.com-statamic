@@ -19,19 +19,27 @@
         {{ partial:statamic-peak-tools::snippets/live_preview }}
         {{ googlefonts:main }}
         {{ googlefonts:content }}
+
     </head>
     <body
     x-cloak
     x-data="{
         destination: sessionStorage.getItem('_gfcr_destination'),
         charter: sessionStorage.getItem('_gfcr_charterlength'),
-        dateRange: sessionStorage.getItem('_gfcr_range'),
+        boat: sessionStorage.getItem('_gfcr_boat'),
+        arrival: new Date(sessionStorage.getItem('_gfcr_arrival_date')).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        departure: new Date(sessionStorage.getItem('_gfcr_departure_date')).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
         adults: sessionStorage.getItem('_gfcr_adults'),
         children: sessionStorage.getItem('_gfcr_children'),
         guests: sessionStorage.getItem('_gfcr_guests'),
     }"
+
     class="flex flex-col min-h-screen selection:bg-primary selection:text-white bg-brown-50 "
     >
+
+
+
+
         {{ stack:seo_body }}
         {{ partial:statamic-peak-tools::snippets/noscript }}
         {{ partial:statamic-peak-tools::navigation/skip_to_content }}

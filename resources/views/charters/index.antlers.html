@@ -20,9 +20,18 @@
 
     </div>
 </template>
-<template x-if="!destination">
-    <div class="flex justify-center">All Locations</div>
-</template>
+
+
+    <div class="flex flex-col justify-center mb-8 space-y-4">
+        <template x-if="!destination">
+            <div class="flex justify-center">All Locations</div>
+        </template>
+        <div class="flex justify-center">
+
+
+
+        </div>
+    </div>
 
 
 
@@ -37,19 +46,26 @@
 {{ section:index_content }}
 
     {{ collection:charters sort="title" paginate="true" limit="10" as="items" }}
-    <div class="grid grid-cols-12 gap-4">
+    <div x-data="{ destination: sessionStorage.getItem('_gfcr_destination') }" class="grid grid-cols-12 gap-4">
 
         {{ items }}
 
-                {{ if {{ location:title }} == "{{ location:title }}" }}
-                <div x-show="destination === '{{ location:title }}'" class="col-span-4">
-                    {{ partial:partials/charters/reservations_details }}
-                </div>
-                {{ /if }}
 
-                <div x-show="destination === ''" class="col-span-4">
-                    {{ partial:partials/charters/reservations_details }}
-                </div>
+
+
+
+                    <!-- This will only show if _gfcr_destination is exactly 'desiredValue' -->
+                    <div x-show="destination === '{{ location:title }}'"  class="col-span-4">
+                        {{ partial:partials/charters/reservations_details }}
+                    </div>
+
+
+
+                    <!-- This will show if _gfcr_destination is null or an empty string -->
+                    <div x-show="!destination"  class="col-span-4">
+                        {{ partial:partials/charters/reservations_details }}
+                    </div>
+
 
 
         {{ /items }}

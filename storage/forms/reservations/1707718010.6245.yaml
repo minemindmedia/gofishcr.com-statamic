@@ -1,0 +1,14 @@
+destination: Tamarindo
+start_date: 'Mon Mar 11 2024 00:00:00 GMT-0600 (Mountain Daylight Time)'
+end_date: 'Thu Mar 14 2024 00:00:00 GMT-0600 (Mountain Daylight Time)'
+adults: '2'
+children: '2'
+charter_length: '3/4 day: 1250'
+first_name: Joshua
+last_name: Busnelli
+email: info@minemindmedia.com
+phone: '9998887777'
+other_activities:
+  - catamaran
+  - horseback
+  - Volcano

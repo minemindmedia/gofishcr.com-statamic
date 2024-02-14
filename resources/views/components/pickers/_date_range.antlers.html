@@ -33,6 +33,7 @@
             initFlatpickr() {
                 flatpickr(".date-range", {
                     mode: "range",
+                    minDate: new Date(), // Set minimum date to current date
                     showMonths: '2',
                     dateFormat: "M j",
                     defaultDate: [this.startDate, this.endDate], // Set default dates

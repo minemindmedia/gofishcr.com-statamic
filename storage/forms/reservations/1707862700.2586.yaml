@@ -1,0 +1,15 @@
+destination: Tamarindo
+start_date: 'Tue Feb 13 2024 00:00:00 GMT-0700 (Mountain Standard Time)'
+end_date: 'Tue Feb 20 2024 00:00:00 GMT-0700 (Mountain Standard Time)'
+adults: '2'
+children: '0'
+charter_length: '3/4 day: 850'
+first_name: Gerard
+last_name: Kimble
+email: gerard@kimble.com
+phone: '8978898876'
+other_activities:
+  - atv
+  - zipline
+  - Volcano
+  - spa

@@ -1,0 +1,88 @@
+<div :class="{'hidden': !sessionStorage.length, 'max-w-5xl mx-auto': true}" >
+<div class="grid grid-cols-12 gap-12">
+    <div class="col-span-6">
+        {{ partial:typography/h1 content="We're happy to have you on board!" class="mb-8" }}
+        {{ partial:typography/p content="We will personally get back to you and set up the final details." class="!mb-0" }}
+        {{ partial:typography/p content="We've emailed you a copy of your reservation details as well." class="" }}
+
+
+        <div class="flex flex-col w-full mb-32 space-y-2">
+            <div class="flex items-center">
+                <div class="w-12">
+                    <i class="text-xl fa-solid fa-earth-americas"></i>
+                </div>
+                <h3 x-text="'You\'re heading to ' + destination" class="text-xl font-bold leading-tight text-neutral"></h3>
+            </div>
+            <div class="flex items-center">
+                <div class="w-12">
+                    <i class="text-xl fa-solid fa-earth-americas"></i>
+                </div>
+                <h3 x-text="'From ' + arrival + ' to ' + departure" class="text-xl font-bold leading-tight text-neutral"></h3>
+            </div>
+            <div class="flex items-center">
+                <div class="w-12">
+                    <i class="text-xl fa-solid fa-earth-americas"></i>
+                </div>
+                <h3 x-text="'You\'ll be boarding our ' + boat" class="text-xl font-bold leading-tight text-neutral"></h3>
+            </div>
+
+            <div class="flex items-center">
+                <div class="w-12">
+                    <i class="text-xl fa-solid fa-earth-americas"></i>
+                </div>
+                <template x-if="adults == 1">
+                    <h3 x-text="'You\'ll be arriving all by yourself!'" class="text-xl font-bold leading-tight text-neutral"></h3>
+                </template>
+                <template x-if="adults == 2">
+                    <h3 x-text="'With yourself and 1 other adult'" class="text-xl font-bold leading-tight text-neutral"></h3>
+                </template>
+                <template x-if="adults >= 3">
+                    <h3 x-text="'With yourself and ' + (adults - 1) + ' adults'" class="text-xl font-bold leading-tight text-neutral"></h3>
+                </template>
+
+
+
+                <template x-if="children == 1">
+                    <h3 x-text="'- plus 1 child'" class="text-xl font-bold leading-tight text-neutral"></h3>
+                </template>
+                <template x-if="children >= 2">
+                    <h3 x-text="' - plus ' + children + ' children'" class="text-xl font-bold leading-tight text-neutral"></h3>
+                </template>
+            </div>
+            <div class="flex items-center">
+                <div class="w-12">
+                    <i class="text-xl fa-solid fa-earth-americas"></i>
+                </div>
+                <h3 x-text="'For a ' + sessionStorage.getItem('_gfcr_charter').split(':')[0].toLowerCase() + ' on the water'" class="text-xl font-bold leading-tight text-neutral"></h3>
+            </div>
+            <div class="flex">
+                {{ partial:typography/p content="When we get back to you, we can discuss the other activities you're interested in and how they may best fit into your vacation." class="mt-8" }}
+            </div>
+            <div class="flex">
+                {{ partial:typography/p content="We look forward to providing you with the best fishing vacation Costa Rica has to offer."  }}
+            </div>
+        </div>
+
+
+
+
+    </div>
+    <div class="col-span-6"><img :src="sessionStorage.getItem('_gfcr_boat_image_url')" alt="" class="relative w-full p-4 "></div>
+</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(event) {
+        if (!sessionStorage.getItem('_gfcr_destination')) {
+            // Use setTimeout to prevent potential loop of redirection
+            setTimeout(function() {
+                window.location.href = '/';
+            }, 100); // Redirect after a short delay
+        }
+    });
+
+    window.addEventListener('beforeunload', function(event) {
+        // Clear sessionStorage when the page is about to be closed or navigated away from
+        sessionStorage.clear();
+    });
+</script>
