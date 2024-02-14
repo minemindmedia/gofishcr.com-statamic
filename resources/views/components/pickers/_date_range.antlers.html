@@ -5,8 +5,8 @@
 
 <!-- /components/_charter_picker.antlers.html -->
 
-<div x-data="{ open: false }" class="w-full flex items-center h-full {{ if is_homepage }} h-16  {{ /if }}">
-    <div :class="{'text-red-500 ': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate && '{{ collection }}' == 'charters' && '{{ is_entry }}'}" class="{{ if is_homepage }} h-full  {{ /if }} relative flex items-center h-full text-gray-600 border-gray-400 rounded-md">
+<div x-data="{ open: false }" class="w-full flex items-center h-12 {{ if is_homepage }} h-16  {{ /if }}" >
+    <div :class="{'text-red-500': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate && '{{ collection }}' == 'charters' && '{{ is_entry }}'}" class="{{ if is_homepage }} h-full  {{ /if }} relative flex items-center h-full text-gray-600 border-gray-400 rounded-md w-full">
         <!-- FontAwesome Icon -->
         <i class="absolute ml-2 fa-solid fa-calendar" style="pointer-events: none;"></i>
         <!-- Input Field -->
@@ -17,7 +17,6 @@
         </div>
     </div>
     <!-- Inline error message display -->
-
 </div>
 <div x-text="Alpine.store('dateRangePicker').errorMessage" class="text-xs text-red-500" x-show="'{{ collection }}' == 'charters' && '{{ is_entry }}'"></div>
 <script>
