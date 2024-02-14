@@ -17,7 +17,7 @@ hidden
 {{ /if }}">
     <div class="
     {{ if slug == "charters" }}
-    p-0 flex space-x-0
+    p-0 flex space-x-0 h-[50px]
     {{ elseif collection == 'charters' && is_entry }}
     flex flex-col w-full space-y-3
     {{ else }}
@@ -28,7 +28,7 @@ hidden
                 {{ partial:components/pickers/_location }}
             </div>
         {{ /if }}
-        <div class="{{ if slug == "charters" }}  {{ else }}  col-span-3 {{ /if }}">
+        <div class="{{ if slug == "charters" }} w-48 {{ else }}  col-span-3 {{ /if }}">
             {{ partial:components/pickers/_date_range }}
         </div>
         <div class="{{ if slug == "charters" }} w-48 {{ else }}  col-span-3 {{ /if }}">
