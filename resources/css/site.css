@@ -15,10 +15,6 @@ html { overflow-y: scroll; }
     font-family: 'Robotic Mono';
 }
 
-.date-range {
-    @apply
-    !w-full
-}
 
 .flatpickr-calendar {
     @apply
