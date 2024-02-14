@@ -11,7 +11,7 @@
         <span class="flex-1" x-text="Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 0 ? 'Add Guests' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 1 ? '1 Guest' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children + ' Guests'"></span>
         <i class="fa-solid fa-angle-down"></i>
     </button>
-    <div x-show="open" @click.away="open = false" class="absolute z-50 w-full bg-white shadow-lg rounded-b-md" :class="{'border-t-0 rounded-t-none': open, 'border border-gray-400': !('{{ collection }}' == 'charters' && '{{ is_entry }}' && Alpine.store('guestPicker').adults == 0), 'border-red-500 border ': '{{ collection }}' == 'charters' && '{{ is_entry }}' && Alpine.store('guestPicker').adults == 0}">
+    <div x-show="open" @click.away="open = false" class="absolute z-50 w-full bg-white shadow-lg rounded-b-md" :class="{'border border-t-0 rounded-t-none': open, 'border border-gray-400': !('{{ collection }}' == 'charters' && '{{ is_entry }}' && Alpine.store('guestPicker').adults == 0), 'border-red-500 border ': '{{ collection }}' == 'charters' && '{{ is_entry }}' && Alpine.store('guestPicker').adults == 0}">
         <!-- Adults -->
         <div class="flex items-center px-2 py-2">
             <i class="mr-2 text-xl fa-solid fa-person"></i>
