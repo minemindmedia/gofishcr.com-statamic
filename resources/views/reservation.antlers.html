@@ -6,7 +6,7 @@ class="max-w-5xl mx-auto"
         <div class="col-span-7">
             <div class="flex flex-col space-y-4">
                 <div class="overflow-hidden bg-gray-100 border border-b border-gray-400 rounded-lg ">
-                <img src="http://gofishcr.com.test/images/21_custom_center_console.jpg" alt="" class="relative w-full p-4 ">
+                <img :src="sessionStorage.getItem('_gfcr_boat_image_url')" alt="" class="relative w-full p-4 ">
             </div>
 
                 <h1 class="mb-8 text-3xl font-bold">Things to know</h1>
@@ -141,7 +141,7 @@ class="max-w-5xl mx-auto"
 
 
     // If boat was not selected from *reservations* page, do not allow access to *reservation* page
-    if (sessionStorage.getItem("_gfcr_destination") !== null && sessionStorage.getItem("_gfcr_charter") !== null) {
+    if (sessionStorage.getItem("_gfcr_destination") !== null) {
 
     } else {
         window.location.replace("/charters");

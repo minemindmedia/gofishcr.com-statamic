@@ -11,11 +11,13 @@
   "dependencies": {
     "@alpinejs/collapse": "^3.13.0",
     "@alpinejs/focus": "^3.13.0",
+    "@alpinejs/mask": "^3.13.5",
     "@alpinejs/morph": "^3.13.0",
     "@alpinejs/persist": "^3.13.3",
     "alpinejs": "^3.13.0",
     "flatpickr": "^4.6.13",
     "flickity": "^3.0.0",
+    "libphonenumber-js": "^1.10.55",
     "puppeteer": "^21.5.2"
   },
   "devDependencies": {

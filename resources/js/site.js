@@ -3,6 +3,7 @@ import collapse from '@alpinejs/collapse'
 import morph from '@alpinejs/morph'
 import persist from '@alpinejs/persist'
 import focus from '@alpinejs/focus'
+import mask from '@alpinejs/mask'
 import Flickity from 'flickity'
 import flatpickr from "flatpickr"
 
@@ -20,12 +21,8 @@ window.getToken = async () => {
 
 // Call Alpine.
 window.Alpine = Alpine
-Alpine.plugin([collapse, focus, morph, persist])
+Alpine.plugin([collapse, focus, morph, persist, mask])
 Alpine.start()
-
-
-
-// Flatpickr
 
 
 
