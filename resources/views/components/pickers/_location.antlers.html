@@ -25,8 +25,10 @@
             {{ /collection:locations }}
         </ul>
     </div>
-    <!-- Bouncing Notification -->
-    <div x-show.transition.opacity="showPrompt && selectedLocation === 'Select Location'" class="absolute left-0 w-full px-2 py-1 mt-3 text-xs text-center text-white bg-blue-500 border border-gray-300 rounded-md shadow-lg cursor-pointer animate-bounce">
-        <div>Narrow your search</div>
+    <div x-show="selectedLocation === 'Select Location' && !locationOpen && showPrompt && sessionStorage.getItem('_gfcr_location_prompt') !== 'false'" @click="showPrompt = false; sessionStorage.setItem('_gfcr_location_prompt', 'false')" class="relative mt-4 text-center cursor-pointer">
+        <div class="inline-block px-4 py-2 text-sm text-white bg-red-500 rounded-md">
+            Narrow your search
+        </div>
+        <div class="absolute top-[-5px] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-red-500 rotate-45"></div>
     </div>
 </div>
