@@ -17,11 +17,167 @@ tabs:
               display: Title
               validate:
                 - required
+          -
+            handle: includes
+            field:
+              type: list
+              display: Includes
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
       -
-        display: 'Page builder'
+        display: 'Tours & Upgrades'
         fields:
           -
-            import: page_builder
+            handle: included_tours_tab
+            field:
+              tab_icon: list-ul
+              type: tab
+              display: 'Included Tours'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: included_tours
+            field:
+              mode: default
+              create: false
+              collections:
+                - adventures
+              type: entries
+              display: 'Included Tours'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: upgradable_tours_tab
+            field:
+              tab_icon: list-ul
+              type: tab
+              display: 'Upgradable Tours'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: tours_rates
+            field:
+              fields:
+                -
+                  handle: tour
+                  field:
+                    max_items: 1
+                    mode: default
+                    create: false
+                    collections:
+                      - adventures
+                    type: entries
+                    display: Tour
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    width: 25
+                -
+                  handle: toggle_field
+                  field:
+                    default: false
+                    type: toggle
+                    display: 'Inquire?'
+                    width: 25
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: rate
+                  field:
+                    input_type: text
+                    prepend: $
+                    append: '.00'
+                    antlers: false
+                    type: text
+                    display: Rate
+                    width: 25
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: per_pers
+                  field:
+                    default: false
+                    type: toggle
+                    display: 'Per Person?'
+                    width: 25
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              mode: stacked
+              add_row: 'Add Tour'
+              reorderable: true
+              fullscreen: true
+              type: grid
+              display: 'Tours & Rates'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: boat_upgrades_tab
+            field:
+              tab_icon: list-ul
+              type: tab
+              display: 'Boat Upgrades'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: boat_upgrades
+            field:
+              mode: default
+              create: false
+              collections:
+                - charters
+              type: entries
+              display: 'Boat Upgrades'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+      -
+        display: Accommodations
+        fields:
+          -
+            handle: accommodations
+            field:
+              mode: default
+              create: false
+              collections:
+                - accommodations
+              type: entries
+              display: Accommodations
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
   seo:
     display: SEO
     sections:
@@ -66,8 +222,25 @@ tabs:
             field:
               type: slug
               localizable: true
+              validate:
+                - required
               generate: true
               listable: hidden
               display: Slug
-              validate:
-                - required
+          -
+            handle: featured_image
+            field:
+              min_files: 1
+              mode: list
+              container: images
+              restrict: false
+              allow_uploads: true
+              show_filename: true
+              show_set_alt: true
+              type: assets
+              display: 'Featured Image'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false

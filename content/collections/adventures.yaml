@@ -1,11 +1,11 @@
-title: Go Fish Packages
+title: Adventures
 route: '/{mount}/{slug}'
 layout: layout
-template: go_fish_packages/show
+template: adventures/show
 revisions: false
 date: false
 sort_dir: asc
 date_behavior:
   past: public
   future: private
-mount: 65426c4d-a6ba-4812-8e21-bd81b66e4890
+mount: 1c3be577-3053-48ac-b43a-7b2a79c79aae

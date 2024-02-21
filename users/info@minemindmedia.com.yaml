@@ -10,6 +10,20 @@ preferences:
         - location
         - og_image
         - status
+    packages:
+      columns:
+        - title
+        - og_image
+        - status
+        - slug
+    adventures:
+      after_save: create_another
+    pages:
+      columns:
+        - title
+        - og_image
+        - status
+        - slug
   forms:
     reservations:
       columns:

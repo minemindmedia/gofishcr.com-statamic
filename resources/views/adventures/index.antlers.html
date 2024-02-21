@@ -1,20 +1,20 @@
 {{#
-    @name Go Fish Packages index
-    @desc The Go Fish Packages index template.
+    @name Adventures index
+    @desc The Adventures index template.
 #}}
 
-<!-- /go_fish_packages/index.antlers.html -->
+<!-- /adventures/index.antlers.html -->
 <main class="outer-grid" id="content">
     {{ page_builder scope="block" }}
         {{ partial src="page_builder/{type}" }}
     {{ /page_builder }}
 </main>
-<!-- End: /go_fish_packages/index.antlers.html -->
+<!-- End: /adventures/index.antlers.html -->
 
 {{ section:index_content }}
-    <!-- /go_fish_packages/index.antlers.html -->
+    <!-- /adventures/index.antlers.html -->
     <div class="fluid-container grid md:grid-cols-12 gap-12">
-        {{ collection:go_fish_packages sort="title" paginate="true" limit="10" as="items" }}
+        {{ collection:adventures sort="title" paginate="true" limit="10" as="items" }}
             {{ unless no_results }}
                 {{ items }}
                     <div class="md:col-span-6">
@@ -27,7 +27,7 @@
                 </div>
             {{ /unless }}
             {{ partial:statamic-peak-tools::components/pagination class="md:col-span-12" }}
-        {{ /collection:go_fish_packages }}
+        {{ /collection:adventures }}
     </div>
-    <!-- End: /go_fish_packages/index.antlers.html -->
+    <!-- End: /adventures/index.antlers.html -->
 {{ /section:index_content }}

@@ -4,6 +4,10 @@ tree:
     title: Charters
     url: /charters
   -
+    id: 00412273-52a8-4063-97ea-f2f5bdf1e141
+    title: Packages
+    url: /packages
+  -
     id: 9e03528c-3ed6-4d9b-9c6c-010a25079db7
     title: Adventures
     url: /adventures

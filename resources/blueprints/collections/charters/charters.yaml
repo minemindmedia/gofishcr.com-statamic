@@ -29,7 +29,7 @@ tabs:
               cast_booleans: false
               type: radio
               display: 'Inshore or Offshore'
-              width: 50
+              width: 33
               listable: hidden
               instructions_position: above
               visibility: visible
@@ -43,7 +43,22 @@ tabs:
               default: false
               type: toggle
               display: 'Popular?'
-              width: 50
+              width: 33
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: upgrade_price
+            field:
+              input_type: text
+              prepend: $
+              append: '.00'
+              antlers: false
+              type: text
+              display: 'Upgrade Price'
+              width: 33
               listable: hidden
               instructions_position: above
               visibility: visible

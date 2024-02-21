@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f740ae47d3ba4221055d9b8eeb6ed2d2",
+    "content-hash": "fec836000002cbb48929a0d21ea0caa7",
     "packages": [
         {
             "name": "aerni/livewire-forms",
@@ -1490,6 +1490,56 @@
             "time": "2023-10-06T06:47:41+00:00"
         },
         {
+            "name": "eminos/statamic-tabs",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/eminos/statamic-tabs.git",
+                "reference": "a7068a0c1f4942b5d63d7f19b5ae857d93873acc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eminos/statamic-tabs/zipball/a7068a0c1f4942b5d63d7f19b5ae857d93873acc",
+                "reference": "a7068a0c1f4942b5d63d7f19b5ae857d93873acc",
+                "shasum": ""
+            },
+            "require": {
+                "statamic/cms": "^3.0||^4.0"
+            },
+            "require-dev": {
+                "laravel/framework": "^10.8",
+                "php": "^8.1",
+                "statamic/cms": "^4.0"
+            },
+            "type": "statamic-addon",
+            "extra": {
+                "statamic": {
+                    "name": "Statamic Tabs",
+                    "description": "A Statamic addon to be able to group fields into tabs."
+                },
+                "laravel": {
+                    "providers": [
+                        "Eminos\\StatamicTabs\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Eminos\\StatamicTabs\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Statamic addon to be able to group fields into tabs.",
+            "support": {
+                "issues": "https://github.com/eminos/statamic-tabs/issues",
+                "source": "https://github.com/eminos/statamic-tabs/tree/v1.1.0"
+            },
+            "time": "2023-12-19T14:45:23+00:00"
+        },
+        {
             "name": "facade/ignition-contracts",
             "version": "1.0.2",
             "source": {
@@ -1612,6 +1662,58 @@
                 }
             ],
             "time": "2023-10-12T05:21:21+00:00"
+        },
+        {
+            "name": "goldnead/statamic-collapse-fieldtype",
+            "version": "v1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/goldnead/statamic-collapse-fieldtype.git",
+                "reference": "77bcc0503b5e0196a9c53d60699d74f9380f941c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/goldnead/statamic-collapse-fieldtype/zipball/77bcc0503b5e0196a9c53d60699d74f9380f941c",
+                "reference": "77bcc0503b5e0196a9c53d60699d74f9380f941c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^8.0|^8.1|^8.2",
+                "statamic/cms": "3.* | 4.*"
+            },
+            "type": "statamic-addon",
+            "extra": {
+                "statamic": {
+                    "name": "Statamic Collapse-Fieldtype",
+                    "description": "A Collapse-Fieldtype for Statamic to beautifully hide and show your fields."
+                },
+                "laravel": {
+                    "providers": [
+                        "Goldnead\\CollapseFieldtype\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Goldnead\\CollapseFieldtype\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "goldnead",
+                    "email": "info@adriangoldner.com"
+                }
+            ],
+            "description": "A Collapse-Fieldtype for Statamic to beautifully hide and show your fields.",
+            "support": {
+                "issues": "https://github.com/goldnead/statamic-collapse-fieldtype/issues",
+                "source": "https://github.com/goldnead/statamic-collapse-fieldtype/tree/v1.0.5"
+            },
+            "time": "2023-05-15T16:51:48+00:00"
         },
         {
             "name": "graham-campbell/result-type",

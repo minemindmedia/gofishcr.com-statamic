@@ -1,4 +1,4 @@
-title: 'Go Fish Packages'
+title: Accommodations
 tabs:
   main:
     display: Main
@@ -6,8 +6,6 @@ tabs:
       -
         display: General
         fields:
-          -
-            import: location
           -
             handle: title
             field:
@@ -19,16 +17,11 @@ tabs:
               display: Title
               validate:
                 - required
+      -
+        display: 'Page builder'
+        fields:
           -
-            handle: what
-            field:
-              type: list
-              display: "What's included?"
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
+            import: page_builder
   seo:
     display: SEO
     sections:
@@ -73,8 +66,8 @@ tabs:
             field:
               type: slug
               localizable: true
-              validate:
-                - required
               generate: true
               listable: hidden
               display: Slug
+              validate:
+                - required

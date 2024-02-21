@@ -1,8 +1,8 @@
 ---
-id: 65426c4d-a6ba-4812-8e21-bd81b66e4890
+id: a7ec6afe-be56-4913-90e0-a59b26271a84
 blueprint: page
 title: Packages
-template: go_fish_packages/index
+template: packages/index
 page_builder:
   -
     type: index_content
