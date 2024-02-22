@@ -5,33 +5,16 @@
 
 <!-- /packages/index.antlers.html -->
 
-
-<!-- Location -->
-<template x-if="destination">
-    <div class="flex justify-center mb-8">
-        <div class="flex items-center justify-center px-4 py-4 space-x-2 text-2xl bg-orange-100 border-t border-orange-500 rounded-t-2xl border-x">
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 16 16">
-                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
-                  </svg>
-            </div>
-            <div x-html="destination" class="flex justify-center"></div>
-        </div>
-
-    </div>
-</template>
-
-
-    <div class="flex flex-col justify-center mb-8 space-y-4">
-        <template x-if="!destination">
-            <div class="flex justify-center">All Locations</div>
-        </template>
-        <div class="flex justify-center">
-
-
-
-        </div>
-    </div>
+<div class="flex flex-col w-full mb-16 space-y-4">
+    <template x-if="destination" >
+        {{ partial:/typography/h1 class="flex justify-center" content="<span x-text='destination' class='flex'></span>&nbsp;Sport Fishing Packages" }}
+    </template>
+    <template x-if="!destination" >
+        {{ partial:/typography/h1 class="flex justify-center" content="<span x-text='destination' class='flex'></span>&nbsp;Sport Fishing Packages" }}
+    </template>
+    {{ partial:/typography/p class="flex justify-center text-lg" content='Planning your own trip and just wanna fish?&nbsp;<a href="/charters" class="underline hover:font-[500]">Click here</a>' }}
+    {{ partial:/dividers/_divider_icon }}
+</div>
 
 
 
@@ -46,14 +29,24 @@
 {{ section:index_content }}
 
     {{ collection:packages sort="title" paginate="true" limit="10" as="items" }}
-    <div x-data="{ destination: sessionStorage.getItem('_gfcr_destination') }" class="grid grid-cols-12 gap-12">
+    <div x-data="{ destination: sessionStorage.getItem('_gfcr_destination') }" class="space-y-16" >
 
         {{ items }}
 
 
 
 
-        {{ partial:partials/packages/reservations_details }}
+            <!-- This will only show if _gfcr_destination is exactly 'desiredValue' -->
+
+            <div x-show="destination === '{{ location:title }}'" class="grid grid-cols-12 p-8 space-x-16 border border-gray-300 rounded-2xl bg-gradient-to-br from-brown-100 to-brown-200">
+                {{ partial:partials/packages/reservations_details }}
+            </div>
+
+            <!-- This will show if _gfcr_destination is null or an empty string -->
+            <div x-show="!destination"  class="grid grid-cols-12 p-8 space-x-16 border border-gray-300 rounded-2xl">
+                {{ partial:partials/packages/reservations_details }}
+            </div>
+
 
 
 

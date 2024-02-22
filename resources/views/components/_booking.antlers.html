@@ -6,7 +6,7 @@
 <!-- /components/_home_booking.antlers.html -->
 
 <div class="
-{{ if slug == "charters" }}
+{{ if slug == "charters" || slug == "packages" }}
 relative w-full
 {{ elseif collection == 'charters' && is_entry }}
 flex
@@ -46,4 +46,5 @@ hidden
 </div>
 
 <!-- End: /components/_home_booking.antlers.html -->
+
 

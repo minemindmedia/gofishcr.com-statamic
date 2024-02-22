@@ -8,7 +8,8 @@ seo_canonical_type: entry
 sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1708554829
+updated_at: 1708632863
 featured_image:
   - hotel-pasatiempo.jpg
+location: a654855b-2bac-4e11-bd80-05cdc6a79ea8
 ---

@@ -1,62 +1,63 @@
 <div class="col-span-5">
+    <a href="{{ url }}">
     {{ featured_image }}
-        <img src="{{ url }}" alt="{{ alt }}" class="w-full">
+        <img src="{{ url }}" alt="{{ alt }}" class="w-full rounded-2xl">
     {{ /featured_image }}
+</a>
 </div>
-<div class="flex flex-col justify-between col-span-7">
-    <div>
-        {{ partial:/typography/h1 content="{{ title }}" class="mb-12" }}
-
-
-        <div class="grid grid-cols-12 gap-8">
-            <div class="col-span-6">
-                {{ partial:/typography/h6 content="What You Receive" }}
-                {{ includes }}
-                <div class="my-4">
-                    <div class="flex space-x-4">
-                        <div>
-                            <i class="fa-solid fa-right-long"></i>
-                        </div>
-                        <div>
-                            {{ value }}
-                        </div>
+<div class="col-span-7">
+    <div class="flex items-center justify-center pb-4 mb-12 border-b border-b-gray-400 ">
+        <div class="flex-1">{{ partial:/typography/h4 class="mb-12" content="{{ title }}" }}</div>
+        <div>
+            {{ partial:/buttons/button class="mb-8" content="More Info" }}
+        </div>
+    </div>
+    <div class="grid grid-cols-12 gap-8">
+        <div class="col-span-6">
+            {{ partial:/typography/h6 content="What You Receive" }}
+            {{ includes }}
+            <div class="my-4">
+                <div class="flex space-x-4">
+                    <div>
+                        <i class="fa-solid fa-right-long"></i>
+                    </div>
+                    <div>
+                        {{ value }}
                     </div>
                 </div>
-                {{ /includes }}
             </div>
-            <div class="col-span-6">
-                <div class="px-12">
-                    {{ partial:/typography/h6 content="Available Tours" }}
-                    {{ if included_tours }}
-                        {{ included_tours }}
-                            <div class="my-2">
-                                <div class="flex space-x-4">
-                                    <div>
-                                        <i class="fa-solid fa-check"></i>
-                                    </div>
-                                    <div>
-                                        {{ title }}
-                                    </div>
-                                </div>
-                            </div>
-                        {{ /included_tours }}
-                    {{ else }}
+            {{ /includes }}
+        </div>
+        <div class="col-span-6">
+            <div >
+                {{ partial:/typography/h6 content="Available Tours" }}
+                {{ if included_tours }}
+                    {{ included_tours }}
                         <div class="my-2">
                             <div class="flex space-x-4">
                                 <div>
-                                    <i class="fa-solid fa-circle-info"></i>
+                                    <i class="fa-solid fa-check"></i>
                                 </div>
                                 <div>
-                                    No tours are included
+                                    {{ title }}
                                 </div>
                             </div>
                         </div>
-                    {{ /if }}
-                </div>
+                    {{ /included_tours }}
+                {{ else }}
+                    <div class="my-2">
+                        <div class="flex space-x-4">
+                            <div>
+                                <i class="fa-solid fa-circle-info"></i>
+                            </div>
+                            <div>
+                                No tours are included
+                            </div>
+                        </div>
+                    </div>
+                {{ /if }}
             </div>
         </div>
-    </div>
-    <div>
-        {{ partial:/buttons/button content="Learn More" }}
+
     </div>
 </div>

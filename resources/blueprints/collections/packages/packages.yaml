@@ -7,6 +7,12 @@ tabs:
         display: General
         fields:
           -
+            handle: location
+            field: location.location
+            config:
+              validate:
+                - required
+          -
             handle: title
             field:
               type: text

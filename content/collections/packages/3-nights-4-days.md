@@ -8,17 +8,11 @@ seo_canonical_type: entry
 sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1708557029
+updated_at: 1708645238
 includes:
   - 'Round trip transportation'
   - '2 full days of fishing'
   - '3 nights / 4 days accomodations'
-included_tours:
-  - 956cddc6-d710-4410-aa3c-c38277932972
-  - b0c256ba-d309-4b09-a963-0f434753ae6c
-  - 3e9165bf-e029-4cea-94f8-14cd67fc8ff4
-  - 0ad39b53-dca3-4a1c-8742-3c3d02b57658
-  - 571b79d9-5081-4e2f-b334-def462ea2500
 upgradable_tours:
   - dbe0575f-0524-4fc4-8d2e-f84178854d4b
   - f7555059-185a-425f-901a-d86cdcb7be80
@@ -63,7 +57,7 @@ tours_rates:
     id: lsph9yh8
     tour: 48f83735-3363-490f-8f9c-80d510183f43
     toggle_field: false
-    rate: '280+ tax'
+    rate: '280'
     per_pers: true
   -
     id: lsphabei
@@ -102,4 +96,5 @@ package_image:
   - condo-naxos.jpg
 featured_image:
   - condo-naxos.jpg
+location: 18450c67-a47c-4e60-8e93-13622f6664a3
 ---
