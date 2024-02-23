@@ -13,11 +13,14 @@
 
 {{ section:index_content }}
     <!-- /adventures/index.antlers.html -->
-    <div class="fluid-container grid md:grid-cols-12 gap-12">
+    <div class="grid gap-12 fluid-container md:grid-cols-12">
         {{ collection:adventures sort="title" paginate="true" limit="10" as="items" }}
             {{ unless no_results }}
                 {{ items }}
                     <div class="md:col-span-6">
+                        {{ if featured_image }}
+                            <img src="{{ glide:featured_image width="800" height="600" }}" alt="{{ title }}">
+                        {{ /if }}
                         <a class="underline" href="{{ url }}">{{ title }}</a>
                     </div>
                 {{ /items }}

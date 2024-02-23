@@ -24,16 +24,6 @@ tabs:
               validate:
                 - required
           -
-            handle: includes
-            field:
-              type: list
-              display: Includes
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
-          -
             handle: what_you_receive
             field:
               fields:
@@ -111,70 +101,15 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: tours_rates
+            handle: upgradable_tours
             field:
-              fields:
-                -
-                  handle: tour
-                  field:
-                    max_items: 1
-                    mode: default
-                    create: false
-                    collections:
-                      - adventures
-                    type: entries
-                    display: Tour
-                    listable: hidden
-                    instructions_position: above
-                    visibility: visible
-                    replicator_preview: true
-                    hide_display: false
-                    width: 25
-                -
-                  handle: toggle_field
-                  field:
-                    default: false
-                    type: toggle
-                    display: 'Inquire?'
-                    width: 25
-                    listable: hidden
-                    instructions_position: above
-                    visibility: visible
-                    replicator_preview: true
-                    hide_display: false
-                -
-                  handle: rate
-                  field:
-                    input_type: text
-                    prepend: $
-                    append: '.00'
-                    antlers: false
-                    type: text
-                    display: Rate
-                    width: 25
-                    listable: hidden
-                    instructions_position: above
-                    visibility: visible
-                    replicator_preview: true
-                    hide_display: false
-                -
-                  handle: per_pers
-                  field:
-                    default: false
-                    type: toggle
-                    display: 'Per Person?'
-                    width: 25
-                    listable: hidden
-                    instructions_position: above
-                    visibility: visible
-                    replicator_preview: true
-                    hide_display: false
-              mode: stacked
-              add_row: 'Add Tour'
-              reorderable: true
-              fullscreen: true
-              type: grid
-              display: 'Tours & Rates'
+              mode: default
+              create: false
+              collections:
+                - adventures
+              type: entries
+              display: 'Upgradable Tours'
+              icon: entries
               listable: hidden
               instructions_position: above
               visibility: visible

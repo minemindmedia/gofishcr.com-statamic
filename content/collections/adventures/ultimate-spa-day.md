@@ -8,5 +8,15 @@ seo_canonical_type: entry
 sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1708126060
+updated_at: 1708728434
+upgrade_details:
+  -
+    id: lB6WVGtP
+    inquire: false
+    rate: '280'
+    per_person: true
+    tax: true
+    minimum_persons: false
+    maximum_persons: false
+featured_image: spa-day.jpg
 ---

@@ -26,13 +26,15 @@ tabs:
                   field:
                     default: false
                     type: toggle
-                    display: 'Inquire?'
+                    display: Inquire
                     width: 25
                     listable: hidden
                     instructions_position: above
                     visibility: visible
                     replicator_preview: true
                     hide_display: false
+                    inline_label: 'No'
+                    inline_label_when_true: 'Yes'
                 -
                   handle: rate
                   field:
@@ -48,6 +50,8 @@ tabs:
                     visibility: visible
                     replicator_preview: true
                     hide_display: false
+                    unless_any:
+                      inquire: '=== true'
                 -
                   handle: per_person
                   field:
@@ -60,6 +64,8 @@ tabs:
                     visibility: visible
                     replicator_preview: true
                     hide_display: false
+                    unless:
+                      inquire: '=== true'
                 -
                   handle: tax
                   field:
@@ -72,6 +78,8 @@ tabs:
                     visibility: visible
                     replicator_preview: true
                     hide_display: false
+                    unless:
+                      inquire: '=== true'
                 -
                   handle: minimum_persons
                   field:
@@ -84,6 +92,10 @@ tabs:
                     visibility: visible
                     replicator_preview: true
                     hide_display: false
+                    unless:
+                      inquire: '=== true'
+                    inline_label: 'No'
+                    inline_label_when_true: 'Yes'
                 -
                   handle: maximum_persons
                   field:
@@ -96,6 +108,25 @@ tabs:
                     visibility: visible
                     replicator_preview: true
                     hide_display: false
+                    unless:
+                      inquire: '=== true'
+                    inline_label: 'No'
+                    inline_label_when_true: 'Yes'
+                -
+                  handle: spacer_field
+                  field:
+                    type: spacer
+                    display: 'Spacer Field'
+                    icon: width
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                    if:
+                      maximum_persons: 'equals true'
+                      minimum_persons: 'equals false'
                 -
                   handle: minimum_person_amount
                   field:
@@ -109,6 +140,9 @@ tabs:
                     visibility: visible
                     replicator_preview: true
                     hide_display: false
+                    unless_any:
+                      inquire: 'equals true'
+                      minimum_persons: 'equals false'
                 -
                   handle: maximum_persons_amount
                   field:
@@ -122,6 +156,9 @@ tabs:
                     visibility: visible
                     replicator_preview: true
                     hide_display: false
+                    unless_any:
+                      inquire: 'equals true'
+                      maximum_persons: 'equals false'
               mode: stacked
               max_rows: 1
               min_rows: 1

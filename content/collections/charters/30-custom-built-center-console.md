@@ -23,11 +23,12 @@ seo_canonical_type: entry
 sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1707253261
+updated_at: 1708730204
 boat: 30_custom_built.jpg
 inshore_or_offshore: inshore
 popular: false
 locations: 7625cffe-90d7-4cde-85dd-cc8352ddf0bb
 additional_photos:
   - 30_custom_built.jpg
+upgrade_price: '350'
 ---

@@ -21,11 +21,11 @@ sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 boat: 31_chris_craft.jpg
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1708204179
+updated_at: 1708730158
 inshore_or_offshore: offshore
 popular: false
 locations: 7625cffe-90d7-4cde-85dd-cc8352ddf0bb
 additional_photos:
   - 31_chris_craft.jpg
-upgrade_price: '400'
+upgrade_price: '250'
 ---

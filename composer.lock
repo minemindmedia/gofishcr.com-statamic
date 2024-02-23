@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fec836000002cbb48929a0d21ea0caa7",
+    "content-hash": "dc6e0e70b4bc2aeff83d44f5ba254bfc",
     "packages": [
         {
             "name": "aerni/livewire-forms",
@@ -6301,16 +6301,16 @@
         },
         {
             "name": "statamic/cms",
-            "version": "v4.49.0",
+            "version": "v4.32.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/statamic/cms.git",
-                "reference": "1d6b9b9f9ee1cac3a20618fbf66b3ee534f8b84b"
+                "reference": "2c46242758d911ae9b10ab8aa8ec9234841a7495"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/statamic/cms/zipball/1d6b9b9f9ee1cac3a20618fbf66b3ee534f8b84b",
-                "reference": "1d6b9b9f9ee1cac3a20618fbf66b3ee534f8b84b",
+                "url": "https://api.github.com/repos/statamic/cms/zipball/2c46242758d911ae9b10ab8aa8ec9234841a7495",
+                "reference": "2c46242758d911ae9b10ab8aa8ec9234841a7495",
                 "shasum": ""
             },
             "require": {
@@ -6342,13 +6342,11 @@
                 "wilderborn/partyline": "^1.0"
             },
             "require-dev": {
-                "doctrine/dbal": "^3.6",
                 "fakerphp/faker": "~1.10",
                 "google/cloud-translate": "^1.6",
-                "laravel/pint": "^1.0",
                 "mockery/mockery": "^1.3.3",
                 "orchestra/testbench": "^7.0 || ^8.0",
-                "phpunit/phpunit": "^9.0 || ^10.0"
+                "phpunit/phpunit": "^9.0"
             },
             "type": "library",
             "extra": {
@@ -6393,7 +6391,7 @@
             ],
             "support": {
                 "issues": "https://github.com/statamic/cms/issues",
-                "source": "https://github.com/statamic/cms/tree/v4.49.0"
+                "source": "https://github.com/statamic/cms/tree/v4.32.0"
             },
             "funding": [
                 {
@@ -6401,7 +6399,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-16T20:44:23+00:00"
+            "time": "2023-11-03T18:08:24+00:00"
         },
         {
             "name": "statamic/stringy",

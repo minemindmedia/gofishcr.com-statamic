@@ -24,7 +24,7 @@
         "owenvoke/blade-fontawesome": "^2.4",
         "spatie/browsershot": "^3.59",
         "spatie/laravel-google-fonts": "^1.2",
-        "statamic/cms": "^4.0",
+        "statamic/cms": "4.32",
         "studio1902/statamic-peak-browser-appearance": "^3.0",
         "studio1902/statamic-peak-commands": "^3.2.0",
         "studio1902/statamic-peak-seo": "^7.0",
