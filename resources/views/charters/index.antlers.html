@@ -7,40 +7,31 @@
 
 
 <!-- Location -->
-<template x-if="destination">
-    <div class="flex justify-center mb-8">
-        <div class="flex items-center justify-center px-4 py-4 space-x-2 text-2xl bg-orange-100 border-t border-orange-500 rounded-t-2xl border-x">
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 16 16">
-                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
-                  </svg>
-            </div>
-            <div x-html="destination" class="flex justify-center"></div>
-        </div>
 
-    </div>
-</template>
+<div class="flex flex-col w-full mb-16 space-y-4">
+    <template x-if="destination" >
+        {{ partial:/typography/h1 class="flex justify-center" content="<span x-text='destination' class='flex'></span>&nbsp;Sport Fishing Charters" }}
+    </template>
+    <template x-if="!destination" >
+        {{ partial:/typography/h1 class="flex justify-center" content="<span x-text='destination' class='flex'></span>&nbsp;Sport Fishing Charters" }}
+    </template>
+    {{ partial:/typography/p class="flex justify-center text-lg" content='Wanna book a complete package?&nbsp;<a href="/packages" class="underline hover:font-[500]">Click here</a>' }}
+    {{ partial:/dividers/_divider_icon }}
+</div>
 
+<!-- END: location -->
 
-    <div class="flex flex-col justify-center mb-8 space-y-4">
-        <template x-if="!destination">
-            <div class="flex justify-center">All Locations</div>
-        </template>
-        <div class="flex justify-center">
-
-
-
-        </div>
-    </div>
 
 
 
 <!-- /charters/index.antlers.html -->
+
 <main class="" id="content">
     {{ page_builder scope="block" }}
         {{ partial src="page_builder/{type}" }}
     {{ /page_builder }}
 </main>
+
 <!-- End: /charters/index.antlers.html -->
 
 {{ section:index_content }}

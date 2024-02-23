@@ -5,7 +5,9 @@
 
 <!-- /components/_location_picker.antlers.html -->
 
-<div x-data="{ locationOpen: false, selectedLocation: sessionStorage.getItem('_gfcr_destination') || 'Select Location', showPrompt: true }"  class="relative">
+
+
+<div x-data="{ locationOpen: false, selectedLocation: sessionStorage.getItem('_gfcr_destination') || 'Select Location', showPrompt: true }"  class="relative ">
     <!-- Display Selected Location / Toggle Dropdown -->
     <div class="
     {{ if is_homepage }} h-16 {{ /if }}
@@ -28,3 +30,5 @@
         </ul>
     </div>
 </div>
+
+

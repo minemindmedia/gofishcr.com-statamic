@@ -1,0 +1,36 @@
+{{#
+    @name Adventures index
+    @desc The Adventures index template.
+#}}
+
+<!-- /adventures/index.antlers.html -->
+<main class="outer-grid" id="content">
+    {{ page_builder scope="block" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+</main>
+<!-- End: /adventures/index.antlers.html -->
+
+{{ section:index_content }}
+    <!-- /adventures/index.antlers.html -->
+    <div class="grid gap-12 fluid-container md:grid-cols-12">
+        {{ collection:adventures sort="title" paginate="true" limit="10" as="items" }}
+            {{ unless no_results }}
+                {{ items }}
+                    <div class="md:col-span-6">
+                        {{ if featured_image }}
+                            <img src="{{ glide:featured_image width="800" height="600" }}" alt="{{ title }}">
+                        {{ /if }}
+                        <a class="underline" href="{{ url }}">{{ title }}</a>
+                    </div>
+                {{ /items }}
+            {{ else }}
+                <div class="md:col-span-6">
+                    {{ trans:strings.no_results }}
+                </div>
+            {{ /unless }}
+            {{ partial:statamic-peak-tools::components/pagination class="md:col-span-12" }}
+        {{ /collection:adventures }}
+    </div>
+    <!-- End: /adventures/index.antlers.html -->
+{{ /section:index_content }}

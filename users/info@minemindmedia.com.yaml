@@ -10,6 +10,24 @@ preferences:
         - location
         - og_image
         - status
+    packages:
+      columns:
+        - title
+        - og_image
+        - status
+        - slug
+    pages:
+      columns:
+        - title
+        - og_image
+        - status
+        - slug
+    adventures:
+      columns:
+        - title
+        - status
+        - upgrade_details
+        - featured_image
   forms:
     reservations:
       columns:

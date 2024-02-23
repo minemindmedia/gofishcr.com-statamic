@@ -1,0 +1,16 @@
+{{#
+    @name Adventures show
+    @desc The Adventures show template.
+#}}
+
+<!-- /adventures/show.antlers.html -->
+<main class="outer-grid" id="content">
+    <div class="fluid-container">
+        {{ partial:typography/h1 :content="title" }}
+    </div>
+
+    {{ page_builder scope="block" }}
+        {{ partial src="page_builder/{type}" }}
+    {{ /page_builder }}
+</main>
+<!-- /adventures/show.antlers.html -->

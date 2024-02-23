@@ -7,6 +7,12 @@ tabs:
         display: General
         fields:
           -
+            handle: location
+            field: location.location
+            config:
+              validate:
+                - required
+          -
             handle: title
             field:
               type: text
@@ -17,11 +23,140 @@ tabs:
               display: Title
               validate:
                 - required
+          -
+            handle: what_you_receive
+            field:
+              fields:
+                -
+                  handle: short_description
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Short Description'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: long_description
+                  field:
+                    antlers: false
+                    type: textarea
+                    display: 'Long Description'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              mode: stacked
+              add_row: 'Add item'
+              reorderable: true
+              fullscreen: true
+              type: grid
+              display: 'What You Receive'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
       -
-        display: 'Page builder'
+        display: 'Tours & Upgrades'
         fields:
           -
-            import: page_builder
+            handle: included_tours_tab
+            field:
+              tab_icon: list-ul
+              type: tab
+              display: 'Included Tours'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: included_tours
+            field:
+              mode: default
+              create: false
+              collections:
+                - adventures
+              type: entries
+              display: 'Included Tours'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: upgradable_tours_tab
+            field:
+              tab_icon: list-ul
+              type: tab
+              display: 'Upgradable Tours'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: upgradable_tours
+            field:
+              mode: default
+              create: false
+              collections:
+                - adventures
+              type: entries
+              display: 'Upgradable Tours'
+              icon: entries
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: boat_upgrades_tab
+            field:
+              tab_icon: list-ul
+              type: tab
+              display: 'Boat Upgrades'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: boat_upgrades
+            field:
+              mode: default
+              create: false
+              collections:
+                - charters
+              type: entries
+              display: 'Boat Upgrades'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+      -
+        display: Accommodations
+        fields:
+          -
+            handle: accommodations
+            field:
+              mode: default
+              create: false
+              collections:
+                - accommodations
+              type: entries
+              display: Accommodations
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
   seo:
     display: SEO
     sections:
@@ -66,8 +201,25 @@ tabs:
             field:
               type: slug
               localizable: true
+              validate:
+                - required
               generate: true
               listable: hidden
               display: Slug
-              validate:
-                - required
+          -
+            handle: featured_image
+            field:
+              min_files: 1
+              mode: list
+              container: images
+              restrict: false
+              allow_uploads: true
+              show_filename: true
+              show_set_alt: true
+              type: assets
+              display: 'Featured Image'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false

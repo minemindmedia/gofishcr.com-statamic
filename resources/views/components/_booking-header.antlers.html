@@ -1,0 +1,203 @@
+{{#
+    @name Booking - Header
+    @desc Homepage booking form
+#}}
+
+<!-- /components/_home_booking.antlers.html -->
+
+<div class="box-content inline-flex space-x-4 bg-white border border-gray-400 rounded-md">
+
+
+<!-- location picker -->
+
+
+
+<div class="w-48 h-12">
+    <div x-data="{ locationOpen: false, selectedLocation: sessionStorage.getItem('_gfcr_destination') || 'Select Location', showPrompt: true }"  class="relative h-full">
+        <!-- Display Selected Location / Toggle Dropdown -->
+        <div class="flex items-center w-full h-full px-3 py-3 space-x-4 leading-4 text-gray-700 bg-white rounded-md rounded-r-none shadow-sm text-md focus:outline-none focus:ring-0">
+            <i class="fa-solid fa-location-pin"></i>
+            <button @click="locationOpen = !locationOpen; showPrompt = locationOpen ? false : true" class="flex w-full text-left focus:outline-none">
+                <span x-text="selectedLocation" class="flex-1"></span>
+                <i class="fa-solid fa-angle-down"></i>
+            </button>
+        </div>
+        <!-- Dropdown Options -->
+        <div x-show.transition.opacity="locationOpen" @click.away="locationOpen = false" class="absolute z-50 w-full mt-2 overflow-hidden bg-white border border-gray-400 rounded-md shadow-lg">
+            <ul class="last:rounded-b-none" >
+                {{ collection:locations }}
+                    <li @click="selectedLocation = '{{ title }}'; locationOpen = false; sessionStorage.setItem('_gfcr_destination', selectedLocation); {{ if !is_homepage}} location.reload(); {{ /if }}" class="px-4 py-2 cursor-pointer hover:bg-gray-100 ">{{ title }}</li>
+                {{ /collection:locations }}
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!-- end location picker -->
+
+<!-- date picker -->
+
+<div class="w-48 h-12">
+    <div x-data="{ open: false }" class="flex items-center w-full h-full">
+        <div class="relative flex items-center w-full h-full text-gray-600 rounded-md ">
+            <!-- FontAwesome Icon -->
+            <i class="absolute ml-2 fa-solid fa-calendar" style="pointer-events: none;"></i>
+            <!-- Input Field -->
+            <input type="text" style="width:100% !important; padding-left: 2rem;" class="flex h-full pl-8 border-0 rounded-md rounded-l-none rounded-r-none date-range focus:border-gray-none focus:ring-0" x-ref="dateRange" placeholder="Choose dates" @click="open = !open" readonly>
+            <i class="absolute right-0 mr-2 pointer-events-none fa-solid fa-angle-down"></i>
+            <div x-show="open" @click.away="open = false" class="absolute z-50 mt-2 bg-white rounded-md shadow-lg">
+                <!-- Date range picker will be displayed here -->
+            </div>
+        </div>
+    </div>
+    <div x-text="Alpine.store('dateRangePicker').errorMessage" class="text-xs text-red-500"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Alpine.store('dateRangePicker', {
+                startDate: null,
+                endDate: null,
+                errorMessage: '',
+                init() {
+                    this.loadSessionDates(); // Load dates from session storage
+                    this.initFlatpickr();
+                },
+                initFlatpickr() {
+                    flatpickr(".date-range", {
+                        mode: "range",
+                        minDate: new Date(), // Set minimum date to current date
+                        showMonths: '2',
+                        dateFormat: "M j",
+                        defaultDate: [this.startDate, this.endDate], // Set default dates
+                        onChange: this.updateDates.bind(this),
+                    });
+                },
+                updateDates(selectedDates) {
+                    this.startDate = selectedDates[0];
+                    this.endDate = selectedDates[1];
+                    this.updateSessionDates(); // Update session storage with new dates
+                },
+                loadSessionDates() {
+                    const arrivalDate = sessionStorage.getItem('_gfcr_arrival_date');
+                    const departureDate = sessionStorage.getItem('_gfcr_departure_date');
+                    if (arrivalDate && departureDate) {
+                        this.startDate = new Date(arrivalDate);
+                        this.endDate = new Date(departureDate);
+                    }
+                },
+                updateSessionDates() {
+                    sessionStorage.setItem('_gfcr_arrival_date', this.startDate);
+                    sessionStorage.setItem('_gfcr_departure_date', this.endDate);
+                },
+            });
+        });
+    </script>
+</div>
+
+<!-- end location picker -->
+
+
+<!-- guest picker -->
+
+<div class="w-48 h-12">
+    <div x-data="{ open: false }" class="relative h-full">
+        <button @click="open = !open" class="flex items-center justify-start w-full h-full px-2 py-2 space-x-2 text-left text-gray-600 bg-white rounded-md rounded-l-none px-09 focus:outline-none">
+            <i class="text-xl fa-solid fa-person"></i>
+            <span class="flex-1" x-text="Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 0 ? 'Add Guests' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 1 ? '1 Guest' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children + ' Guests'"></span>
+            <i class="fa-solid fa-angle-down"></i>
+        </button>
+        <div x-show="open" @click.away="open = false" class="absolute z-50 w-full mt-2 bg-white rounded-md shadow-lg">
+            <!-- Adults -->
+            <div class="flex items-center px-2 py-2">
+                <i class="mr-2 text-xl fa-solid fa-person"></i>
+                <span x-text="Alpine.store('guestPicker').adults === 0 ? 'Add Adults' : Alpine.store('guestPicker').adults + ' Adult' + (Alpine.store('guestPicker').adults >= 2 ? 's' : '')" class="flex-1"></span>
+                <div class="flex space-x-2">
+                    <button @click="Alpine.store('guestPicker').decrementAdults()" class="flex items-center justify-center w-6 h-6 px-2 py-1 border border-gray-400 rounded-full hover:bg-gray-100 focus:outline-none">
+                        <i class="text-sm fa-solid fa-minus"></i>
+                    </button>
+                    <button @click="Alpine.store('guestPicker').incrementAdults()" class="flex items-center justify-center w-6 h-6 px-2 py-1 border border-gray-400 rounded-full hover:bg-gray-100 focus:outline-none">
+                        <i class="text-sm fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Children -->
+            <div class="flex items-center px-2 py-2">
+                <i :class="Alpine.store('guestPicker').adults < 1 ? 'mr-2 text-xl fa-solid fa-child text-gray-300' : 'mr-2 text-xl fa-solid fa-child'" ></i>
+                <span :class="Alpine.store('guestPicker').adults < 1 ? 'flex-1 text-gray-300' : 'flex-1'" x-text="Alpine.store('guestPicker').children === 0 ? 'Add Children' : Alpine.store('guestPicker').children + ' Child' + (Alpine.store('guestPicker').children >= 2 ? 'ren' : '')"></span>
+                <div class="flex space-x-2">
+                    <button :disabled="Alpine.store('guestPicker').adults < 1" @click="Alpine.store('guestPicker').decrementChildren()" :class="Alpine.store('guestPicker').adults < 1 ? 'flex items-center justify-center w-6 h-6 px-2 py-1 border border-gray-300 rounded-full text-gray-300 focus:outline-none' : 'flex items-center justify-center w-6 h-6 px-2 py-1 border border-gray-400 rounded-full hover:bg-gray-100 focus:outline-none'">
+                        <i class="text-sm fa-solid fa-minus"></i>
+                    </button>
+                    <button :disabled="Alpine.store('guestPicker').adults < 1" @click="Alpine.store('guestPicker').incrementChildren()" :class="Alpine.store('guestPicker').adults < 1 ? 'flex items-center justify-center w-6 h-6 px-2 py-1 border border-gray-300 rounded-full text-gray-300 focus:outline-none' : 'flex items-center justify-center w-6 h-6 px-2 py-1 border border-gray-400 rounded-full hover:bg-gray-100 focus:outline-none'">
+                        <i class="text-sm fa-solid fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex justify-end p-2">
+                <button @click="open = false" class="w-full px-4 py-2 text-sm text-white bg-gray-400 rounded-md hover:bg-gray-500 focus:outline-none">
+                    Done
+                </button>
+            </div>
+        </div>
+        <!-- Inline Message Display -->
+
+     </div>
+
+     <div x-text="Alpine.store('guestPicker').message" class="text-xs text-red-500" x-show="Alpine.store('guestPicker').message"></div>
+
+    <script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.store('guestPicker', {
+            adults: parseInt(sessionStorage.getItem('_gfcr_adults') || 0),
+            children: parseInt(sessionStorage.getItem('_gfcr_children') || 0),
+            message: '', // Added for inline message
+            updateSessionStorage() {
+                sessionStorage.setItem('_gfcr_adults', this.adults);
+                sessionStorage.setItem('_gfcr_children', this.children);
+                sessionStorage.setItem('_gfcr_guests', this.adults + this.children);
+                this.checkSelection(); // Check selection after updating session storage
+            },
+            incrementAdults() {
+                this.adults++;
+                this.updateSessionStorage();
+            },
+            decrementAdults() {
+                this.adults = Math.max(0, this.adults - 1);
+                if (this.adults === 0) {
+                    this.children = 0; // Reset children if no adults
+                }
+                this.updateSessionStorage();
+            },
+            incrementChildren() {
+                if (this.adults > 0) {
+                    this.children++;
+                    this.updateSessionStorage();
+                }
+            },
+            decrementChildren() {
+                this.children = Math.max(0, this.children - 1);
+                this.updateSessionStorage();
+            },
+            checkSelection() {
+                if (this.adults >= 1) {
+                    this.message = ""; // Clear message if adults >= 1
+                    return true; // Ensure there is a true statement
+                } else {
+                    this.message = "Please select at least one adult."; // Show message if no adults selected
+                    return false; // Ensure there is a true statement
+                }
+            }
+        });
+    });
+    </script>
+</div>
+
+<!-- end guest picker -->
+
+</div>
+
+
+
+<!-- End: /components/_home_booking.antlers.html -->
+
+

@@ -8,11 +8,11 @@
 
 
 
-<header class="w-full my-12">
+<header class="w-full mt-6">
 
     <div
     class="
-    {{ if is_homepage || slug == "fishing-charters" || slug == "reservation" || collection:handle == "charters" }}
+    {{ if is_homepage || slug == "fishing-charters" || slug == "reservation" || collection:handle == "charters" || collection:handle == "packages" }}
         max-w-5xl
         mx-auto
     {{ else }}
@@ -25,11 +25,23 @@
                 {{ partial:components/logo }}
             </div>
             <div class="w-full">
-                {{ if collection == 'charters' && is_entry || is_homepage || slug == "reservation" }}
 
-                {{ else }}
-                    {{ partial:components/booking }}
+                {{ if is_homepage }}
+                    homepage only
                 {{ /if }}
+
+                {{ if slug == 'charters' || slug == 'packages' }}
+                    {{ partial:components/booking-header }}
+                {{ /if }}
+
+
+                {{ if collection == 'charters' || collection == 'packages' && is_entry }}
+                    collection single entry only
+                {{ /if }}
+
+
+
+
             </div>
             <div class="flex-1 whitespace-nowrap">
                 {{ partial:navigation/main }}
@@ -39,6 +51,5 @@
 
 </header>
 <!-- End: /layout/_header.antlers.html -->
-
 
 
