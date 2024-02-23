@@ -8,7 +8,7 @@ seo_canonical_type: entry
 sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1708645238
+updated_at: 1708711741
 includes:
   - 'Round trip transportation'
   - '2 full days of fishing'
@@ -97,4 +97,36 @@ package_image:
 featured_image:
   - condo-naxos.jpg
 location: 18450c67-a47c-4e60-8e93-13622f6664a3
+whats_included:
+  -
+    id: lsxvw53w
+    short: 'Round trip transportation'
+    long: 'Round trip transportation to and from Liberia airport to your accommodation at the beginning and end of your trip.'
+    type: whats_included
+    enabled: true
+  -
+    id: lsxvwt0j
+    short: '2 full days of fishing'
+    long: '2 full day offshore/inshore fishing trips'
+    type: whats_included
+    enabled: true
+  -
+    id: lsxvx8k9
+    short: '3 nights / 4 days of accommodations'
+    long: '3 nights and 3 days at one of the partnered hotels with Go Fish'
+    type: whats_included
+    enabled: true
+what_you_receive:
+  -
+    id: lsyyqaqp
+    short_description: 'Round trip transportation'
+    long_description: 'Round trip transportation to and from Liberia airport to your accommodation at the beginning and end of your trip'
+  -
+    id: lsyyrcv0
+    short_description: '2 full days of fishing'
+    long_description: '2 full days of offshore / inshore fishing trips'
+  -
+    id: lsyysgr2
+    short_description: 'Accomodations for 3 nights and 4 days'
+    long_description: 'Accommodations for 3 nights and 4 days at one of the partnered hotels with GoFish'
 ---

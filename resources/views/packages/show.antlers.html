@@ -31,8 +31,8 @@
         <div class="grid w-full grid-cols-8 gap-24">
             <div class="col-span-5">
                 <div class="flex flex-col space-y-8">
-
-                    <h1 class="text-2xl font-bold">{{ title }}</h1>
+                    {{ partial:/typography/h5 content="GoFish Package" }}
+                    {{ partial:/typography/h1 content="{{ title }}" class="!mt-2" }}
                     <div class="flex py-8 my-32 border-gray-300 border-y">
                         <div class="flex-1">
                             <div class="flex items-center space-x-2 text-orange-600">
@@ -83,74 +83,59 @@
                     </div>
                     <div>
                         <div class="grid grid-cols-12 gap-8">
+                            {{ if what_you_receive }}
                             <div class="col-span-12">
                                 {{ partial:/typography/h6 content="What You Receive" }}
-                                {{ includes }}
-                                <div class="my-4">
-                                    <div class="flex space-x-4">
-                                        <div>
-                                            <i class="fa-solid fa-right-long"></i>
-                                        </div>
-                                        <div>
-                                            {{ value }}
+                                {{ what_you_receive }}
+                                    <div class="my-4">
+                                        <div class="flex space-x-4">
+                                            <div>
+                                                <i class="fa-solid fa-right-long"></i>
+                                            </div>
+                                            <div>
+                                                {{ long_description }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                {{ /includes }}
+                                {{ /what_you_receive }}
                             </div>
-
+                            {{ /if }}
                         </div>
 
                     </div>
                     <div>
                         <div class="grid grid-cols-12 gap-8">
+                            {{ if included_tours }}
                             <div class="col-span-12">
                                 <div class="p-8 border border-gray-400 rounded-xl">
                                     {{ partial:/typography/h6 content="Available Tours" }}
-                                    {{ if included_tours }}
-                                        {{ included_tours }}
-                                            <div class="my-2">
-                                                <div class="flex space-x-4">
-                                                    <div>
-                                                        <i class="fa-solid fa-check"></i>
-                                                    </div>
-                                                    <div>
-                                                        {{ title }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        {{ /included_tours }}
-                                    {{ else }}
+                                    {{ included_tours }}
                                         <div class="my-2">
                                             <div class="flex space-x-4">
                                                 <div>
-                                                    <i class="fa-solid fa-circle-info"></i>
+                                                    <i class="fa-solid fa-check"></i>
                                                 </div>
                                                 <div>
-                                                    {{ partial:/typography/p content="This package does not include any free tours" }}
+                                                    {{ title }}
                                                 </div>
                                             </div>
                                         </div>
-                                    {{ /if }}
+                                    {{ /included_tours }}
                                 </div>
                             </div>
+                            {{ /if }}
+                            {{ if tours_rates }}
                             <div class="col-span-12">
                                 <div class="p-8 border border-gray-400 rounded-xl">
                                     {{ partial:/typography/h6 content="Upgradable Tours" class="mb-8" }}
-
-
                                     <div class="grid grid-cols-12 gap-y-4 ">
-                                        {{ if tours_rates }}
                                         {{ tours_rates }}
                                             {{ tour }}
                                                 <div class="flex w-full col-span-6 border-b border-gray-400 ">
                                                     {{ partial:/typography/p content="{{ title }}" }}
                                                 </div>
                                             {{ /tour }}
-
-
                                         <div class="flex justify-end w-full col-span-6 border-b border-gray-400 ">
-
                                             {{ if rate }}
                                             <div class="flex">
                                                 {{ partial:/typography/p content="${{ rate }}.00" class="!mb-0"}}
@@ -161,21 +146,12 @@
                                             {{ else }}
                                             {{ partial:/typography/p content="Inquire" }}
                                             {{ /if }}
-
-
-
                                         </div>
-
                                         {{ /tours_rates }}
-                                        {{ /if }}
                                     </div>
-
-
-
-
-
                                 </div>
                             </div>
+                            {{ /if }}
                         </div>
                     </div>
 

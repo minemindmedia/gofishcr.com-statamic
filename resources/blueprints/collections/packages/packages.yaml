@@ -33,6 +33,44 @@ tabs:
               visibility: visible
               replicator_preview: true
               hide_display: false
+          -
+            handle: what_you_receive
+            field:
+              fields:
+                -
+                  handle: short_description
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Short Description'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: long_description
+                  field:
+                    antlers: false
+                    type: textarea
+                    display: 'Long Description'
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              mode: stacked
+              add_row: 'Add item'
+              reorderable: true
+              fullscreen: true
+              type: grid
+              display: 'What You Receive'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
       -
         display: 'Tours & Upgrades'
         fields:

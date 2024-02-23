@@ -17,11 +17,123 @@ tabs:
               display: Title
               validate:
                 - required
-      -
-        display: 'Page builder'
-        fields:
           -
-            import: page_builder
+            handle: upgrade_details
+            field:
+              fields:
+                -
+                  handle: inquire
+                  field:
+                    default: false
+                    type: toggle
+                    display: 'Inquire?'
+                    width: 25
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: rate
+                  field:
+                    input_type: text
+                    prepend: $
+                    append: '.00'
+                    antlers: false
+                    type: text
+                    display: Rate
+                    width: 25
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: per_person
+                  field:
+                    default: false
+                    type: toggle
+                    display: 'Per Person?'
+                    width: 25
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: tax
+                  field:
+                    default: false
+                    type: toggle
+                    display: '+ Tax?'
+                    width: 25
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: minimum_persons
+                  field:
+                    default: false
+                    type: toggle
+                    display: 'Minimum Persons?'
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: maximum_persons
+                  field:
+                    default: false
+                    type: toggle
+                    display: 'Maximum Persons'
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: minimum_person_amount
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Minimum Person Amount'
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+                -
+                  handle: maximum_persons_amount
+                  field:
+                    input_type: text
+                    antlers: false
+                    type: text
+                    display: 'Maximum Persons Amount'
+                    width: 50
+                    listable: hidden
+                    instructions_position: above
+                    visibility: visible
+                    replicator_preview: true
+                    hide_display: false
+              mode: stacked
+              max_rows: 1
+              min_rows: 1
+              reorderable: true
+              fullscreen: true
+              type: grid
+              display: 'Upgrade Details'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
   seo:
     display: SEO
     sections:
@@ -66,8 +178,26 @@ tabs:
             field:
               type: slug
               localizable: true
+              validate:
+                - required
               generate: true
               listable: hidden
               display: Slug
-              validate:
-                - required
+          -
+            handle: featured_image
+            field:
+              max_files: 1
+              min_files: 1
+              mode: list
+              container: images
+              restrict: false
+              allow_uploads: true
+              show_filename: true
+              show_set_alt: true
+              type: assets
+              display: 'Featured Image'
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false

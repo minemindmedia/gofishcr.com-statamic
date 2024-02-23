@@ -16,14 +16,18 @@ preferences:
         - og_image
         - status
         - slug
-    adventures:
-      after_save: create_another
     pages:
       columns:
         - title
         - og_image
         - status
         - slug
+    adventures:
+      columns:
+        - title
+        - status
+        - upgrade_details
+        - featured_image
   forms:
     reservations:
       columns:

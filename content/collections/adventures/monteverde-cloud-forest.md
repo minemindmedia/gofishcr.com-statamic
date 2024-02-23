@@ -8,5 +8,13 @@ seo_canonical_type: entry
 sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1708126025
+updated_at: 1708717405
+upgrade_details:
+  -
+    id: 0wnEPngp
+    inquire: false
+    rate: '225'
+    per_person: true
+    tax: false
+featured_image: monteverde-cloud-forest.jpg
 ---
