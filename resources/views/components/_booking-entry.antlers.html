@@ -172,7 +172,14 @@ document.addEventListener('alpine:init', () => {
 
 <!-- END: guests picker -->
 
+
+{{ if segment_1 == 'charters' }}
 <!-- charter picker -->
+
+
+
+
+
 
 <div x-data="{ isOpen: false }" class="relative" x-init="$store.charterPicker.init()">
     <!-- Component internals here -->
@@ -226,6 +233,7 @@ document.addEventListener('alpine:init', () => {
  </div>
  <div x-show="$store.charterPicker.showMessage" class="text-xs text-red-500">Please choose a charter length</div>
 
+
 <script>
 document.addEventListener('alpine:init', () => {
     Alpine.store('charterPicker', {
@@ -268,6 +276,38 @@ document.addEventListener('alpine:init', () => {
 </script>
 
 <!-- END: charter picker -->
+{{ /if }}
+
+
+
+{{ if segment_1 == 'packages' }}
+
+
+<div x-data="{ open: false, selectedOption: 'Choose charter length' }" class="relative">
+    <button @click="open = !open" class="relative z-10 block w-full py-2 pl-3 pr-10 text-left border border-gray-300 rounded-md cursor-default focus:outline-none focus:shadow-outline sm:text-sm sm:leading-5">
+        <span class="block truncate">Upgrade your boat?</span>
+        <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+            <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                <path fill-rule="evenodd" d="M10 3a7 7 0 100 14 7 7 0 000-14zm0-2a9 9 0 110 18 9 9 0 010-18z" clip-rule="evenodd" />
+            </svg>
+        </span>
+    </button>
+    <div x-show="open" @click.away="open = false" class="absolute z-10 w-full mt-2 bg-white rounded-md shadow-lg">
+        <ul class="bg-white rounded-md shadow-xs">
+            {{ boat_upgrades }}
+                <li class="py-1">
+                    <a @click="open = false; selectedOption = title" href="#" class="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900">{{ title }}</a>
+                </li>
+            {{ /boat_upgrades }}
+        </ul>
+    </div>
+</div>
+
+
+
+{{ /if }}
+
 
 <!-- booking button -->
 
