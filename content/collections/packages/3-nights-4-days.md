@@ -8,7 +8,7 @@ seo_canonical_type: entry
 sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1708711741
+updated_at: 1709936258
 includes:
   - 'Round trip transportation'
   - '2 full days of fishing'
@@ -129,4 +129,14 @@ what_you_receive:
     id: lsyysgr2
     short_description: 'Accomodations for 3 nights and 4 days'
     long_description: 'Accommodations for 3 nights and 4 days at one of the partnered hotels with GoFish'
+additional_photos:
+  - 325898809_1112833589409344_6952461765116612067_n.jpg
+  - hpc01.jpg
+  - hpc06.jpg
+  - sunset-catamarn.jpg
+  - spa-day.jpg
+  - mud-bath.jpg
+  - mega-combo.jpg
+  - hpc03.jpg
+  - gofishvideo_fallback.jpg
 ---

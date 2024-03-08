@@ -9,7 +9,7 @@
 
     >
 
-        <div class="grid w-full grid-cols-2 gap-1">
+        <div class="relative grid w-full grid-cols-2 gap-1">
             <div class="col-span-1">
                 {{ featured_image }}
                     <img src="{{ url }}" alt="" class="w-full">
@@ -18,14 +18,63 @@
             <div class="col-span-1">
                 <div class="grid grid-cols-4 gap-1 grid-flow-row auto-rows-[minmax(0,_2fr)] w-full auto-cols-[minmax(0,_2fr)] h-full relative">
                     {{ additional_photos limit="4" }}
-                    <div class="col-span-2 bg-center bg-cover" style="background-image: url('{{ url }}')"></div>
+                        <div class="col-span-2 bg-center bg-cover" style="background-image: url('{{ url }}')"></div>
                     {{ /additional_photos }}
-                    <a href="" class="absolute bottom-0 right-0 px-4 py-2 m-4 text-sm bg-white rounded-lg hover:bg-gray-100">
-                        View all images
-                    </a>
                 </div>
-
             </div>
+
+            <div x-data="{ open: false }" class="flex justify-center">
+                <!-- Trigger -->
+                <span x-on:click="open = true">
+                    <button type="button" class="absolute bottom-0 right-0 px-4 py-2 m-4 text-sm bg-white rounded-lg hover:bg-gray-100">
+                        View all images
+                    </button>
+                </span>
+                <!-- Modal -->
+                <div
+                    x-show="open"
+                    style="display: none"
+                    x-on:keydown.escape.prevent.stop="open = false"
+                    role="dialog"
+                    aria-modal="true"
+                    x-id="['modal-title']"
+                    :aria-labelledby="$id('modal-title')"
+                    class="fixed inset-0 z-[99999] overflow-y-auto"
+                >
+                    <!-- Overlay -->
+                    <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-70" x-on:click="open = false"></div>
+                    <!-- Scroll down text -->
+
+
+                    <!-- Panel -->
+                    <div
+                        x-show="open" x-transition
+                        x-on:click="open = false"
+                        class="inset-0 overflow-y-auto "
+                    >
+                        <div
+                            x-on:click.stop
+                            x-trap.noscroll.inert="open"
+                            class="relative w-full max-w-2xl p-4 mx-auto overflow-y-auto bg-white"
+                        >
+                            <div class="flex flex-col space-y-4">
+                                {{ additional_photos }}
+                                <img src="{{ url }}" alt="{{ img:alt }}">
+                                <div class="flex items-center justify-center">
+                                    <i class="mr-2 fa-solid fa-arrow-down"></i>
+                                    {{ partial:/typography/p content="Scroll For More" class="!m-0 !p-0"}}
+                                    <i class="ml-2 fa-solid fa-arrow-down"></i>
+                                </div>
+                                {{ /additional_photos }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
         </div>
 
         <div class="grid w-full grid-cols-8 gap-24">
@@ -39,7 +88,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                                     <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
                                 </svg>
-                                <span>{{ location:title }} </span>
+                                <span>{{ partial:/typography/p class="mb-2 font-bold" content="{{ location:title }}" }}</span>
                             </div>
                         </div>
 
