@@ -58,6 +58,14 @@
                             class="relative w-full max-w-2xl p-4 mx-auto overflow-y-auto bg-white"
                         >
                             <div class="flex flex-col space-y-4">
+                                <div class="absolute top-0 right-0 p-4">
+                                    <i class="cursor-pointer fa-solid fa-times" x-on:click="open = false"></i>
+                                </div>
+                                <div class="flex items-center justify-center">
+                                    <i class="mr-2 fa-solid fa-arrow-down"></i>
+                                    {{ partial:/typography/p content="Scroll For More" class="!m-0 !p-0"}}
+                                    <i class="ml-2 fa-solid fa-arrow-down"></i>
+                                </div>
                                 {{ additional_photos }}
                                 <img src="{{ url }}" alt="{{ img:alt }}">
                                 <div class="flex items-center justify-center">
