@@ -8,7 +8,7 @@ seo_canonical_type: entry
 sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1708726785
+updated_at: 1710358111
 featured_image:
   - hotel-pasatiempo.jpg
 location: a654855b-2bac-4e11-bd80-05cdc6a79ea8
@@ -47,4 +47,22 @@ upgradable_tours:
   - fe391b6b-65d6-4b91-8352-b16b56377cf6
   - d94ccae6-6469-4290-a135-1d36dcdff99c
   - 3ba4a553-01d7-4f8f-94bb-95c84e58f154
+boat_upgrades:
+  - 0c43b4c0-80e9-43c0-a50d-1ef91f27a514
+  - 617b7977-fa51-4401-ba84-48644778bc40
+  - f5034cfc-82a3-4eb7-9193-f02c76347036
+  - 1f858682-7d07-41c1-ae63-871dee2b85d9
+  - 6e737132-3f7d-4f49-b3a9-0908a9972211
+  - 6d93c9bc-291a-4e6e-a52e-86a1a9fcf363
+  - 491bce4d-5757-4a7b-a358-099689952100
+  - dfd2317a-f48c-418e-a478-8ed53ad8550f
+  - 78735578-26bf-4cea-bc6b-7d9384849fcc
+additional_photos:
+  - estuary-tour.jpg
+  - condo-naxos.jpg
+  - birdwatching-tour.jpg
+  - atv-tour.jpg
+  - 325898809_1112833589409344_6952461765116612067_n.jpg
+  - 317241497_5948086168588447_3410697735491759943_n.jpg
+  - horseback-riding.jpg
 ---

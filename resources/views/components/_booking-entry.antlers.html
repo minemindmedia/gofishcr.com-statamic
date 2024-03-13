@@ -282,24 +282,84 @@ document.addEventListener('alpine:init', () => {
 
 {{ if segment_1 == 'packages' }}
 
+{{ if included_tours }}
 
-
-<div x-data="{ selected: sessionStorage.getItem('_gfcr_boat_upgrade') || 'Upgrade Your Boat?', isOpen: false }" class="relative">
-    <button x-on:click="isOpen = !isOpen; sessionStorage.setItem('_gfcr_boat_upgrade', selected)" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
+<div x-data="{ selected: sessionStorage.getItem('_gfcr_included_tours') || 'Choose A Free Tour', isOpen: false }" class="relative">
+    <button x-on:click="isOpen = !isOpen; sessionStorage.setItem('_gfcr_included_tours', selected)" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
         <i class="mr-2 text-center fa-solid fa-ship"></i>
         <span x-text="selected" class="w-full"></span>
         <i class="text-sm fa-solid fa-chevron-down "></i>
     </button>
     <div x-show="isOpen" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">
         <ul class="py-1">
-            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_boat_upgrade', selected)">
-                <span class="block truncate">No thanks</span>
-            </li>
-            {{ boat_upgrades }}
-            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = $event.target.innerText; isOpen = false; sessionStorage.setItem('_gfcr_boat_upgrade', selected)">
+            {{ included_tours }}
+            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = $event.target.innerText; isOpen = false; sessionStorage.setItem('_gfcr_included_tours', selected)">
                 <span class="block truncate">{{ title }}</span>
             </li>
-        {{ /boat_upgrades }}
+        {{ /included_tours }}
+        </ul>
+    </div>
+</div>
+
+{{ /if }}
+
+{{ if upgradable_tours }}
+
+<div x-data="{
+    selected: [],
+    isOpen: false,
+    updateSessionStorage() {
+        sessionStorage.setItem('_gfcr_upgradable_tours', JSON.stringify(this.selected));
+    },
+    loadFromSessionStorage() {
+        const storedSelection = sessionStorage.getItem('_gfcr_upgradable_tours');
+        if (storedSelection) {
+            this.selected = JSON.parse(storedSelection);
+        }
+    }
+}" x-init="loadFromSessionStorage" class="relative">
+    <button x-on:click="isOpen = !isOpen" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
+        <i class="mr-2 text-center fa-solid fa-ship"></i>
+        <span x-text="selected.length ? selected.length + ' Tour' + (selected.length > 1 ? 's' : '') + ' Added' : 'Add A Tour'" class="w-full"></span>
+        <i class="text-sm fa-solid fa-chevron-down "></i>
+    </button>
+    <div x-show="isOpen" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">
+        <ul class="py-1">
+            {{ upgradable_tours }}
+            <li class="relative px-4 py-2 cursor-pointer select-none">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" x-model="selected" x-on:change="updateSessionStorage()" value="{{ title }}" class="w-5 h-5 text-gray-600 rounded-full form-checkbox">
+                    <span class="ml-2">{{ title }}</span>
+                </label>
+            </li>
+            {{ /upgradable_tours }}
+        </ul>
+    </div>
+</div>
+
+{{ /if }}
+
+
+
+
+
+
+<div x-data="{ selected: sessionStorage.getItem('_gfcr_tour_upgrade') || 'Upgrade Your Boat?', isOpen: false }" class="relative">
+    <button x-on:click="isOpen = !isOpen; sessionStorage.setItem('_gfcr_tour_upgrade', selected)" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
+        <i class="mr-2 text-center fa-solid fa-ship"></i>
+        <span x-text="selected" class="w-full"></span>
+        <i class="text-sm fa-solid fa-chevron-down "></i>
+    </button>
+    <div x-show="isOpen" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">
+        <ul class="py-1">
+            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selected)">
+                <span class="block truncate">No thanks</span>
+            </li>
+            {{ upgradable_tours}}
+            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = $event.target.innerText; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selected)">
+                <span class="block truncate">{{ title }}</span>
+            </li>
+        {{ /upgradable_tours}}
         </ul>
     </div>
 </div>
