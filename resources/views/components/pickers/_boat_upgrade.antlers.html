@@ -5,3 +5,26 @@
 
 <!-- /components/_charter_picker.antlers.html -->
 
+
+<div x-data="{ selected: sessionStorage.getItem('_gfcr_boat_upgrade') || 'Upgrade Your Boat?', isOpen: false }" class="relative">
+    <button x-on:click="isOpen = !isOpen; sessionStorage.setItem('_gfcr_boat_upgrade', selected)" class="block w-full h-12 py-2 pl-2 pr-10 text-left bg-white border border-gray-400 rounded-md focus:outline-none">
+        <i class="w-6 text-center fa-solid fa-ship"></i>
+        <span x-text="selected"></span>
+        <svg class="absolute inset-y-0 right-0 w-5 h-5 mt-3 mr-4" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M7 8l5 5 5-5H7z" />
+        </svg>
+    </button>
+    <div x-show="isOpen" class="absolute z-10 w-full mt-1 bg-white rounded-md shadow-lg">
+        <ul class="py-1">
+            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_boat_upgrade', selected)">
+                <span class="block truncate">No thanks</span>
+            </li>
+            {{ boat_upgrades }}
+            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = $event.target.innerText; isOpen = false; sessionStorage.setItem('_gfcr_boat_upgrade', selected)">
+                <span class="block truncate">{{ title }}</span>
+            </li>
+        {{ /boat_upgrades }}
+        </ul>
+    </div>
+</div>
+
