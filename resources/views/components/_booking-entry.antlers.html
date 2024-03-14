@@ -303,40 +303,40 @@
         {{ /if }}
 
         {{ if upgradable_tours }}
-            <div x-data="{
-                selected: [],
-                isOpen: false,
-                updateSessionStorage() {
-                    sessionStorage.setItem('_gfcr_upgradable_tours', JSON.stringify(this.selected));
-                },
-                loadFromSessionStorage() {
-                    const storedSelection = sessionStorage.getItem('_gfcr_upgradable_tours');
-                    if (storedSelection) {
-                        this.selected = JSON.parse(storedSelection);
-                    }
+        <div x-data="{
+            selected: [],
+            isOpen: false,
+            updateSessionStorage() {
+                sessionStorage.setItem('_gfcr_upgradable_tours', JSON.stringify(this.selected));
+            },
+            loadFromSessionStorage() {
+                const storedSelection = sessionStorage.getItem('_gfcr_upgradable_tours');
+                if (storedSelection) {
+                    this.selected = JSON.parse(storedSelection);
                 }
-            }" x-init="loadFromSessionStorage" class="relative">
-            <button x-on:click="isOpen = !isOpen" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
-                <i class="mr-2 fa-solid fa-list-ol"></i>
-                <span x-text="selected.includes('No thanks') ? 'No thanks' : (selected.length ? selected.length + ' Tour' + (selected.length > 1 ? 's' : '') + ' Added' : 'No thanks')" class="w-full"></span>
-                <i class="text-sm fa-solid fa-chevron-down "></i>
-            </button>
-                <div x-show="isOpen" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">
-                    <ul class="py-1">
-                        <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_upgradable_tours', selected)">
-                            <span class="block truncate">No thanks</span>
-                        </li>
-                        {{ upgradable_tours }}
-                        <li class="relative px-4 py-2 cursor-pointer select-none">
-                            <label class="inline-flex items-center">
-                                <input type="checkbox" x-model="selected" x-on:change="updateSessionStorage()" value="{{ title }}" class="w-5 h-5 text-gray-600 rounded-full form-checkbox">
-                                <span class="ml-2">{{ title }}</span>
-                            </label>
-                        </li>
-                        {{ /upgradable_tours }}
-                    </ul>
-                </div>
+            }
+        }" x-init="loadFromSessionStorage" class="relative">
+        <button x-on:click="isOpen = !isOpen" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
+            <i class="mr-2 fa-solid fa-list-ol"></i>
+            <span x-text="selected.length ? (selected.includes('No thanks') ? 'No thanks' : selected.length + ' Tour' + (selected.length > 1 ? 's' : '') + ' Added') : (sessionStorage.getItem('_gfcr_upgradable_tours') || 'Add More Tours?')" class="w-full"></span>
+            <i class="text-sm fa-solid fa-chevron-down "></i>
+        </button>
+            <div x-show="isOpen" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">
+                <ul class="py-1">
+                    <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_upgradable_tours', selected); selected = []">
+                        <span class="block truncate">No thanks</span>
+                    </li>
+                    {{ upgradable_tours }}
+                    <li class="relative px-4 py-2 cursor-pointer select-none">
+                        <label class="inline-flex items-center">
+                            <input type="checkbox" x-model="selected" x-on:change="updateSessionStorage()" value="{{ title }}" class="w-5 h-5 text-gray-600 rounded-full form-checkbox">
+                            <span class="ml-2">{{ title }}</span>
+                        </label>
+                    </li>
+                    {{ /upgradable_tours }}
+                </ul>
             </div>
+        </div>
         {{ /if }}
 
 
