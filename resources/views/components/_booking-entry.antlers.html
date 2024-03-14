@@ -279,27 +279,58 @@
     {{ if segment_1 == 'packages' }}
 
         {{ if included_tours }}
-            <div x-data="{ selected: sessionStorage.getItem('_gfcr_included_tours') || 'Add A Free Tour?', isOpen: false }" class="relative">
-                <button
-                    x-on:click="isOpen = !isOpen; sessionStorage.setItem('_gfcr_included_tours', selected)"
-                    class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
-                    <i x-bind:class="selected === 'Add A Free Tour?' ? 'fa-solid fa-arrow-right mr-2' : 'fa-solid fa-check mr-2'"></i>
-                    <span x-text="selected" class="w-full"></span>
-                    <i class="text-sm fa-solid fa-chevron-down "></i>
-                </button>
-                <div x-show="isOpen" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">
-                    <ul class="py-1">
-                        <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = $event.target.innerText; isOpen = false; sessionStorage.setItem('_gfcr_included_tours', selected)">
-                            <span class="block truncate">No thanks</span>
-                        </li>
-                        {{ included_tours }}
-                        <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = $event.target.innerText; isOpen = false; sessionStorage.setItem('_gfcr_included_tours', selected)">
-                            <span class="block truncate">{{ title }}</span>
-                        </li>
-                    {{ /included_tours }}
-                    </ul>
-                </div>
-            </div>
+   <!-- Included Tours Selection -->
+<div x-data="{
+    selected: sessionStorage.getItem('_gfcr_included_tours') || 'Add A Free Tour?',
+    isOpen: false,
+    updateSessionStorage(option) {
+        this.selected = option;
+        sessionStorage.setItem('_gfcr_included_tours', option);
+        // Trigger Alpine update after selection
+        this.$nextTick(() => {
+            Alpine.store('includedTours').checkSelection();
+        });
+        // Close the dropdown after selection
+        this.isOpen = false;
+    }
+}">
+    <button @click="isOpen = !isOpen" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
+        <i x-bind:class="selected === 'Add A Free Tour?' ? 'fa-solid fa-arrow-right mr-2' : 'fa-solid fa-check mr-2'"></i>
+        <span x-text="selected" class="w-full"></span>
+        <i :class="{ 'transform rotate-180': isOpen, 'text-sm': true }" class="ml-auto text-gray-400 fas fa-chevron-up"></i>
+    </button>
+    <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg">
+        <ul class="py-1">
+            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="updateSessionStorage('No thanks')">
+                <span class="block truncate">No thanks</span>
+            </li>
+            {{ included_tours }}
+            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="updateSessionStorage('{{ title }}')">
+                <span class="block truncate">{{ title }}</span>
+            </li>
+            {{ /included_tours }}
+        </ul>
+    </div>
+</div>
+
+
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.store('includedTours', {
+                    selectedTour: sessionStorage.getItem('_gfcr_included_tours') || 'Add A Free Tour?',
+                    errorMessage: '',
+                    checkSelection() {
+                        if (this.selectedTour === 'Add A Free Tour?') {
+                            this.errorMessage = "Please select an included tour.";
+                            return false;
+                        } else {
+                            this.errorMessage = '';
+                            return true;
+                        }
+                    }
+                });
+            });
+            </script>
         {{ /if }}
 
         {{ if upgradable_tours }}
@@ -368,14 +399,39 @@
 
     <!-- booking button -->
 
-    <div class="!mt-4">
-        <a href="#_"
-        @click.prevent="event.stopPropagation(); let dateRangePassed = Alpine.store('dateRangePicker').checkDateRange(); let guestPassed = Alpine.store('guestPicker').checkSelection(); let allPassed = dateRangePassed && guestPassed; if (allPassed) { window.location.assign('/reservation?from=packages'); }"
-            class="flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-500 rounded-md hover:bg-green-400 sm:w-auto sm:mb-0">
-            {{ title }}
-            <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-        </a>
-    </div>
+<!-- Booking Button -->
+<!-- Booking Button -->
+<!-- Booking Button -->
+<!-- Booking button -->
+<div class="!mt-4">
+    <a href="#_" @click="
+        event.stopPropagation();
+        // Check date picker
+        let dateRangePassed = Alpine.store('dateRangePicker').checkDateRange();
+        // Check guest picker
+        let guestPassed = Alpine.store('guestPicker').checkSelection();
+        // Check included tours selection
+        let includedToursSelection = sessionStorage.getItem('_gfcr_included_tours');
+
+        // If any of the validations fail, display error messages and return
+        if (!dateRangePassed || !guestPassed || !includedToursSelection || includedToursSelection === 'Add A Free Tour?') {
+            Alpine.store('dateRangePicker').checkDateRange();
+            Alpine.store('guestPicker').checkSelection();
+            Alpine.store('includedTours').checkSelection();
+            return;
+        }
+
+        // If all validations pass, navigate to the reservation page
+        window.location.href = '/reservation?from=packages';
+    " class="flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-500 rounded-md hover:bg-green-400 sm:w-auto sm:mb-0">
+        {{ title }}
+        <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </a>
+</div>
+
+
+
+
 
     <!-- END: booking button -->
 
