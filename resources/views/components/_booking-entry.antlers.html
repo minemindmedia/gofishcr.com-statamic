@@ -320,7 +320,7 @@ document.addEventListener('alpine:init', () => {
 }" x-init="loadFromSessionStorage" class="relative">
     <button x-on:click="isOpen = !isOpen" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
         <i class="mr-2 text-center fa-solid fa-ship"></i>
-        <span x-text="selected.length ? selected.length + ' Tour' + (selected.length > 1 ? 's' : '') + ' Added' : 'Add A Tour'" class="w-full"></span>
+        <span x-text="selected.length ? selected.length + ' Tour' + (selected.length > 1 ? 's' : '') + ' Added' : 'Add More Tours?'" class="w-full"></span>
         <i class="text-sm fa-solid fa-chevron-down "></i>
     </button>
     <div x-show="isOpen" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">

@@ -8,7 +8,7 @@ seo_canonical_type: entry
 sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1710358111
+updated_at: 1710373627
 featured_image:
   - hotel-pasatiempo.jpg
 location: a654855b-2bac-4e11-bd80-05cdc6a79ea8
@@ -65,4 +65,5 @@ additional_photos:
   - 325898809_1112833589409344_6952461765116612067_n.jpg
   - 317241497_5948086168588447_3410697735491759943_n.jpg
   - horseback-riding.jpg
+price: '5,000'
 ---
