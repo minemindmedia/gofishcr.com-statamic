@@ -305,17 +305,17 @@
     <script>
 
 
-        function storeBoatTitle() {
-            const boatTitle = `{{ title }}`;
-            sessionStorage.setItem("_gfcr_boat", boatTitle);
-            console.log("Boat title stored in sessionStorage:", boatTitle);
+        function storePackageTitle() {
+            const packageTitle = `{{ title }}`;
+            sessionStorage.setItem("_gfcr_package", packageTitle);
+            console.log("Boat title stored in sessionStorage:", packageTitle);
         }
 
         if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", storeBoatTitle);
+            document.addEventListener("DOMContentLoaded", storePackageTitle);
         } else {
             // `DOMContentLoaded` already fired
-            storeBoatTitle();
+            storePackageTitle();
         }
 
     </script>

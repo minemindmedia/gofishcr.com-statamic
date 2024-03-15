@@ -33,6 +33,13 @@
         adults: sessionStorage.getItem('_gfcr_adults'),
         children: sessionStorage.getItem('_gfcr_children'),
         guests: sessionStorage.getItem('_gfcr_guests'),
+        package: sessionStorage.getItem('_gfcr_package'),
+        included_tour: sessionStorage.getItem('_gfcr_included_tour'),
+        more_tours: (function() {
+            const tours = sessionStorage.getItem('_gfcr_upgradable_tours');
+            return tours ? JSON.parse(tours) : [];
+        })(),
+        boat_upgrade: sessionStorage.getItem('_gfcr_boat_upgrade'),
     }"
 
     class="flex flex-col min-h-screen selection:bg-primary selection:text-white bg-brown-50 "
@@ -56,6 +63,8 @@
         <div class="{{ if is_homepage }} py-12 px-60 {{ else }} px-12 py-12 {{ /if }}">
             {{ template_content }}
         </div>
+
+
 
 
         {{ partial:layout/footer }}
