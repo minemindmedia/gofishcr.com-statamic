@@ -282,12 +282,12 @@
         <div x-data="{ isOpen: false }" class="relative" x-init="$store.includedTourPicker.init()">
             <!-- Component internals here -->
             <!-- Display Selected Option / Toggle Dropdown -->
+            <div x-show="$store.includedTourPicker.selectedOption !== 'Choose Included Tour'" class="mb-1 text-xs text-gray-500">Your free tour:</div>
             <button
             @click="isOpen = !isOpen"
             :class="{
                 'border-red-500 text-red-500': $store.includedTourPicker.selectedOption === 'Choose Included Tour',
                 'border-gray-400': $store.includedTourPicker.selectedOption !== 'Choose Included Tour',
-
             }"
             class="flex items-center w-full h-12 px-2 py-3 leading-4 text-left text-gray-600 bg-white border rounded-md shadow-sm text-md focus:outline-none focus:ring-0">
                 <template x-if="$store.includedTourPicker.selectedOption == 'Choose Included Tour'">
@@ -296,18 +296,17 @@
                 <template x-if="$store.includedTourPicker.selectedOption !== 'Choose Included Tour'">
                     <i class="mr-2 fa-solid fa-check"></i>
                 </template>
-                <!-- Adjust icon classes accordingly based on your requirements -->
                 <span x-text="$store.includedTourPicker.selectedOption" class="flex-1"></span>
                 <i class="fa-solid fa-angle-down"></i>
             </button>
 
 
             <!-- Dropdown Options -->
-            <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-50 w-full mt-2 bg-white rounded-md shadow-lg" :class="{'border border-red-500': isOpen && $store.includedTourPicker.selectedOption === 'Choose Included Tour', 'border border-gray-400': !isOpen || $store.includedTourPicker.selectedOption !== 'Choose Included Tour'}">
+            <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-50 w-full mt-2 overflow-hidden bg-white rounded-md shadow-lg" :class="{'border border-gray-400 text-gray-600': isOpen && $store.includedTourPicker.selectedOption === 'Choose Included Tour', 'border border-gray-400': !isOpen || $store.includedTourPicker.selectedOption !== 'Choose Included Tour'}">
                 <ul>
                     <!-- Options generated with Antlers templating -->
                     {{ included_tours }}
-                        <li :class="{'cursor-not-allowed text-gray-400': $store.includedTourPicker.selectedOption === '{{ title }}'}" @click="$store.includedTourPicker.selectedOption !== '{{ title }}' && $store.includedTourPicker.selectOption('{{ title }}'); isOpen = false" class="px-2 py-2 cursor-pointer hover:bg-gray-100">
+                        <li :class="{'cursor-not-allowed text-gray-400': $store.includedTourPicker.selectedOption === '{{ title }}'}" @click="$store.includedTourPicker.selectedOption !== '{{ title }}' && $store.includedTourPicker.selectOption('{{ title }}'); isOpen = false" class="px-4 py-2 cursor-pointer hover:bg-brown-50">
                             <span :class="{'font-bold': $store.includedTourPicker.selectedOption === '{{ title }}'}">{{ title }}</span>
                         </li>
                     {{ /included_tours }}
@@ -366,6 +365,9 @@
 
         {{ if upgradable_tours }}
         <div x-data="{ isOpen: false }" class="relative">
+            <div x-show="$store.upgradableTourPicker.selectedOptions.length === 1 && !$store.upgradableTourPicker.selectedOptions.includes('No thanks')" class="mb-1 text-xs text-gray-500">Your additional tour:</div>
+            <div x-show="$store.upgradableTourPicker.selectedOptions.length >= 2 && !$store.upgradableTourPicker.selectedOptions.includes('No thanks')" class="mb-1 text-xs text-gray-500">Your additional tours:</div>
+            <div x-show="$store.upgradableTourPicker.selectedOptions.includes('No thanks')" class="mb-1 text-xs text-gray-500">Add more tours?</div>
             <!-- Display Selected Option / Toggle Dropdown -->
             <button @click="isOpen = !isOpen" :class="{'border-red-500 text-red-500': $store.upgradableTourPicker.selectedOptions.length === 0 && !$store.upgradableTourPicker.selectedOptions.includes('No thanks'), 'border-gray-400': $store.upgradableTourPicker.selectedOptions.length > 0 || $store.upgradableTourPicker.selectedOptions.includes('No thanks')}" class="flex items-center w-full h-12 px-2 py-3 leading-4 text-left text-gray-600 bg-white border rounded-md shadow-sm text-md focus:outline-none focus:ring-0">
                 <i class="mr-2 fa-solid" :class="$store.upgradableTourPicker.selectedOptions.length === 0 && !$store.upgradableTourPicker.selectedOptions.includes('No thanks') ? 'fa-arrow-right' : 'fa-check'"></i>
@@ -374,20 +376,22 @@
             </button>
 
             <!-- Dropdown Options -->
-            <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-50 w-full mt-2 bg-white rounded-md shadow-lg" :class="{'border border-gray-400': !isOpen || $store.upgradableTourPicker.selectedOptions.length > 0 || $store.upgradableTourPicker.selectedOptions.includes('No thanks')}">
+            <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-50 w-full mt-2 overflow-hidden bg-white border border-gray-400 rounded-md shadow-lg">
                 <ul>
                     <!-- No Thanks Option -->
-                    <li class="px-2 py-2 cursor-pointer hover:bg-gray-100">
-                        <label class="flex items-center space-x-2">
-                            <input type="checkbox" value="No thanks" @change="$store.upgradableTourPicker.updateNoThanks($event.target.checked)" :checked="$store.upgradableTourPicker.selectedOptions.includes('No thanks')" class="form-checkbox">
+                    <li class="px-4 py-2 cursor-pointer hover:bg-brown-50">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+
+                            <input type="checkbox" value="No thanks" @change="$store.upgradableTourPicker.updateNoThanks($event.target.checked)" :checked="$store.upgradableTourPicker.selectedOptions.includes('No thanks')" class="form-radio bg-brown-50 checked:bg-brown-500 focus:bg-brown-300">
+
                             <span>No thanks</span>
                         </label>
                     </li>
                     <!-- Options generated with Antlers templating -->
                     {{ upgradable_tours }}
-                        <li class="px-2 py-2 cursor-pointer hover:bg-gray-100">
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" :value="'{{ title }}'" @change="$store.upgradableTourPicker.updateSelection('{{ title }}', $event.target.checked)" :checked="$store.upgradableTourPicker.selectedOptions.includes('{{ title }}')" class="form-checkbox">
+                        <li class="px-4 py-2 cursor-pointer hover:bg-brown-50">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" :value="'{{ title }}'" @change="$store.upgradableTourPicker.updateSelection('{{ title }}', $event.target.checked)" :checked="$store.upgradableTourPicker.selectedOptions.includes('{{ title }}')" class="form-radio bg-brown-50 checked:bg-brown-500 focus:bg-brown-300">
                                 <span>{{ title }}</span>
                             </label>
                         </li>
@@ -435,7 +439,7 @@
                             this.errorMessage = ''; // Clear error message if condition is met
                             return true;
                         } else {
-                            this.errorMessage = 'Please select at least one upgradable tour.'; // Set error message
+                            this.errorMessage = 'Please choose an option.'; // Set error message
                             return false;
                         }
                     }
@@ -446,55 +450,53 @@
 
 
 {{ if boat_upgrades }}
-<div x-data="{
-        selected: sessionStorage.getItem('_gfcr_tour_upgrade') || '',
-        isOpen: false,
-        init() {
-            if (!this.selected) {
-                this.selected = 'Upgrade Your Boat?'; // Default selection prompt
-                Alpine.store('boatUpgradePicker').errorMessage = 'Please select a boat upgrade option.';
-            } else {
-                Alpine.store('boatUpgradePicker').errorMessage = ''; // Clear error message if an option is already selected
-            }
-        }
-    }" class="relative" x-init="init()">
-    <button x-on:click="isOpen = !isOpen" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
-        <i class="mr-2 text-center fa-solid fa-ship"></i>
-        <span x-text="selected" class="w-full"></span>
-        <i class="text-sm fa-solid fa-chevron-down"></i>
+
+<div x-data="{ isOpen: false, selectedOption: sessionStorage.getItem('_gfcr_tour_upgrade') || 'Upgrade Your Boat?', showMessage: false }" x-init="() => { if (!selectedOption || selectedOption === 'Upgrade Your Boat?') { showMessage = true; } }">
+    <div x-show="selectedOption !== 'Upgrade Your Boat?'" class="mb-1 text-xs text-gray-500">Your boat upgrade:</div>
+    <button @click="isOpen = !isOpen" :class="{'border-red-500 text-red-500': selectedOption === 'Upgrade Your Boat?', 'border-gray-400': selectedOption !== 'Upgrade Your Boat?'}" class="flex items-center w-full h-12 px-2 py-3 leading-4 text-left text-gray-600 bg-white border rounded-md shadow-sm text-md focus:outline-none focus:ring-0">
+        <template x-if="selectedOption == 'Upgrade Your Boat?'">
+            <i class="mr-2 fa-solid fa-arrow-right"></i>
+        </template>
+        <template x-if="selectedOption !== 'Upgrade Your Boat?'">
+            <i class="mr-2 fa-solid fa-check"></i>
+        </template>
+        <span x-text="selectedOption" class="flex-1"></span>
+        <i class="fa-solid fa-angle-down"></i>
     </button>
-    <div x-show="isOpen" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">
-        <ul class="py-1">
-            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selected); Alpine.store('boatUpgradePicker').checkSelection()">
-                <span class="block truncate">No thanks</span>
+
+    <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-50 w-full mt-2 overflow-hidden bg-white rounded-md shadow-lg" :class="{'border border-gray-400 text-gray-600': isOpen && selectedOption === 'Upgrade Your Boat?', 'border border-gray-400': !isOpen || selectedOption !== 'Upgrade Your Boat?'}">
+        <ul>
+            <li @click="selectedOption = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selectedOption); showMessage = false;" class="px-4 py-2 cursor-pointer hover:bg-brown-50">
+                <span>No thanks</span>
             </li>
             {{ boat_upgrades }}
-            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = $event.target.innerText; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selected); Alpine.store('boatUpgradePicker').checkSelection()">
-                <span class="block truncate">{{ title }}</span>
+            <li @click="selectedOption = '{{ title }}'; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selectedOption); showMessage = false;" class="px-4 py-2 cursor-pointer hover:bg-brown-50">
+                <span>{{ title }}</span>
             </li>
             {{ /boat_upgrades }}
         </ul>
     </div>
 </div>
-<div x-text="Alpine.store('boatUpgradePicker').errorMessage" class="text-xs text-red-500"></div>
+<div x-show="showMessage" class="text-xs text-red-500">Please choose a boat upgrade option</div>
 
 <script>
 document.addEventListener('alpine:init', () => {
     Alpine.store('boatUpgradePicker', {
-        errorMessage: '', // Initialize the error message as empty
+        selectedOption: sessionStorage.getItem('_gfcr_tour_upgrade') || 'Upgrade Your Boat?',
+        showMessage: false,
         checkSelection() {
-            const selected = sessionStorage.getItem('_gfcr_tour_upgrade');
-            if (!selected || selected === 'Upgrade Your Boat?') {
-                this.errorMessage = 'Select a boat upgrade or choose "No thanks"';
+            if (!this.selectedOption || this.selectedOption === 'Upgrade Your Boat?') {
+                this.showMessage = true;
                 return false;
             } else {
-                this.errorMessage = ''; // Clear error message if a valid option is selected
+                this.showMessage = false;
                 return true;
             }
         }
     });
 });
 </script>
+
 {{ /if }}
 
 
