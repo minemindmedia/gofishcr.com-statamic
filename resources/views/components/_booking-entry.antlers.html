@@ -451,52 +451,56 @@
 
 {{ if boat_upgrades }}
 
-<div x-data="{ isOpen: false, selectedOption: sessionStorage.getItem('_gfcr_tour_upgrade') || 'Upgrade Your Boat?', showMessage: false }" x-init="() => { if (!selectedOption || selectedOption === 'Upgrade Your Boat?') { showMessage = true; } }">
-    <div x-show="selectedOption !== 'Upgrade Your Boat?'" class="mb-1 text-xs text-gray-500">Your boat upgrade:</div>
-    <button @click="isOpen = !isOpen" :class="{'border-red-500 text-red-500': selectedOption === 'Upgrade Your Boat?', 'border-gray-400': selectedOption !== 'Upgrade Your Boat?'}" class="flex items-center w-full h-12 px-2 py-3 leading-4 text-left text-gray-600 bg-white border rounded-md shadow-sm text-md focus:outline-none focus:ring-0">
-        <template x-if="selectedOption == 'Upgrade Your Boat?'">
-            <i class="mr-2 fa-solid fa-arrow-right"></i>
-        </template>
-        <template x-if="selectedOption !== 'Upgrade Your Boat?'">
-            <i class="mr-2 fa-solid fa-check"></i>
-        </template>
-        <span x-text="selectedOption" class="flex-1"></span>
-        <i class="fa-solid fa-angle-down"></i>
-    </button>
 
-    <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-50 w-full mt-2 overflow-hidden bg-white rounded-md shadow-lg" :class="{'border border-gray-400 text-gray-600': isOpen && selectedOption === 'Upgrade Your Boat?', 'border border-gray-400': !isOpen || selectedOption !== 'Upgrade Your Boat?'}">
+<div x-data="{
+        selected: sessionStorage.getItem('_gfcr_tour_upgrade') || '',
+        isOpen: false,
+        init() {
+            if (!this.selected) {
+                this.selected = 'Upgrade Your Boat?'; // Default selection prompt
+                Alpine.store('boatUpgradePicker').errorMessage = 'Please select a boat upgrade option.';
+            } else {
+                Alpine.store('boatUpgradePicker').errorMessage = ''; // Clear error message if an option is already selected
+            }
+        }
+    }" :class="{'border-red-500 text-red-500': selected === 'Upgrade Your Boat?'}" class="relative text-gray-600 border border-gray-400 rounded-md" x-init="init()">
+    <button x-on:click="isOpen = !isOpen" class="flex items-center w-full h-12 px-2 text-left bg-white rounded-md focus:outline-none">
+        <i class="mr-2 text-center fa-solid fa-ship"></i>
+        <span x-text="selected" class="w-full"></span>
+        <i class="text-sm fa-solid fa-chevron-down"></i>
+    </button>
+    <div x-show="isOpen" class="absolute z-10 w-full mt-2 overflow-hidden text-gray-600 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">
         <ul>
-            <li @click="selectedOption = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selectedOption); showMessage = false;" class="px-4 py-2 cursor-pointer hover:bg-brown-50">
-                <span>No thanks</span>
+            <li class="relative px-4 py-2 cursor-pointer select-none hover:bg-brown-50" x-on:click="selected = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selected); Alpine.store('boatUpgradePicker').checkSelection()">
+                <span class="block truncate">No thanks</span>
             </li>
             {{ boat_upgrades }}
-            <li @click="selectedOption = '{{ title }}'; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selectedOption); showMessage = false;" class="px-4 py-2 cursor-pointer hover:bg-brown-50">
-                <span>{{ title }}</span>
+            <li class="relative px-4 py-2 cursor-pointer select-none hover:bg-brown-50" x-on:click="selected = $event.target.innerText; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selected); Alpine.store('boatUpgradePicker').checkSelection()">
+                <span class="block truncate">{{ title }}</span>
             </li>
             {{ /boat_upgrades }}
         </ul>
     </div>
 </div>
-<div x-show="showMessage" class="text-xs text-red-500">Please choose a boat upgrade option</div>
+<div x-text="Alpine.store('boatUpgradePicker').errorMessage" class="text-xs text-red-500"></div>
 
 <script>
 document.addEventListener('alpine:init', () => {
     Alpine.store('boatUpgradePicker', {
-        selectedOption: sessionStorage.getItem('_gfcr_tour_upgrade') || 'Upgrade Your Boat?',
-        showMessage: false,
+        errorMessage: '', // Initialize the error message as empty
         checkSelection() {
-            if (!this.selectedOption || this.selectedOption === 'Upgrade Your Boat?') {
-                this.showMessage = true;
+            const selected = sessionStorage.getItem('_gfcr_tour_upgrade');
+            if (!selected || selected === 'Upgrade Your Boat?') {
+                this.errorMessage = 'Please choose an option.';
                 return false;
             } else {
-                this.showMessage = false;
+                this.errorMessage = ''; // Clear error message if a valid option is selected
                 return true;
             }
         }
     });
 });
 </script>
-
 {{ /if }}
 
 
