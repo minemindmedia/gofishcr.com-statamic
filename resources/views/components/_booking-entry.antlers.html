@@ -279,58 +279,86 @@
     {{ if segment_1 == 'packages' }}
 
         {{ if included_tours }}
-   <!-- Included Tours Selection -->
-<div x-data="{
-    selected: sessionStorage.getItem('_gfcr_included_tours') || 'Add A Free Tour?',
-    isOpen: false,
-    updateSessionStorage(option) {
-        this.selected = option;
-        sessionStorage.setItem('_gfcr_included_tours', option);
-        // Trigger Alpine update after selection
-        this.$nextTick(() => {
-            Alpine.store('includedTours').checkSelection();
-        });
-        // Close the dropdown after selection
-        this.isOpen = false;
-    }
-}">
-    <button @click="isOpen = !isOpen" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
-        <i x-bind:class="selected === 'Add A Free Tour?' ? 'fa-solid fa-arrow-right mr-2' : 'fa-solid fa-check mr-2'"></i>
-        <span x-text="selected" class="w-full"></span>
-        <i :class="{ 'transform rotate-180': isOpen, 'text-sm': true }" class="ml-auto text-gray-400 fas fa-chevron-up"></i>
-    </button>
-    <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg">
-        <ul class="py-1">
-            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="updateSessionStorage('No thanks')">
-                <span class="block truncate">No thanks</span>
-            </li>
-            {{ included_tours }}
-            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="updateSessionStorage('{{ title }}')">
-                <span class="block truncate">{{ title }}</span>
-            </li>
-            {{ /included_tours }}
-        </ul>
-    </div>
-</div>
+        <div x-data="{ isOpen: false }" class="relative" x-init="$store.includedTourPicker.init()">
+            <!-- Component internals here -->
+            <!-- Display Selected Option / Toggle Dropdown -->
+            <button
+            @click="isOpen = !isOpen"
+            :class="{
+                'border-red-500 text-red-500': $store.includedTourPicker.selectedOption === 'Choose Included Tour',
+                'border-gray-400': $store.includedTourPicker.selectedOption !== 'Choose Included Tour',
+
+            }"
+            class="flex items-center w-full h-12 px-2 py-3 leading-4 text-left text-gray-600 bg-white border rounded-md shadow-sm text-md focus:outline-none focus:ring-0">
+                <template x-if="$store.includedTourPicker.selectedOption == 'Choose Included Tour'">
+                    <i class="mr-2 fa-solid fa-battery-empty"></i>
+                </template>
+                <!-- Adjust icon classes accordingly based on your requirements -->
+                <span x-text="$store.includedTourPicker.selectedOption" class="flex-1"></span>
+                <i class="fa-solid fa-angle-down"></i>
+            </button>
+
+
+            <!-- Dropdown Options -->
+            <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-50 w-full mt-2 bg-white rounded-md shadow-lg" :class="{'border border-red-500': isOpen && $store.includedTourPicker.selectedOption === 'Choose Included Tour', 'border border-gray-400': !isOpen || $store.includedTourPicker.selectedOption !== 'Choose Included Tour'}">
+                <ul>
+                    <!-- Options generated with Antlers templating -->
+                    {{ included_tours }}
+                        <li :class="{'cursor-not-allowed text-gray-400': $store.includedTourPicker.selectedOption === '{{ title }}'}" @click="$store.includedTourPicker.selectedOption !== '{{ title }}' && $store.includedTourPicker.selectOption('{{ title }}'); isOpen = false" class="px-2 py-2 cursor-pointer hover:bg-gray-100">
+                            <span :class="{'font-bold': $store.includedTourPicker.selectedOption === '{{ title }}'}">{{ title }}</span>
+                        </li>
+                    {{ /included_tours }}
+                </ul>
+            </div>
+
+         </div>
+         <div x-show="$store.includedTourPicker.showMessage" class="text-xs text-red-500">Choose your included tour</div>
 
 
         <script>
-            document.addEventListener('alpine:init', () => {
-                Alpine.store('includedTours', {
-                    selectedTour: sessionStorage.getItem('_gfcr_included_tours') || 'Add A Free Tour?',
-                    errorMessage: '',
-                    checkSelection() {
-                        if (this.selectedTour === 'Add A Free Tour?') {
-                            this.errorMessage = "Please select an included tour.";
-                            return false;
-                        } else {
-                            this.errorMessage = '';
-                            return true;
-                        }
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('includedTourPicker', {
+                selectedOption: 'Choose Included Tour', // Default option set to prompt reselection
+                showMessage: false,
+                currentPage: '',
+                init() {
+                    this.currentPage = window.location.href;
+                    const storedPage = sessionStorage.getItem('_gfcr_page');
+                    const storedOption = sessionStorage.getItem('_gfcr_included_tour');
+                    if (storedPage !== this.currentPage || !storedOption) {
+                        this.requireReselection();
+                    } else {
+                        this.selectedOption = storedOption;
                     }
-                });
+                },
+                requireReselection() {
+                    this.selectedOption = 'Choose Included Tour';
+                    this.showMessage = false;
+                    sessionStorage.removeItem('_gfcr_included_tour'); // Ensure reselection by removing stored option
+                },
+                selectOption(option) {
+                    this.selectedOption = option;
+                    this.showMessage = false;
+                    sessionStorage.setItem('_gfcr_included_tour', option); // Store in session storage
+                    sessionStorage.setItem('_gfcr_page', this.currentPage); // Store current page URL in session storage
+                },
+                checkSelection() {
+                    if (this.selectedOption === 'Choose Included Tour') {
+                        this.showMessage = true;
+                        return false; // Ensure there is a false statement when the selection is default
+                    } else {
+                        // Redirect or other logic here
+                        return true; // Ensure there is a true statement when a selection has been made
+                    }
+                },
+                // Additional methods or properties here
             });
-            </script>
+        });
+        </script>
+
+
+
+
         {{ /if }}
 
         {{ if upgradable_tours }}
@@ -399,36 +427,12 @@
 
     <!-- booking button -->
 
-<!-- Booking Button -->
-<!-- Booking Button -->
-<!-- Booking Button -->
-<!-- Booking button -->
-<div class="!mt-4">
-    <a href="#_" @click="
-        event.stopPropagation();
-        // Check date picker
-        let dateRangePassed = Alpine.store('dateRangePicker').checkDateRange();
-        // Check guest picker
-        let guestPassed = Alpine.store('guestPicker').checkSelection();
-        // Check included tours selection
-        let includedToursSelection = sessionStorage.getItem('_gfcr_included_tours');
-
-        // If any of the validations fail, display error messages and return
-        if (!dateRangePassed || !guestPassed || !includedToursSelection || includedToursSelection === 'Add A Free Tour?') {
-            Alpine.store('dateRangePicker').checkDateRange();
-            Alpine.store('guestPicker').checkSelection();
-            Alpine.store('includedTours').checkSelection();
-            return;
-        }
-
-        // If all validations pass, navigate to the reservation page
-        window.location.href = '/reservation?from=packages';
-    " class="flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-500 rounded-md hover:bg-green-400 sm:w-auto sm:mb-0">
+    <a href="#_"
+    @click.prevent="event.stopPropagation(); let dateRangePassed = Alpine.store('dateRangePicker').checkDateRange(); let guestPassed = Alpine.store('guestPicker').checkSelection(); let includedTourPassed = Alpine.store('includedTourPicker').checkSelection(); let allPassed = dateRangePassed && includedTourPassed && guestPassed; if (allPassed) { window.location.assign('/reservation?from=packages'); }"
+        class="flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-500 rounded-md hover:bg-green-400 sm:w-auto sm:mb-0">
         {{ title }}
         <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
     </a>
-</div>
-
 
 
 
@@ -438,5 +442,4 @@
     </div>
 
     <!-- End: /components/_home_booking.antlers.html -->
-
 
