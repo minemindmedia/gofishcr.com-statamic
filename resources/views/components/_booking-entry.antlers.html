@@ -315,7 +315,7 @@
             </div>
 
          </div>
-         <div x-show="$store.includedTourPicker.showMessage" class="text-xs text-red-500">Choose your included tour</div>
+         <div x-text="$store.includedTourPicker.showMessage ? 'Choose your included tour' : ''" class="text-xs text-red-500"></div>
 
 
         <script>
@@ -365,64 +365,137 @@
         {{ /if }}
 
         {{ if upgradable_tours }}
-        <div x-data="{
-            selected: [],
-            isOpen: false,
-            updateSessionStorage() {
-                sessionStorage.setItem('_gfcr_upgradable_tours', JSON.stringify(this.selected));
-            },
-            loadFromSessionStorage() {
-                const storedSelection = sessionStorage.getItem('_gfcr_upgradable_tours');
-                if (storedSelection) {
-                    this.selected = JSON.parse(storedSelection);
-                }
-            }
-        }" x-init="loadFromSessionStorage" class="relative">
-        <button x-on:click="isOpen = !isOpen" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
-            <i class="mr-2 fa-solid fa-list-ol"></i>
-            <span x-text="selected.length ? (selected.includes('No thanks') ? 'No thanks' : selected.length + ' Tour' + (selected.length > 1 ? 's' : '') + ' Added') : (sessionStorage.getItem('_gfcr_upgradable_tours') || 'Add More Tours?')" class="w-full"></span>
-            <i class="text-sm fa-solid fa-chevron-down "></i>
-        </button>
-            <div x-show="isOpen" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">
-                <ul class="py-1">
-                    <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_upgradable_tours', selected); selected = []">
-                        <span class="block truncate">No thanks</span>
-                    </li>
-                    {{ upgradable_tours }}
-                    <li class="relative px-4 py-2 cursor-pointer select-none">
-                        <label class="inline-flex items-center">
-                            <input type="checkbox" x-model="selected" x-on:change="updateSessionStorage()" value="{{ title }}" class="w-5 h-5 text-gray-600 rounded-full form-checkbox">
-                            <span class="ml-2">{{ title }}</span>
+        <div x-data="{ isOpen: false }" class="relative">
+            <!-- Display Selected Option / Toggle Dropdown -->
+            <button @click="isOpen = !isOpen" :class="{'border-red-500 text-red-500': $store.upgradableTourPicker.selectedOptions.length === 0 && !$store.upgradableTourPicker.selectedOptions.includes('No thanks'), 'border-gray-400': $store.upgradableTourPicker.selectedOptions.length > 0 || $store.upgradableTourPicker.selectedOptions.includes('No thanks')}" class="flex items-center w-full h-12 px-2 py-3 leading-4 text-left text-gray-600 bg-white border rounded-md shadow-sm text-md focus:outline-none focus:ring-0">
+                <i class="mr-2 fa-solid" :class="$store.upgradableTourPicker.selectedOptions.length === 0 && !$store.upgradableTourPicker.selectedOptions.includes('No thanks') ? 'fa-arrow-right' : 'fa-check'"></i>
+                <span x-text="$store.upgradableTourPicker.selectedOptions.includes('No thanks') && $store.upgradableTourPicker.selectedOptions.length === 1 ? 'No thanks' : $store.upgradableTourPicker.selectedOptions.length === 0 ? 'Add More Tours?' : `${$store.upgradableTourPicker.selectedOptions.length} Tour${$store.upgradableTourPicker.selectedOptions.length > 1 ? 's' : ''} Selected`" class="flex-1"></span>
+                <i class="fa-solid fa-angle-down"></i>
+            </button>
+
+            <!-- Dropdown Options -->
+            <div x-show="isOpen" @click.away="isOpen = false" class="absolute z-50 w-full mt-2 bg-white rounded-md shadow-lg" :class="{'border border-gray-400': !isOpen || $store.upgradableTourPicker.selectedOptions.length > 0 || $store.upgradableTourPicker.selectedOptions.includes('No thanks')}">
+                <ul>
+                    <!-- No Thanks Option -->
+                    <li class="px-2 py-2 cursor-pointer hover:bg-gray-100">
+                        <label class="flex items-center space-x-2">
+                            <input type="checkbox" value="No thanks" @change="$store.upgradableTourPicker.updateNoThanks($event.target.checked)" :checked="$store.upgradableTourPicker.selectedOptions.includes('No thanks')" class="form-checkbox">
+                            <span>No thanks</span>
                         </label>
                     </li>
+                    <!-- Options generated with Antlers templating -->
+                    {{ upgradable_tours }}
+                        <li class="px-2 py-2 cursor-pointer hover:bg-gray-100">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" :value="'{{ title }}'" @change="$store.upgradableTourPicker.updateSelection('{{ title }}', $event.target.checked)" :checked="$store.upgradableTourPicker.selectedOptions.includes('{{ title }}')" class="form-checkbox">
+                                <span>{{ title }}</span>
+                            </label>
+                        </li>
                     {{ /upgradable_tours }}
                 </ul>
             </div>
+            <!-- Error Message Display -->
+            <div x-text="$store.upgradableTourPicker.errorMessage" class="mt-2 text-xs text-red-500"></div>
         </div>
-        {{ /if }}
+
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.store('upgradableTourPicker', {
+                    isOpen: false,
+                    selectedOptions: [],
+                    errorMessage: '', // Initialize the error message as empty
+                    init() {
+                        this.selectedOptions = JSON.parse(sessionStorage.getItem('_gfcr_upgradable_tours') || '[]');
+                    },
+                    updateSelection(value, checked) {
+                        if (value === 'No thanks' && checked) {
+                            this.selectedOptions = ['No thanks'];
+                        } else {
+                            if (checked) {
+                                this.selectedOptions = this.selectedOptions.filter(option => option !== 'No thanks');
+                                this.selectedOptions.push(value);
+                            } else {
+                                this.selectedOptions = this.selectedOptions.filter(option => option !== value);
+                            }
+                        }
+                        sessionStorage.setItem('_gfcr_upgradable_tours', JSON.stringify(this.selectedOptions));
+                        this.checkSelection(); // Check selection after updating
+                    },
+                    updateNoThanks(checked) {
+                        if (checked) {
+                            this.selectedOptions = ['No thanks'];
+                        } else if (this.selectedOptions.includes('No thanks')) {
+                            this.selectedOptions = this.selectedOptions.filter(option => option !== 'No thanks');
+                        }
+                        sessionStorage.setItem('_gfcr_upgradable_tours', JSON.stringify(this.selectedOptions));
+                        this.checkSelection(); // Check selection after updating
+                    },
+                    checkSelection() {
+                        if (this.selectedOptions.length > 0) {
+                            this.errorMessage = ''; // Clear error message if condition is met
+                            return true;
+                        } else {
+                            this.errorMessage = 'Please select at least one upgradable tour.'; // Set error message
+                            return false;
+                        }
+                    }
+                });
+            });
+            </script>
+{{ /if }}
 
 
-        {{ if boat_upgrades }}
-            <div x-data="{ selected: sessionStorage.getItem('_gfcr_tour_upgrade') || 'Upgrade Your Boat?', isOpen: false }" class="relative">
-                <button x-on:click="isOpen = !isOpen; sessionStorage.setItem('_gfcr_tour_upgrade', selected)" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
-                    <i class="mr-2 text-center fa-solid fa-ship"></i>
-                    <span x-text="selected" class="w-full"></span>
-                    <i class="text-sm fa-solid fa-chevron-down "></i>
-                </button>
-                <div x-show="isOpen" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">
-                    <ul class="py-1">
-                        <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selected)">
-                            <span class="block truncate">No thanks</span>
-                        </li>
-                        {{ boat_upgrades }}
-                        <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = $event.target.innerText; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selected)">
-                            <span class="block truncate">{{ title }}</span>
-                        </li>
-                    {{ /boat_upgrades }}
-                    </ul>
-                </div>
-            </div>
-        {{ /if }}
+{{ if boat_upgrades }}
+<div x-data="{
+        selected: sessionStorage.getItem('_gfcr_tour_upgrade') || '',
+        isOpen: false,
+        init() {
+            if (!this.selected) {
+                this.selected = 'Upgrade Your Boat?'; // Default selection prompt
+                Alpine.store('boatUpgradePicker').errorMessage = 'Please select a boat upgrade option.';
+            } else {
+                Alpine.store('boatUpgradePicker').errorMessage = ''; // Clear error message if an option is already selected
+            }
+        }
+    }" class="relative" x-init="init()">
+    <button x-on:click="isOpen = !isOpen" class="flex items-center w-full h-12 px-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md focus:outline-none">
+        <i class="mr-2 text-center fa-solid fa-ship"></i>
+        <span x-text="selected" class="w-full"></span>
+        <i class="text-sm fa-solid fa-chevron-down"></i>
+    </button>
+    <div x-show="isOpen" class="absolute z-10 w-full mt-1 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">
+        <ul class="py-1">
+            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selected); Alpine.store('boatUpgradePicker').checkSelection()">
+                <span class="block truncate">No thanks</span>
+            </li>
+            {{ boat_upgrades }}
+            <li class="relative px-4 py-2 cursor-pointer select-none" x-on:click="selected = $event.target.innerText; isOpen = false; sessionStorage.setItem('_gfcr_tour_upgrade', selected); Alpine.store('boatUpgradePicker').checkSelection()">
+                <span class="block truncate">{{ title }}</span>
+            </li>
+            {{ /boat_upgrades }}
+        </ul>
+    </div>
+</div>
+<div x-text="Alpine.store('boatUpgradePicker').errorMessage" class="text-xs text-red-500"></div>
+
+<script>
+document.addEventListener('alpine:init', () => {
+    Alpine.store('boatUpgradePicker', {
+        errorMessage: '', // Initialize the error message as empty
+        checkSelection() {
+            const selected = sessionStorage.getItem('_gfcr_tour_upgrade');
+            if (!selected || selected === 'Upgrade Your Boat?') {
+                this.errorMessage = 'Select a boat upgrade or choose "No thanks"';
+                return false;
+            } else {
+                this.errorMessage = ''; // Clear error message if a valid option is selected
+                return true;
+            }
+        }
+    });
+});
+</script>
+{{ /if }}
 
 
     {{ /if }}
@@ -431,12 +504,22 @@
     <!-- booking button -->
 
     <a href="#_"
-    @click.prevent="event.stopPropagation(); let dateRangePassed = Alpine.store('dateRangePicker').checkDateRange(); let guestPassed = Alpine.store('guestPicker').checkSelection(); let includedTourPassed = Alpine.store('includedTourPicker').checkSelection(); let allPassed = dateRangePassed && includedTourPassed && guestPassed; if (allPassed) { window.location.assign('/reservation?from=packages'); }"
-        class="flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-500 rounded-md hover:bg-green-400 sm:w-auto sm:mb-0">
+       @click.prevent="event.stopPropagation();
+                        let dateRangePassed = Alpine.store('dateRangePicker').checkDateRange();
+                        let guestPassed = Alpine.store('guestPicker').checkSelection();
+                        let includedTourPassed = Alpine.store('includedTourPicker').checkSelection();
+                        let upgradableTourPassed = Alpine.store('upgradableTourPicker').checkSelection();
+                        let boatUpgradePassed = Alpine.store('boatUpgradePicker').checkSelection();
+                        let allPassed = dateRangePassed && guestPassed && includedTourPassed && upgradableTourPassed && boatUpgradePassed;
+                        if (allPassed) {
+                            window.location.assign('/reservation?from=packages');
+                        }"
+       class="flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-500 rounded-md hover:bg-green-400 sm:w-auto sm:mb-0">
         {{ title }}
-        <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
     </a>
-
 
 
 
