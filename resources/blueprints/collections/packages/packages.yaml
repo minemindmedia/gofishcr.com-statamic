@@ -12,6 +12,23 @@ tabs:
             config:
               validate:
                 - required
+              width: 50
+          -
+            handle: price
+            field:
+              input_type: text
+              prepend: $
+              append: '.00'
+              antlers: false
+              type: text
+              display: Price
+              icon: text
+              width: 50
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
           -
             handle: title
             field:

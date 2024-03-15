@@ -23,64 +23,7 @@
                 </div>
             </div>
 
-            <div x-data="{ open: false }" class="flex justify-center">
-                <!-- Trigger -->
-                <span x-on:click="open = true">
-                    <button type="button" class="absolute bottom-0 right-0 px-4 py-2 m-4 text-sm bg-white rounded-lg hover:bg-gray-100">
-                        View all images
-                    </button>
-                </span>
-                <!-- Modal -->
-                <div
-                    x-show="open"
-                    style="display: none"
-                    x-on:keydown.escape.prevent.stop="open = false"
-                    role="dialog"
-                    aria-modal="true"
-                    x-id="['modal-title']"
-                    :aria-labelledby="$id('modal-title')"
-                    class="fixed inset-0 z-[99999] overflow-y-auto"
-                >
-                    <!-- Overlay -->
-                    <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-70" x-on:click="open = false"></div>
-                    <!-- Scroll down text -->
-
-
-                    <!-- Panel -->
-                    <div
-                        x-show="open" x-transition
-                        x-on:click="open = false"
-                        class="inset-0 overflow-y-auto "
-                    >
-                        <div
-                            x-on:click.stop
-                            x-trap.noscroll.inert="open"
-                            class="relative w-full max-w-2xl p-4 mx-auto overflow-y-auto bg-white"
-                        >
-                            <div class="flex flex-col space-y-4">
-                                <div class="absolute top-0 right-0 p-4">
-                                    <i class="cursor-pointer fa-solid fa-times" x-on:click="open = false"></i>
-                                </div>
-                                <div class="flex items-center justify-center">
-                                    <i class="mr-2 fa-solid fa-arrow-down"></i>
-                                    {{ partial:/typography/p content="Scroll For More" class="!m-0 !p-0"}}
-                                    <i class="ml-2 fa-solid fa-arrow-down"></i>
-                                </div>
-                                {{ additional_photos }}
-                                <img src="{{ url }}" alt="{{ img:alt }}">
-                                <div class="flex items-center justify-center">
-                                    <i class="mr-2 fa-solid fa-arrow-down"></i>
-                                    {{ partial:/typography/p content="Scroll For More" class="!m-0 !p-0"}}
-                                    <i class="ml-2 fa-solid fa-arrow-down"></i>
-                                </div>
-                                {{ /additional_photos }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+            {{ partial:components/images/view-all-images }}
 
 
         </div>
@@ -93,10 +36,14 @@
                     <div class="flex py-8 my-32 border-gray-300 border-y">
                         <div class="flex-1">
                             <div class="flex items-center space-x-2 text-orange-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
-                                </svg>
+                                <i class="fa-solid fa-location-dot"></i>
                                 <span>{{ partial:/typography/p class="mb-2 font-bold" content="{{ location:title }}" }}</span>
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-end space-x-2 text-orange-600">
+                                <i class="fa-solid fa-tag"></i>
+                                <span>{{ partial:/typography/p class="mb-2 font-bold" content="${{ price }}.00" }}</span>
                             </div>
                         </div>
 
@@ -120,106 +67,232 @@
                                 {{ /what_you_receive }}
                             </div>
                             {{ /if }}
-                        </div>
-
-                    </div>
-                    <div>
-                        <div class="grid grid-cols-12 gap-8">
-                            {{ if included_tours }}
-                            <div class="col-span-12">
-                                <div class="p-8 border border-gray-400 rounded-xl">
-                                    {{ partial:/typography/h6 content="Available Tours" }}
-                                    {{ included_tours }}
-                                        <div class="my-2">
-                                            <div class="flex space-x-4">
-                                                <div>
-                                                    <i class="fa-solid fa-check"></i>
-                                                </div>
-                                                <div>
-                                                    {{ title }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    {{ /included_tours }}
-                                </div>
-                            </div>
-                            {{ /if }}
-                            {{ if upgradable_tours }}
-                                <div class="col-span-12">
-                                    <div class="p-8 border border-gray-400 rounded-xl">
-                                        {{ partial:/typography/h6 content="Upgradable Tours" class="mb-8" }}
-                                        {{ upgradable_tours }}
-                                        <div class="grid grid-cols-12 mb-4 gap-y-4">
-
-                                            <div class="flex w-full col-span-6 border-b border-gray-400 ">
-                                                {{ partial:/typography/p content="{{ title }}" }}
-                                            </div>
-
-                                            <div class="flex justify-end w-full col-span-6 border-b border-gray-400 ">
-
-                                                {{ if upgrade_details }}
-                                                    {{ upgrade_details }}
-                                                        <div class="flex space-x-4">
-                                                            <div>
-                                                                {{ if inquire }}
-                                                                    {{ partial:/typography/p content="Inquire" }}
-                                                                {{ else }}
-                                                                <div class="flex">
-                                                                {{ partial:/typography/p content="${{ rate }}.00" class="!m-0"}}
-                                                                {{ if per_person }}
-                                                                    {{ partial:/typography/p content="/pp" class="!m-0" }}
-                                                                {{ /if }}
-                                                                {{ if tax }}
-                                                                    {{ partial:/typography/p content="+ tax" class="!m-0 pl-2" }}
-                                                                {{ /if }}
-                                                            </div>
-
-                                                                {{ /if }}
-                                                            </div>
-                                                        </div>
-                                                    {{ /upgrade_details }}
-                                                {{ /if }}
-
-                                            </div>
-
-                                        </div>
-                                        {{ /upgradable_tours }}
-                                    </div>
-                                </div>
-                            {{ /if }}
-                            {{ if boat_upgrades }}
-                                <div class="col-span-12">
-                                    <div class="p-8 border border-gray-400 rounded-xl">
-                                        {{ partial:/typography/h6 content="Boat Upgrades" class="mb-8" }}
-                                        {{ boat_upgrades }}
-                                        <div class="grid grid-cols-12 mb-4 gap-y-4">
-
-                                            <div class="flex w-full col-span-6 border-b border-gray-400 ">
-                                                {{ partial:/typography/p content="{{ title }}" }}
-                                            </div>
-
-                                            <div class="flex justify-end w-full col-span-6 border-b border-gray-400 ">
-
-                                                {{ partial:/typography/p content="${{ upgrade_price }}.00" }}
-
-                                            </div>
-
-                                        </div>
-                                        {{ /boat_upgrades }}
-                                    </div>
-                                </div>
-                            {{ /if }}
-
 
                         </div>
+
+
+
                     </div>
+
+
 
                 </div>
+
+
+                <div class="p-4 bg-brown-100">
+                    {{ partial:/typography/h6 content="Included Tours" class="mb-2" }}
+                    {{ if included_tours }}
+                    {{ included_tours}}
+                    <div class="inline-flex flex-row items-center mr-4 text-sm">
+                        <i class="mr-2 fa-solid fa-check"></i><div>{{ title }}</div>
+                    </div>
+                    {{ /included_tours}}
+                    {{ else }}
+                    <div class="flex flex-col mr-4 text-sm">
+                        <div>There are no tours included in this package.</div>
+                        <div class="flex flex-row space-x-1">{{ partial:/typography/a content="Upgrade your tour" class="!mb-0" url="/packages"  }} <span>or</span> {{ partial:/typography/p content="add a tour to this package when booking." class="!mb-0" }}</div>
+                    </div>
+                    {{ /if }}
+                </div>
+
+
+
+
             </div>
+
             <div class="col-span-3">
                 <div class="p-8 bg-white border border-gray-100 shadow-2xl rounded-xl" >
                     {{ partial:components/booking-entry title="Continue"}}
                 </div>
+            </div>
+        </div>
+
+
+        <!-- upgrades -->
+
+        <div class="grid grid-cols-12 gap-4">
+            <div class="col-span-7">
+                {{ if upgradable_tours }}
+                        <div class="col-span-12">
+                            <div class="p-8 border border-gray-400 rounded-xl">
+                                {{ partial:/typography/h6 content="Upgradable Tours" class="mb-8" }}
+                                {{ upgradable_tours }}
+                                <div class="grid grid-cols-12 mb-4 gap-y-4">
+
+                                    <div class="flex w-full col-span-6 border-b border-gray-400 ">
+                                        {{ partial:/typography/p content="{{ title }}" }}
+                                    </div>
+
+                                    <div class="flex justify-end w-full col-span-6 border-b border-gray-400 ">
+
+                                        {{ if upgrade_details }}
+                                            {{ upgrade_details }}
+                                                <div class="flex space-x-4">
+                                                    <div>
+                                                        {{ if inquire }}
+                                                            {{ partial:/typography/p content="Inquire" }}
+                                                        {{ else }}
+                                                        <div class="flex">
+                                                        {{ partial:/typography/p content="${{ rate }}.00" class="!m-0"}}
+                                                        {{ if per_person }}
+                                                            {{ partial:/typography/p content="/pp" class="!m-0" }}
+                                                        {{ /if }}
+                                                        {{ if tax }}
+                                                            {{ partial:/typography/p content="+ tax" class="!m-0 pl-2" }}
+                                                        {{ /if }}
+                                                    </div>
+
+                                                        {{ /if }}
+                                                    </div>
+                                                </div>
+                                            {{ /upgrade_details }}
+                                        {{ /if }}
+
+                                    </div>
+
+                                </div>
+                                {{ /upgradable_tours }}
+                            </div>
+                        </div>
+                    {{ /if }}
+            </div>
+            <div class="col-span-5">
+                {{ if boat_upgrades }}
+                    <div class="col-span-12">
+                        <div class="p-8 border border-gray-400 rounded-xl">
+                            {{ partial:/typography/h6 content="Boat Upgrades" class="mb-8" }}
+                            {{ boat_upgrades }}
+
+
+
+
+                            <div x-data="{ boatUpgrade: false }">
+                                <!-- Trigger -->
+                                <span x-on:click="boatUpgrade = true">
+
+                                        <div class="grid grid-cols-12 p-2 mb-2 border-b border-gray-400 cursor-pointer gap-y-2 hover:bg-brown-100 hover:border hover:border-brown-200">
+                                            <div class="flex w-full col-span-6 p-0 m-0 " x-data="{ showModal: false }">
+                                                <div class="flex space-x-4" @click="showModal = true">
+                                                    <div>{{ partial:/typography/p content="{{ title }}" }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="flex justify-end w-full col-span-6 ">
+                                                {{ partial:/typography/p content="${{ upgrade_price }}.00" }}
+                                            </div>
+                                        </div>
+
+                                </span>
+
+                                <!-- Modal -->
+                                <div
+                                    x-show="boatUpgrade"
+                                    style="display: none"
+                                    x-on:keydown.escape.prevent.stop="boatUpgrade = false"
+                                    role="dialog"
+                                    aria-modal="true"
+                                    x-id="['modal-title']"
+                                    :aria-labelledby="$id('modal-title')"
+                                    class="fixed inset-0 z-10 overflow-y-auto"
+                                >
+                                    <!-- Overlay -->
+                                    <div x-show="boatUpgrade" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-50"></div>
+
+                                    <!-- Panel -->
+                                    <div
+                                        x-show="boatUpgrade" x-transition
+                                        x-on:click="boatUpgrade = false"
+                                        class="relative flex items-center justify-center min-h-screen p-4"
+                                    >
+                                        <div
+                                            x-on:click.stop
+                                            x-trap.noscroll.inert="boatUpgrade"
+                                            class="relative w-full max-w-5xl p-4 overflow-y-auto bg-white shadow-lg rounded-xl"
+                                        >
+                                            <div class="absolute top-0 right-0 p-4">
+                                                <button x-on:click="boatUpgrade = false">
+                                                    <i class="fa-regular fa-circle-xmark"></i>
+                                                </button>
+                                            </div>
+                                            <div class="grid grid-cols-12 gap-4">
+                                                <div class="col-span-7">
+                                                    <img src="{{ boat }}" alt="{{ boat:alt }}" class="w-full">
+                                                </div>
+                                                <div class="col-span-5 space-y-4">
+                                                    <div class="flex">
+                                                        <div>
+                                                            {{ if popular == 'true' }}
+                                                        <div class="inline-flex items-center px-2 space-x-1 bg-orange-100 border border-orange-300 rounded-full">
+                                                            <div>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                                                                    <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a10 10 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733q.086.18.138.363c.077.27.113.567.113.856s-.036.586-.113.856c-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.2 3.2 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.8 4.8 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                                                                </svg>
+                                                            </div>
+                                                            <div>
+                                                                Top Boat
+                                                            </div>
+                                                        </div>
+                                                    {{ /if }}
+                                                        </div>
+                                                        <div>
+                                                            <div class="flex space-x-6">
+                                                                {{ if inshore_or_offshore == 'inshore' }}
+                                                                    <div class="font-bold text-green-700">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-full" viewBox="0 0 16 16">
+                                                                            <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="font-bold text-green-700">
+                                                                        {{ inshore_or_offshore:label }}
+                                                                    </div>
+                                                                    {{ elseif inshore_or_offshore == 'offshore' }}
+                                                                    <div class="font-bold text-red-700">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-full" viewBox="0 0 16 16">
+                                                                            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="font-bold text-red-700">
+                                                                        {{ inshore_or_offshore:label }}
+                                                                    </div>
+                                                                {{ /if }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {{ partial:/typography/h5 content="{{ title }}" }}
+
+                                                    {{ if passengers }} {{ partial:/typography/p content="{{ passengers }}" }} {{ /if }}
+
+                                                    {{ if features }}
+                                                    <div class="flex flex-col space-y-0">
+                                                        {{ features }}
+
+                                                        <div class="flex flex-row items-center">
+                                                            <i class="mr-2 fa-solid fa-right-long"></i>
+                                                        {{ partial:/typography/p content="{{ value }}" class="!m-0" }}
+                                                        </div>
+
+                                                        {{ /features }}
+                                                    </div>
+
+                                                    {{ /if }}
+
+                                                    {{ partial:/typography/h4 content="Upgrade for: ${{ upgrade_price }}.00" }}
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            {{ /boat_upgrades }}
+                        </div>
+                    </div>
+                    {{ /if }}
             </div>
         </div>
 

@@ -64,3 +64,13 @@ html { overflow-y: scroll; }
         @apply
         w-auto !important
       }
+
+
+      /* Custom CSS for checked radio button */
+.form-radio:checked {
+    background-color: orange-500; /* Example color: brown-500 */
+}
+
+.form-radio:selected {
+    background-color: orange-500; /* Example color: brown-500 */
+}

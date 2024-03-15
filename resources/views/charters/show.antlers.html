@@ -9,7 +9,7 @@ class="flex flex-col w-full space-y-8"
 
 >
 
-    <div class="grid w-full grid-cols-2 gap-1">
+    <div class="relative grid w-full grid-cols-2 gap-1">
         <div class="col-span-1">
             <img src="{{ boat }}" alt="" class="w-full">
         </div>
@@ -22,6 +22,8 @@ class="flex flex-col w-full space-y-8"
                     View all images
                 </a>
             </div>
+
+            {{ partial:components/images/view-all-images }}
 
         </div>
     </div>
@@ -136,4 +138,10 @@ class="flex flex-col w-full space-y-8"
         storeBoatTitle();
     }
 
+</script>
+
+
+<script>
+    // Set a cookie when the user visits the specific page
+    document.cookie = "visitedSpecificPage=true; path=/";
 </script>
