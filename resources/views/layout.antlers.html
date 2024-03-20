@@ -13,12 +13,16 @@
         <meta name="csrf-token" content="{{ csrf_token }}">
         <script src="/vendor/statamic/frontend/js/helpers.js"></script>
         <script src="https://kit.fontawesome.com/f181052d3d.js" crossorigin="anonymous"></script>
+
+
+
         {{ vite src="resources/css/site.css|resources/js/site.js" }}
         {{ partial:statamic-peak-seo::snippets/seo }}
         {{ partial:statamic-peak-browser-appearance::snippets/browser_appearance }}
         {{ partial:statamic-peak-tools::snippets/live_preview }}
         {{ googlefonts:main }}
         {{ googlefonts:content }}
+
 
     </head>
     <body
@@ -60,7 +64,7 @@
 
 
 
-        <div class="{{ if is_homepage }} py-12 px-60 {{ else }} px-12 py-12 {{ /if }}">
+        <div class="{{ if is_homepage }} py-12 px-60 {{ else }} px-4 py-4 lg:px-12 lg:py-12 {{ /if }}">
             {{ template_content }}
         </div>
 

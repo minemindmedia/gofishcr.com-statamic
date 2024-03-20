@@ -37,7 +37,7 @@
                     flatpickr(".date-range", {
                         mode: "range",
                         minDate: new Date(), // Set minimum date to current date
-                        showMonths: '2',
+                        showMonths: window.innerWidth < 640 ? 1 : 2, // Show 1 month on mobile and 2 months on desktop
                         dateFormat: "M j",
                         defaultDate: [this.startDate, this.endDate], // Set default dates
                         onChange: this.updateDates.bind(this),
@@ -77,7 +77,7 @@
 
     <!-- guests picker -->
 
-    <div x-data="{ open: false }" class="relative ">
+    <div x-data="{ open: false }" class="relative " :class="{'hidden sm:block': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate}">
         <button @click="open = !open" :class="{'border-red-500 border text-red-500': Alpine.store('guestPicker').adults == 0, 'border-gray-400 border': Alpine.store('guestPicker').adults > 0 == true}" class="flex items-center justify-start w-full px-2 py-2 space-x-2 text-left text-gray-600 bg-white border rounded-md px-09 focus:outline-none">
             <i class="text-lg text-center fa-solid fa-person"></i>
             <span class="flex-1" x-text="Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 0 ? 'Add Guests' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 1 ? '1 Guest' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children + ' Guests'"></span>
@@ -279,7 +279,8 @@
     {{ if segment_1 == 'packages' }}
 
         {{ if included_tours }}
-        <div x-data="{ isOpen: false }" class="relative" x-init="$store.includedTourPicker.init()">
+
+            <div x-data="{ isOpen: false }" class="relative" :class="{'hidden sm:block': Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 0}" x-init="$store.includedTourPicker.init()">
             <!-- Component internals here -->
             <!-- Display Selected Option / Toggle Dropdown -->
             <div x-show="$store.includedTourPicker.selectedOption !== 'Choose Included Tour'" class="mb-1 text-xs text-gray-500">Your free tour:</div>
@@ -364,7 +365,7 @@
         {{ /if }}
 
         {{ if upgradable_tours }}
-        <div x-data="{ isOpen: false }" class="relative">
+        <div x-data="{ isOpen: false }" class="relative" :class="{'hidden sm:block': $store.includedTourPicker.selectedOption === 'Choose Included Tour'}">
             <div x-show="$store.upgradableTourPicker.selectedOptions.length === 1 && !$store.upgradableTourPicker.selectedOptions.includes('No thanks')" class="mb-1 text-xs text-gray-500">Your additional tour:</div>
             <div x-show="$store.upgradableTourPicker.selectedOptions.length >= 2 && !$store.upgradableTourPicker.selectedOptions.includes('No thanks')" class="mb-1 text-xs text-gray-500">Your additional tours:</div>
             <div x-show="$store.upgradableTourPicker.selectedOptions.includes('No thanks')" class="mb-1 text-xs text-gray-500">Add more tours?</div>
@@ -451,38 +452,46 @@
 
 {{ if boat_upgrades }}
 
-
 <div x-data="{
-        selected: sessionStorage.getItem('_gfcr_boat_upgrade') || '',
-        isOpen: false,
-        init() {
-            if (!this.selected) {
-                this.selected = 'Upgrade Your Boat?'; // Default selection prompt
-                Alpine.store('boatUpgradePicker').errorMessage = 'Please select a boat upgrade option.';
-            } else {
-                Alpine.store('boatUpgradePicker').errorMessage = ''; // Clear error message if an option is already selected
-            }
+    selected: sessionStorage.getItem('_gfcr_boat_upgrade') || '',
+    isOpen: false,
+    init() {
+        if (!this.selected) {
+            this.selected = 'Upgrade Your Boat?'; // Default selection prompt
+            Alpine.store('boatUpgradePicker').errorMessage = 'Please select a boat upgrade option.';
+        } else {
+            Alpine.store('boatUpgradePicker').errorMessage = ''; // Clear error message if an option is already selected
         }
-    }" :class="{'border-red-500 text-red-500': selected === 'Upgrade Your Boat?'}" class="relative text-gray-600 border border-gray-400 rounded-md" x-init="init()">
-    <button x-on:click="isOpen = !isOpen" class="flex items-center w-full h-12 px-2 text-left bg-white rounded-md focus:outline-none">
+    },
+    updateBookingButton() {
+        let bookingButton = document.getElementById('bookingButton');
+        if (bookingButton) {
+            bookingButton.style.display = this.selected ? 'block' : 'none';
+        }
+    }
+}" :class="{'hidden sm:block': !Alpine.store('upgradableTourPicker').checkSelection(), 'border border-red-500 text-red-500': selected === 'Upgrade Your Boat?', 'border-gray-400 text-gray-600 border': selected !== 'Upgrade Your Boat?'}" class="relative rounded-md">
+    <button x-on:click="isOpen = !isOpen; updateBookingButton()" class="flex items-center w-full h-12 px-2 text-left bg-white rounded-md focus:outline-none">
         <i class="mr-2 text-center fa-solid fa-ship"></i>
         <span x-text="selected" class="w-full"></span>
         <i class="text-sm fa-solid fa-chevron-down"></i>
     </button>
     <div x-show="isOpen" class="absolute z-10 w-full mt-2 overflow-hidden text-gray-600 bg-white border border-gray-400 rounded-md shadow-lg" x-on:click.away="isOpen = false">
         <ul>
-            <li class="relative px-4 py-2 cursor-pointer select-none hover:bg-brown-50" x-on:click="selected = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_boat_upgrade', selected); Alpine.store('boatUpgradePicker').checkSelection()">
+            <li class="relative px-4 py-2 cursor-pointer select-none hover:bg-brown-50" x-on:click="selected = 'No thanks'; isOpen = false; sessionStorage.setItem('_gfcr_boat_upgrade', selected); Alpine.store('boatUpgradePicker').checkSelection(); updateBookingButton()">
                 <span class="block truncate">No thanks</span>
             </li>
             {{ boat_upgrades }}
-            <li class="relative px-4 py-2 cursor-pointer select-none hover:bg-brown-50" x-on:click="selected = $event.target.innerText; isOpen = false; sessionStorage.setItem('_gfcr_boat_upgrade', selected); Alpine.store('boatUpgradePicker').checkSelection()">
+            <li class="relative px-4 py-2 cursor-pointer select-none hover:bg-brown-50" x-on:click="selected = $event.target.innerText; isOpen = false; sessionStorage.setItem('_gfcr_boat_upgrade', selected); Alpine.store('boatUpgradePicker').checkSelection(); updateBookingButton()">
                 <span class="block truncate">{{ title }}</span>
             </li>
             {{ /boat_upgrades }}
         </ul>
     </div>
 </div>
-<div x-text="Alpine.store('boatUpgradePicker').errorMessage" class="text-xs text-red-500"></div>
+<div x-text="Alpine.store('boatUpgradePicker').errorMessage" class="text-xs text-red-500" :class="{'hidden sm:block': !Alpine.store('upgradableTourPicker').checkSelection(),}"></div>
+
+
+
 
 <script>
 document.addEventListener('alpine:init', () => {
@@ -507,25 +516,25 @@ document.addEventListener('alpine:init', () => {
     {{ /if }}
 
 
-    <!-- booking button -->
-
-    <a href="#_"
-       @click.prevent="event.stopPropagation();
-                        let dateRangePassed = Alpine.store('dateRangePicker').checkDateRange();
-                        let guestPassed = Alpine.store('guestPicker').checkSelection();
-                        let includedTourPassed = Alpine.store('includedTourPicker').checkSelection();
-                        let upgradableTourPassed = Alpine.store('upgradableTourPicker').checkSelection();
-                        let boatUpgradePassed = Alpine.store('boatUpgradePicker').checkSelection();
-                        let allPassed = dateRangePassed && guestPassed && includedTourPassed && upgradableTourPassed && boatUpgradePassed;
-                        if (allPassed) {
-                            window.location.assign('/reservation?from=packages');
-                        }"
-       class="flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-500 rounded-md hover:bg-green-400 sm:w-auto sm:mb-0">
+<!-- booking button -->
+<div id="bookingButton"  :class="{'hidden sm:block': !Alpine.store('boatUpgradePicker').checkSelection() }" class="flex items-center justify-center w-full px-6 py-3 mb-2 text-lg text-white bg-green-500 rounded-md hover:bg-green-400 sm:w-auto sm:mb-0">
+    <a href="#_" @click="event.stopPropagation();
+                    let dateRangePassed = Alpine.store('dateRangePicker').checkDateRange();
+                    let guestPassed = Alpine.store('guestPicker').checkSelection();
+                    let includedTourPassed = Alpine.store('includedTourPicker').checkSelection();
+                    let upgradableTourPassed = Alpine.store('upgradableTourPicker').checkSelection();
+                    let boatUpgradePassed = Alpine.store('boatUpgradePicker').checkSelection();
+                    let allPassed = dateRangePassed && guestPassed && includedTourPassed && upgradableTourPassed && boatUpgradePassed;
+                    if (allPassed) {
+                        window.location.assign('/reservation?from=packages');
+                    }">
         {{ title }}
         <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
         </svg>
     </a>
+</div>
+
 
 
 

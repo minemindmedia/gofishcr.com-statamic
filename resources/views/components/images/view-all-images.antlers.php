@@ -14,10 +14,10 @@
         aria-modal="true"
         x-id="['modal-title']"
         :aria-labelledby="$id('modal-title')"
-        class="fixed inset-0 z-[99999] overflow-y-auto"
+        class="fixed inset-0 z-[999999999999] overflow-y-auto"
     >
         <!-- Overlay -->
-        <div x-show="open" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-70" x-on:click="open = false"></div>
+        <div x-show="open" x-transition.opacity class="fixed inset-0 bg-opacity-100 z-[99999999] bg-brown-100" x-on:click="open = false"></div>
         <!-- Scroll down text -->
 
 
@@ -41,14 +41,20 @@
                         {{ partial:/typography/p content="Scroll For More" class="!m-0 !p-0"}}
                         <i class="ml-2 fa-solid fa-arrow-down"></i>
                     </div>
+                    {{ if additional_photos }}
                     {{ additional_photos }}
                     <img src="{{ url }}" alt="{{ img:alt }}">
                     <div class="flex items-center justify-center">
+                        {{ if last }}
+                        {{ partial:/typography/p content="THE END" class="!m-0 !p-0"}}
+                        {{ else }}
                         <i class="mr-2 fa-solid fa-arrow-down"></i>
                         {{ partial:/typography/p content="Scroll For More" class="!m-0 !p-0"}}
                         <i class="ml-2 fa-solid fa-arrow-down"></i>
+                        {{ /if }}
                     </div>
                     {{ /additional_photos }}
+                    {{ /if }}
                 </div>
             </div>
         </div>
