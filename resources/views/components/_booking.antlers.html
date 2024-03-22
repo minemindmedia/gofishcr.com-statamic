@@ -5,24 +5,8 @@
 
 <!-- /components/_home_booking.antlers.html -->
 
-<div class="
-{{ if slug == "charters" || slug == "packages" }}
-relative w-full
-{{ elseif collection == 'charters' && is_entry }}
-flex
-{{ elseif is_homepage }}
-absolute top-0 right-0 flex items-center w-full p-8 -mt-20
-{{ else }}
-hidden
-{{ /if }}">
-    <div class="
-    {{ if slug == "charters" }}
-    p-0 flex space-x-0 h-[50px]
-    {{ elseif collection == 'charters' && is_entry }}
-    flex flex-col w-full space-y-3
-    {{ else }}
-    grid grid-cols-12 w-full p-8 space-x-3 bg-white rounded-2xl
-    {{ /if }}">
+<div class="absolute top-0 right-0 flex items-center w-full p-8 -mt-20 ">
+    <div class="grid w-full grid-cols-12 p-8 space-x-3 bg-white rounded-2xl">
         {{ if collection != 'charters' && is_entry }}
             <div class="{{ if slug == "charters" }} w-48 {{ else }} col-span-3  {{ /if }}">
                 {{ partial:components/pickers/_location }}
