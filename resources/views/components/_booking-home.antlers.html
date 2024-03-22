@@ -8,22 +8,20 @@
 <div x-data="{ showInitial: true }">
     <!-- Initial element -->
     <div x-show="showInitial"
-    x-transition:enter="transition ease-out duration-300"
-    x-transition:enter-start="opacity-0 transform scale-90"
-    x-transition:enter-end="opacity-100 transform scale-100"
-    x-transition:leave="transition ease-in duration-300"
-    x-transition:leave-start="opacity-100 transform scale-100"
-    x-transition:leave-end="opacity-0 transform scale-90"
-    class="absolute top-0 right-0 flex items-center w-full p-8 -mt-20 ">
-        <div class="grid w-full grid-cols-12 p-8 space-x-3 bg-white rounded-2xl">
+    x-transition:enter="md:transition md:ease-out md:duration-300"
+    x-transition:enter-start="md:opacity-0 md:transform md:scale-90"
+    x-transition:enter-end="md:opacity-100 md:transform md:scale-100"
+    x-transition:leave="md:transition md:ease-in md:duration-300"
+    x-transition:leave-start="md:opacity-100 md:transform md:scale-100"
+    x-transition:leave-end="md:opacity-0 md:transform md:scale-90"
+    class="top-0 right-0 flex items-center w-full p-0 mt-4 md:-mt-20 md:p-8 md:absolute ">
+        <div class="grid w-full grid-cols-12 p-4 space-y-3 bg-white md:p-8 md:space-x-3 md:space-y-0 rounded-2xl">
             <!-- Your content here -->
-            <div class="col-span-3">
+            <div class="col-span-12 md:col-span-3">
                 <div x-data="{ locationOpen: false, selectedLocation: sessionStorage.getItem('_gfcr_destination') || 'Select Location', showPrompt: true }"  class="relative ">
                     <!-- Display Selected Location / Toggle Dropdown -->
                     <div class="
-                    {{ if is_homepage }} h-16 {{ /if }}
-                    {{ if slug == "charters" }} rounded-r-none border-r-0 h-12 {{ /if }}
-                    flex items-center w-full px-3 py-3 space-x-4 text-md leading-4 text-gray-700 bg-white border border-gray-400
+                    h-12 md:h-16 flex items-center w-full px-3 py-3 space-x-4 text-md leading-4 text-gray-700 bg-white border border-gray-400
                     {{ if locationOpen }} border-b-0 rounded-b-none {{ else }} rounded-md {{ /if }}
                     shadow-sm focus:outline-none focus:ring-0 ">
                         <i class="fa-solid fa-location-pin"></i>
@@ -36,20 +34,20 @@
                     <div x-show.transition.opacity="locationOpen" @click.away="locationOpen = false" class="absolute z-50 w-full mt-2 overflow-hidden bg-white border border-gray-400 rounded-md shadow-lg">
                         <ul class="last:rounded-b-none" >
                             {{ collection:locations }}
-                                <li @click="selectedLocation = '{{ title }}'; locationOpen = false; sessionStorage.setItem('_gfcr_destination', selectedLocation); {{ if !is_homepage}} location.reload(); {{ /if }}" class="px-4 py-2 cursor-pointer hover:bg-gray-100 ">{{ title }}</li>
+                                <li @click="selectedLocation = '{{ title }}'; locationOpen = false; sessionStorage.setItem('_gfcr_destination', selectedLocation); location.reload();" class="px-4 py-2 cursor-pointer hover:bg-gray-100 ">{{ title }}</li>
                             {{ /collection:locations }}
                         </ul>
                     </div>
                 </div>
 
             </div>
-            <div class="col-span-3">
-                <div x-data="{ open: false }" class="w-full flex items-center h-12 {{ if is_homepage }} h-16  {{ /if }}" >
-                    <div :class="{'text-red-500': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate && '{{ collection }}' == 'charters' && '{{ is_entry }}'}" class="{{ if is_homepage }} h-full  {{ /if }} relative flex items-center h-full text-gray-600 border-gray-400 rounded-md w-full">
+            <div class="col-span-12 md:col-span-3">
+                <div x-data="{ open: false }" class="w-full flex items-center h-12 md:h-16 }" >
+                    <div class="relative flex items-center w-full h-full text-gray-600 border-gray-400 rounded-md">
                         <!-- FontAwesome Icon -->
                         <i class="absolute ml-2 fa-solid fa-calendar" style="pointer-events: none;"></i>
                         <!-- Input Field -->
-                        <input type="text" style="width:100% !important; padding-left: 2rem;" class="{{ if is_homepage }} !h-16 w-full {{ elseif slug == "charters" }} border-x-0 rounded-l-none rounded-r-none !h-full {{ /if }} flex h-full pl-8 border-gray-400 rounded-md date-range focus:border-gray-400 focus:ring-0" x-ref="dateRange" placeholder="Choose dates" :class="{'border border-red-500 placeholder-red-500': !Alpine.store('dateRangePicker').startDate && !Alpine.store('dateRangePicker').endDate && '{{ collection }}' == 'charters' && '{{ is_entry }}'}" @click="open = !open" readonly>
+                        <input type="text" style="width:100% !important; padding-left: 2rem;" class="flex h-full pl-8 border-gray-400 rounded-md date-range focus:border-gray-400 focus:ring-0" x-ref="dateRange" placeholder="Choose dates" @click="open = !open" readonly>
                         <i class="absolute right-0 mr-2 pointer-events-none fa-solid fa-angle-down"></i>
                         <div x-show="open" @click.away="open = false" class="absolute z-50 mt-2 bg-white rounded-md shadow-lg">
                             <!-- Date range picker will be displayed here -->
@@ -57,17 +55,16 @@
                     </div>
                     <!-- Inline error message display -->
                 </div>
-                <div x-text="Alpine.store('dateRangePicker').errorMessage" class="text-xs text-red-500" x-show="'{{ collection }}' == 'charters' && '{{ is_entry }}'"></div>
 
             </div>
-            <div class="col-span-3">
+            <div class="col-span-12 md:col-span-3">
                 <div x-data="{ open: false }" class="relative ">
-                    <button @click="open = !open" :class="{'border-red-500 border text-red-500': '{{ collection }}' == 'charters' && '{{ is_entry }}' && Alpine.store('guestPicker').adults == 0, 'border-gray-400 border': Alpine.store('guestPicker').adults > 0 || '{{ collection }}' != 'charters' || '{{ is_entry }}' == false}" class="{{ if is_homepage }} h-16 {{ elseif slug == "charters" }} border-l-0 rounded-l-none h-12 {{ else }} border-gray-400 {{ /if }} flex items-center justify-start w-full px-2 py-2 space-x-2 text-left text-gray-600 border rounded-md  text-mdm px-09 focus:outline-none bg-white">
-                        <i class="text-xl {{ if slug == "charters" }} text-xs {{ /if }} fa-solid fa-person"></i>
+                    <button @click="open = !open" class="flex items-center justify-start w-full h-12 px-2 py-2 space-x-2 text-left text-gray-600 bg-white border border-gray-400 rounded-md md:h-16 text-mdm px-09 focus:outline-none">
+                        <i class="text-xl fa-solid fa-person"></i>
                         <span class="flex-1" x-text="Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 0 ? 'Add Guests' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 1 ? '1 Guest' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children + ' Guests'"></span>
                         <i class="fa-solid fa-angle-down"></i>
                     </button>
-                    <div x-show="open" @click.away="open = false" class="absolute z-50 w-full mt-2 bg-white rounded-md shadow-lg" :class="{'border border-gray-400': !('{{ collection }}' == 'charters' && '{{ is_entry }}' && Alpine.store('guestPicker').adults == 0), 'border-red-500 border ': '{{ collection }}' == 'charters' && '{{ is_entry }}' && Alpine.store('guestPicker').adults == 0}">
+                    <div x-show="open" @click.away="open = false" class="absolute z-50 w-full mt-2 bg-white rounded-md shadow-lg" >
                         <!-- Adults -->
                         <div class="flex items-center px-2 py-2">
                             <i class="mr-2 text-xl fa-solid fa-person"></i>
@@ -104,12 +101,12 @@
 
                  </div>
 
-                 <div x-text="Alpine.store('guestPicker').message" class="text-xs text-red-500" x-show="'{{ collection }}' == 'charters' && '{{ is_entry }}'"></div>
+
 
 
 
             </div>
-            <div class="col-span-3">
+            <div class="col-span-12 md:col-span-3">
                 <button @click="showInitial = false" type="button" class="flex items-center justify-center w-full h-16 px-4 py-2 space-x-8 text-xl text-white bg-orange-500 rounded-md hover:bg-orange-700">
                     <span>Next</span> <i class="fa-solid fa-arrow-right"></i>
                 </button>
@@ -120,18 +117,18 @@
     <!-- Replaced element -->
     <div x-show="!showInitial"
     @click.away="showInitial = true"
-    x-transition:enter="transition ease-out duration-300"
-    x-transition:enter-start="opacity-0 transform scale-90"
-    x-transition:enter-end="opacity-100 transform scale-100"
-    x-transition:leave="transition ease-in duration-300"
-    x-transition:leave-start="opacity-100 transform scale-100"
-    x-transition:leave-end="opacity-0 transform scale-90"
-    class="absolute top-0 right-0 flex items-center w-full p-8 -mt-20 ">
-        <div class="grid w-full grid-cols-12 p-8 space-x-3 bg-white rounded-2xl">
-        <div class="col-span-6">
+    x-transition:enter="md:transition md:ease-out md:duration-300"
+    x-transition:enter-start="md:opacity-0 md:transform md:scale-90"
+    x-transition:enter-end="md:opacity-100 md:transform md:scale-100"
+    x-transition:leave="md:transition md:ease-in md:duration-300"
+    x-transition:leave-start="md:opacity-100 md:transform md:scale-100"
+    x-transition:leave-end="md:opacity-0 md:transform md:scale-90"
+    class="top-0 right-0 flex items-center w-full p-0 mt-4 md:-mt-20 md:p-8 md:absolute ">
+        <div class="grid w-full grid-cols-12 p-4 space-y-8 bg-white md:p-8 md:space-x-3 rounded-2xl md:space-y-0">
+        <div class="col-span-12 md:col-span-6">
             <a href="/charters" class="flex items-center justify-center w-full h-16 px-4 py-2 text-xl text-white bg-orange-500 rounded-md hover:bg-orange-700">Show Me Fishing Charters</a>
         </div>
-        <div class="col-span-6">
+        <div class="col-span-12 md:col-span-6">
             <a href="/packages" class="flex items-center justify-center w-full h-16 px-4 py-2 text-xl text-white bg-green-500 rounded-md hover:bg-green-700">Show Me Fishing Packages</a>
         </div>
         </div>
@@ -154,7 +151,7 @@
                 flatpickr(".date-range", {
                     mode: "range",
                     minDate: new Date(), // Set minimum date to current date
-                    showMonths: '2',
+                    showMonths: window.innerWidth < 768 ? '1' : '2', // Show 1 month on mobile devices
                     dateFormat: "M j",
                     defaultDate: [this.startDate, this.endDate], // Set default dates
                     onChange: this.updateDates.bind(this),
