@@ -42,13 +42,17 @@
         }
     }">
 
-    <input type="text" name="destination" x-model="destination" hidden />
+    <input type="text" name="destination" x-model="sessionStorage.getItem('_gfcr_location')" hidden />
     <input type="text" name="boat" x-model="sessionStorage.getItem('_gfcr_boat')" hidden />
     <input type="text" name="start_date" x-model="sessionStorage.getItem('_gfcr_arrival_date')" hidden />
     <input type="text" name="end_date" x-model="sessionStorage.getItem('_gfcr_departure_date')" hidden />
     <input type="text" name="adults" x-model="sessionStorage.getItem('_gfcr_adults')" hidden />
     <input type="text" name="children" x-model="sessionStorage.getItem('_gfcr_children')" hidden />
     <input type="text" name="charter_length" x-model="sessionStorage.getItem('_gfcr_charter')" hidden />
+    <input type="text" name="included_tour" x-model="sessionStorage.getItem('_gfcr_included_tour')" hidden />
+    <input type="text" name="upgradable_tours" x-model="sessionStorage.getItem('_gfcr_upgradable_tours')" hidden />
+    <input type="text" name="boat_upgrade" x-model="sessionStorage.getItem('_gfcr_boat_upgrade')" hidden />
+    <input type="text" name="package" x-model="sessionStorage.getItem('_gfcr_package')" hidden />
 
 
         <div class="flex flex-col space-y-4">
@@ -85,6 +89,15 @@
                 <input type="tel" id="phone_number" name="phone" x-model="phoneNumber" @input="phoneNumberError = validatePhoneNumber(phoneNumber)" class="h-12 text-sm text-gray-600 border-gray-400 rounded-md focus:outline-none focus:ring-0 focus:border-gray-400" />
                 <template x-if="phoneNumberError">
                     <span x-text="phoneNumberError" class="text-xs text-red-500"></span>
+                </template>
+            </div>
+
+            <!-- Additional Information -->
+            <div class="flex flex-col space-y-1">
+                <label for="additional_information" class="text-sm">Additional Information</label>
+                <textarea id="additional_information" name="additional_information" x-model="additionalInformation" class="h-24 text-sm text-gray-600 border-gray-400 rounded-md focus:outline-none focus:ring-0 focus:border-gray-400"></textarea>
+                <template x-if="additionalInformationError">
+                    <span x-text="additionalInformationError" class="text-xs text-red-500"></span>
                 </template>
             </div>
 

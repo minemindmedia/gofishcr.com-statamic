@@ -8,7 +8,7 @@
 
 
 
-    <nav class="flex justify-end w-full">
+    <nav class="justify-end hidden w-full lg:flex">
         {{ nav:main max_depth="2" include_home="true" select="title|url" }}
             <div @click.away="open = true" class="relative" x-data="{ open: true }">
             <a

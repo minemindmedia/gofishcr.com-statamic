@@ -5,6 +5,76 @@ tabs:
       -
         fields:
           -
+            handle: package
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Package
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: email
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Email
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              validate:
+                - required
+                - email
+          -
+            handle: first_name
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'First Name'
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: last_name
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: 'Last Name'
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+          -
+            handle: phone
+            field:
+              input_type: text
+              antlers: false
+              type: text
+              display: Phone
+              icon: text
+              listable: hidden
+              instructions_position: above
+              visibility: visible
+              replicator_preview: true
+              hide_display: false
+              validate:
+                - required
+          -
             handle: destination
             field:
               input_type: text
@@ -70,12 +140,12 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: charter_length
+            handle: included_tour
             field:
               input_type: text
               antlers: false
               type: text
-              display: 'Charter Length'
+              display: 'Included Tour'
               icon: text
               listable: hidden
               instructions_position: above
@@ -83,12 +153,12 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: first_name
+            handle: upgradable_tours
             field:
               input_type: text
               antlers: false
               type: text
-              display: 'First Name'
+              display: 'Upgradable Tours'
               icon: text
               listable: hidden
               instructions_position: above
@@ -96,12 +166,12 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: last_name
+            handle: boat_upgrade
             field:
               input_type: text
               antlers: false
               type: text
-              display: 'Last Name'
+              display: 'Boat Upgrade'
               icon: text
               listable: hidden
               instructions_position: above
@@ -109,48 +179,12 @@ tabs:
               replicator_preview: true
               hide_display: false
           -
-            handle: email
+            handle: additional_information
             field:
-              input_type: text
               antlers: false
-              type: text
-              display: Email
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
-              validate:
-                - required
-                - email
-          -
-            handle: phone
-            field:
-              input_type: text
-              antlers: false
-              type: text
-              display: Phone
-              icon: text
-              listable: hidden
-              instructions_position: above
-              visibility: visible
-              replicator_preview: true
-              hide_display: false
-              validate:
-                - required
-          -
-            handle: other_activities
-            field:
-              taggable: false
-              push_tags: false
-              multiple: true
-              clearable: false
-              searchable: true
-              cast_booleans: false
-              type: select
-              display: 'Other Activities'
-              icon: select
+              type: textarea
+              display: 'Additional Information'
+              icon: textarea
               listable: hidden
               instructions_position: above
               visibility: visible

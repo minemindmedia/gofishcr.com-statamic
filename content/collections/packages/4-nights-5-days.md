@@ -8,7 +8,7 @@ seo_canonical_type: entry
 sitemap_change_frequency: weekly
 sitemap_priority: 0.5
 updated_by: c69010f5-4ef6-4fb1-b93b-5d19a5331586
-updated_at: 1710373627
+updated_at: 1710955970
 featured_image:
   - hotel-pasatiempo.jpg
 location: a654855b-2bac-4e11-bd80-05cdc6a79ea8
@@ -66,4 +66,8 @@ additional_photos:
   - 317241497_5948086168588447_3410697735491759943_n.jpg
   - horseback-riding.jpg
 price: '5,000'
+seo_title: '4 Nights / 5 Days Fishing Charter Package'
+seo_description: 'Enjoy a 4 night and 5 day fishing package in the heart of Los Suenos, Costa Rica. Spend two full days fishing off or on shore, free transportation & more.'
+og_title: '4 Nights Fishing'
+og_description: '4 Nights Fishing'
 ---

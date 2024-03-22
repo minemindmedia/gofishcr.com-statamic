@@ -1,0 +1,13 @@
+package: '4 Nights / 5 Days'
+email: test@test.com
+first_name: josh
+last_name: Favre
+phone: '9200943434'
+destination: 'Los Suenos'
+start_date: 'Tue Apr 09 2024 00:00:00 GMT-0700 (Pacific Daylight Time)'
+end_date: 'Tue Apr 16 2024 00:00:00 GMT-0700 (Pacific Daylight Time)'
+adults: '4'
+children: '3'
+included_tour: 'Estuary Tour'
+upgradable_tours: '["ATV Tour", "Sunset Catamaran", "White Water Rafting", "Snorkeling", "Volcano Hike / Mud Baths"]'
+boat_upgrade: "21' Custom Center Console"

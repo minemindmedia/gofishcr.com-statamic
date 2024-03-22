@@ -1,0 +1,11 @@
+package: '4 Nights / 5 Days'
+email: bob@bob.com
+first_name: Bob
+last_name: Barker
+phone: '9998887777'
+start_date: 'Tue Apr 23 2024 00:00:00 GMT-0700 (Pacific Daylight Time)'
+end_date: 'Fri Apr 26 2024 00:00:00 GMT-0700 (Pacific Daylight Time)'
+adults: '2'
+children: '1'
+included_tour: 'Birdwatching Tour'
+upgradable_tours: '["ATV Tour","Sunset Catamaran"]'

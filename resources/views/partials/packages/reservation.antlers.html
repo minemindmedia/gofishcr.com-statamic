@@ -1,112 +1,81 @@
+<div class="max-w-5xl mx-auto">
+    <div class="grid grid-cols-12 md:gap-20">
+        <div class="col-span-12 md:col-span-7">
+            {{ partial:/typography/h2 content="We can't wait to see you!" class="mb-4 text-lg md:text-2xl" }}
 
-<div
-class="max-w-5xl mx-auto"
->
-    <div class="grid grid-cols-12 gap-4">
 
-        <div class="col-span-7">
-
-            <h1 class="text-5xl font-bold" x-text="package"></h1>
-
-<div class="flex flex-col p-8 mb-32 space-y-8">
+            {{ partial:/typography/h1 content="<div x-text='package'></div>" class="mb-4" }}
 
 
 
-    <div class="flex space-x-2">
-        <div x-text="new Date(sessionStorage.getItem('_gfcr_arrival_date')).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })" ></div>
-            <div>to</div>
-            <div x-text="new Date(sessionStorage.getItem('_gfcr_departure_date')).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })" ></div>
-    </div>
 
-    <div>
-        <div class="flex">
-            <div class="w-6 text-center">
-                <i class="fa-solid fa-person"></i>
+            <div class="flex flex-col mb-3 space-y-4">
+                <div class="flex p-4 space-x-2 bg-brown-100">
+                    <div class="w-6 text-center"><i class="fa-solid fa-calendar"></i></div>
+                    <div x-text="new Date(sessionStorage.getItem('_gfcr_arrival_date')).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })"></div>
+                    <div>to</div>
+                    <div x-text="new Date(sessionStorage.getItem('_gfcr_departure_date')).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })"></div>
+                </div>
+                <div class="flex flex-wrap p-4 bg-brown-100">
+                    <div class="flex">
+                        <div class="w-6 text-center"><i class="fa-solid fa-person"></i></div>
+                        <div class="ml-2" x-text="adults === 1 ? '1 adult' : `${adults} adults`"></div>
+                    </div>
+                    <template x-if="children > 0">
+                        <div class="flex items-center">
+                            <div class="mx-2">and</div>
+                            <div class="flex">
+                                <div class="w-6 text-center"><i class="fa-solid fa-child"></i></div>
+                                <div class="ml-2" x-text="children === 1 ? '1 child' : `${children} children`"></div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="flex flex-col p-4 space-y-2 bg-brown-100">
+                    {{ partial:/typography/h6 content="Your included tour:" class="" }}
+                    <h4><i class="mr-2 fa-solid fa-arrow-right"></i> <span x-text="included_tour"></span></h4>
+                </div>
+                <template x-if="more_tours.length > 0">
+                    <div class="flex flex-col p-4 space-y-2 bg-brown-100">
+                        <template x-if="more_tours.length > 1">
+                            {{ partial:/typography/h6 content="Your added tours:" class="" }}
+                        </template>
+                        <template x-if="more_tours.length === 1">
+                            {{ partial:/typography/h6 content="Your added tour:" class="" }}
+                        </template>
+                        <ul x-html="more_tours.map(tour => `<li><i class='mr-2 fa-solid fa-arrow-right'></i> ${tour}</li>`).join('')"></ul>
+                    </div>
+                </template>
+                <template x-if="boat_upgrade">
+                    <div class="flex flex-col p-4 space-y-2 bg-brown-100">
+                        {{ partial:/typography/h6 content="Your boat upgrade:" class="" }}
+                        <h4><i class="mr-2 fa-solid fa-arrow-right"></i> <span x-text="boat_upgrade"></span></h4>
+                    </div>
+                </template>
             </div>
-            <div
-            class="ml-4"
-                x-text="
-                    if ((adults) === 1) return `1 adult`;
-                    return `${adults} adults`
-                ">
-            </div>
-        </div>
-        <div class="flex">
-            <div class="w-6 text-center">
-                <i class="fa-solid fa-child"></i>
-            </div>
-            <div
-            class="ml-4"
-                x-text="
-                    if ((children) === 1) return `1 child`;
-                    return `${children} children`
-                ">
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="flex flex-col space-y-2">
-        <h4 class="">Your included tour:</h4>
-        <h4 class="" x-text="included_tour"></h4>
-    </div>
-
-    <div class="flex flex-col space-y-2">
-        <h4 class="">Your added tours:</h4>
-        <ul x-html="more_tours.map(tour => `<li>${tour}</li>`).join('')" class="">
-        </ul>
-    </div>
-
-
-
-
-
-</div>
-
-
-            <div class="flex flex-col space-y-4">
-
-
-                <h1 class="mb-8 text-3xl font-bold">Things to know</h1>
-
-                <h2 class="text-2xl">Please remember, we will always try our best but <span class="font-bold">"It's fishing, not catching."</span></h2>
-
-                <h3 class="text-xl"><span class="font-bold">Please Note:</span> June to November is our rainy season and the boats and tours go out rain or shine!</h3>
-
-                <p>If unsure of motion sickness be sure to take a Dramamine as there are no refunds for seasickness.</p>
-
-                <p>Fishing licenses are your responsibility. The link is provided below (we strongly suggest to take a screenshot for proof of payment).<br>
-                <a href="http://www.incopesca.go.cr/carnets/tramites/SolicitudTraducido.aspx" class="text-orange-700 underline ">http://www.incopesca.go.cr/carnets/tramites/SolicitudTraducido.aspx</a> </p>
-
-                <p>* By submitting your reservation you agree to provide us with your contact information so we may contact you to establish a relationship and set you up with the best fishing charter service
-                    available in all of Costa Rica. We will not share your information with anyone and promise to provide you with the best service you can receive - Steve & Liisa
-                </p>
-            </div>
-
-
 
         </div>
-
-        <div class="col-span-5 ">
-
-
-
-
+        <div class="col-span-12 md:col-span-5">
+            <div class="p-4 mb-4 bg-brown-100 md:p-0 md:bg-transparent md:m-0">
+            {{ partial:/typography/h6 content="Your're almost done..." class="mb-4" }}
+            {{ partial:/typography/p content="Finish submitting your information and we will personally reach out to you to confirm your reservation and answer any questions you may have. You will not be charged anything at this time." class="" }}
+        </div>
             <div class="p-4 border border-orange-700 rounded-lg bg-gray-50">
+                <div class="mt-4">
 
-            <div class="mt-4">
-                {{ partial:components/forms/packages }}
-
-
-
+                    {{ partial:components/forms/packages }}
+                    {{ partial:/typography/p content="No payment is required." class="mt-4 text-center" }}
+                </div>
             </div>
-
-
-
-        </div>
         </div>
     </div>
-
+    <div class="flex flex-col mt-8 space-y-4">
+        {{ partial:/typography/h3 content="Things to know" class="" }}
+        <h2 class="text-2xl">Please remember, we will always try our best but <span class="font-bold">"It's fishing, not catching."</span></h2>
+        <h3 class="text-xl"><span class="font-bold">Please Note:</span> June to November is our rainy season and the boats and tours go out rain or shine!</h3>
+        <p>If unsure of motion sickness be sure to take a Dramamine as there are no refunds for seasickness.</p>
+        <p>Fishing licenses are your responsibility. The link is provided below (we strongly suggest to take a screenshot for proof of payment).<br>
+        <a href="http://www.incopesca.go.cr/carnets/tramites/SolicitudTraducido.aspx" class="text-orange-700 underline">http://www.incopesca.go.cr/carnets/tramites/SolicitudTraducido.aspx</a></p>
+        <p>* By submitting your reservation you agree to provide us with your contact information so we may contact you to establish a relationship and set you up with the best fishing charter service available in all of Costa Rica. We will not share your information with anyone and promise to provide you with the best service you can receive - Steve & Liisa</p>
+    </div>
 </div>
-

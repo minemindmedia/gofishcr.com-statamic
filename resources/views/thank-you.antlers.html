@@ -1,3 +1,6 @@
+
+
+
 <div :class="{'hidden': !sessionStorage.length, 'max-w-5xl mx-auto': true}" >
 <div class="grid grid-cols-12 gap-12">
     <div class="col-span-6">
@@ -73,7 +76,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function(event) {
-        if (!sessionStorage.getItem('_gfcr_destination')) {
+        if (!sessionStorage.getItem('_gfcr_package')) {
             // Use setTimeout to prevent potential loop of redirection
             setTimeout(function() {
                 window.location.href = '/';
