@@ -312,4 +312,11 @@
             storePackageTitle();
         }
 
+    function storeLocationTitle() {
+        const locationTitle = `{{ location:title }}`;
+        sessionStorage.setItem("_gfcr_location", locationTitle);
+    }
+
+    document.addEventListener("DOMContentLoaded", storeLocationTitle);
+
     </script>
