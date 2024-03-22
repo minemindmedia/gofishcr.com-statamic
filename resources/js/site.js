@@ -6,6 +6,8 @@ import focus from '@alpinejs/focus'
 import mask from '@alpinejs/mask'
 import Flickity from 'flickity'
 import flatpickr from "flatpickr"
+import swipePlugin from "alpinejs-swipe";
+
 
 // Global get CSRF token function (used by forms).
 window.getToken = async () => {
@@ -21,6 +23,7 @@ window.getToken = async () => {
 
 // Call Alpine.
 window.Alpine = Alpine
+Alpine.plugin(swipePlugin);
 Alpine.plugin([collapse, focus, morph, persist, mask])
 Alpine.start()
 
