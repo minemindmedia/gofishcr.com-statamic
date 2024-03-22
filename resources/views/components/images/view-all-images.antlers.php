@@ -15,7 +15,7 @@
         x-id="['modal-title']"
         :aria-labelledby="$id('modal-title')"
         class="fixed inset-0 z-[999999999999] overflow-y-auto"
-        x-swipe:down.threshold.200px="open = false"
+        x-swipe:right="open = false"
     >
         <!-- Overlay -->
         <div x-show="open" x-transition.opacity class="fixed inset-0 bg-opacity-100 z-[99999999] bg-brown-100" x-on:click="open = false"></div>
