@@ -154,7 +154,7 @@
             <div class="col-span-12 md:col-span-5">
                 {{ if boat_upgrades }}
                     <div class="col-span-12">
-                        <div class="p-8 border border-gray-400 rounded-xl">
+                        <div class="p-4 border border-gray-400 md:p-8 rounded-xl">
                             {{ partial:/typography/h6 content="Boat Upgrades" class="mb-8" }}
                             {{ boat_upgrades }}
 
@@ -165,15 +165,12 @@
                                 <!-- Trigger -->
                                 <span x-on:click="boatUpgrade = true">
 
-                                        <div class="grid grid-cols-12 p-2 mb-2 border-b border-gray-400 cursor-pointer gap-y-2 hover:bg-brown-100 hover:border hover:border-brown-200">
-                                            <div class="flex w-full col-span-6 p-0 m-0 " x-data="{ showModal: false }">
-                                                <div class="flex space-x-4" @click="showModal = true">
-                                                    <div>{{ partial:/typography/p content="{{ title }}" }}</div>
-                                                </div>
+                                        <div class="flex p-2 space-x-4 border-b border-gray-400 cursor-pointer">
+                                            <div class="flex items-center mr-2">
+                                                <i class="text-gray-400 fa-solid fa-circle-info"></i>
                                             </div>
-                                            <div class="flex justify-end w-full col-span-6 ">
-                                                {{ partial:/typography/p content="${{ upgrade_price }}.00" }}
-                                            </div>
+                                            {{ partial:/typography/p content="${{ title }}" class="flex-1 !m-0" }}
+                                            {{ partial:/typography/p content="${{ upgrade_price }}.00" }}
                                         </div>
 
                                 </span>
@@ -188,6 +185,7 @@
                                     x-id="['modal-title']"
                                     :aria-labelledby="$id('modal-title')"
                                     class="fixed inset-0 z-10 overflow-y-auto"
+                                    x-swipe.down="boatUpgrade = false"
                                 >
                                     <!-- Overlay -->
                                     <div x-show="boatUpgrade" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-50"></div>
@@ -201,18 +199,18 @@
                                         <div
                                             x-on:click.stop
                                             x-trap.noscroll.inert="boatUpgrade"
-                                            class="relative w-full max-w-5xl p-4 overflow-y-auto bg-white shadow-lg rounded-xl"
+                                            class="relative w-full max-w-5xl p-4 overflow-x-hidden overflow-y-auto bg-white shadow-lg rounded-xl "
                                         >
-                                            <div class="absolute top-0 right-0 p-4">
-                                                <button x-on:click="boatUpgrade = false">
+                                            <div class="absolute top-0 right-0 p-4 -mt-2 -mr-2">
+                                                <button x-on:click="boatUpgrade = false" class="items-center w-8 h-8 bg-white rounded-full">
                                                     <i class="fa-regular fa-circle-xmark"></i>
                                                 </button>
                                             </div>
                                             <div class="grid grid-cols-12 gap-4">
-                                                <div class="col-span-7">
+                                                <div class="col-span-12 md:col-span-7">
                                                     <img src="{{ boat }}" alt="{{ boat:alt }}" class="w-full">
                                                 </div>
-                                                <div class="col-span-5 space-y-4">
+                                                <div class="col-span-12 md:space-y-4 md:col-span-5">
                                                     <div class="flex">
                                                         <div>
                                                             {{ if popular == 'true' }}
