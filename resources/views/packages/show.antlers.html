@@ -108,48 +108,119 @@
         <div class="grid grid-cols-12 gap-4">
             <div class="col-span-12 md:col-span-7">
                 {{ if upgradable_tours }}
-                        <div class="col-span-12">
-                            <div class="p-8 border border-gray-400 rounded-xl">
-                                {{ partial:/typography/h6 content="Upgradable Tours" class="mb-8" }}
-                                {{ upgradable_tours }}
-                                <div class="grid grid-cols-12 mb-4 gap-y-4">
-
-                                    <div class="flex w-full col-span-6 border-b border-gray-400 ">
-                                        {{ partial:/typography/p content="{{ title }}" }}
-                                    </div>
-
-                                    <div class="flex justify-end w-full col-span-6 border-b border-gray-400 ">
-
-                                        {{ if upgrade_details }}
-                                            {{ upgrade_details }}
-                                                <div class="flex space-x-4">
-                                                    <div>
-                                                        {{ if inquire }}
-                                                            {{ partial:/typography/p content="Inquire" }}
-                                                        {{ else }}
-                                                        <div class="flex">
-                                                        {{ partial:/typography/p content="${{ rate }}.00" class="!m-0"}}
-                                                        {{ if per_person }}
-                                                            {{ partial:/typography/p content="/pp" class="!m-0" }}
-                                                        {{ /if }}
-                                                        {{ if tax }}
-                                                            {{ partial:/typography/p content="+ tax" class="!m-0 pl-2" }}
-                                                        {{ /if }}
-                                                    </div>
-
-                                                        {{ /if }}
-                                                    </div>
+                    <div class="col-span-12">
+                        <div class="p-4 border border-gray-400 md:p-8 rounded-xl">
+                            {{ partial:/typography/h6 content="Upgradable Tours" class="mb-8" }}
+                            {{ upgradable_tours }}
+                            <div x-data="{ boatUpgrade: false }">
+                                <!-- Trigger -->
+                                <span x-on:click="boatUpgrade = true">
+                                    {{ if upgrade_details }}
+                                        {{ upgrade_details }}
+                                            <div class="flex p-2 space-x-4 border-b border-gray-400 cursor-pointer">
+                                                <div class="flex mt-1 mr-2">
+                                                    <i class="text-gray-400 fa-solid fa-circle-info"></i>
                                                 </div>
-                                            {{ /upgrade_details }}
-                                        {{ /if }}
+                                                {{ partial:/typography/p content="{{ title }}" class="flex-1 !m-0" }}
+                                                {{ if inquire }}
+                                                    {{ partial:/typography/p content="Inquire" }}
+                                                {{ else }}
 
+                                                {{ partial:/typography/p content="${{ rate }}.00" class="!m-0"}}
+                                                {{ if per_person }}
+                                                    {{ partial:/typography/p content="/pp" class="!m-0" }}
+                                                {{ /if }}
+                                                {{ if tax }}
+                                                    {{ partial:/typography/p content="+ tax" class="!m-0" }}
+                                                {{ /if }}
+                                                {{ /if }}
+                                            </div>
+                                        {{ /upgrade_details }}
+                                    {{ /if }}
+                                </span>
+
+                                <!-- Modal -->
+                                <div
+                                    x-show="boatUpgrade"
+                                    style="display: none"
+                                    x-on:keydown.escape.prevent.stop="boatUpgrade = false"
+                                    role="dialog"
+                                    aria-modal="true"
+                                    x-id="['modal-title']"
+                                    :aria-labelledby="$id('modal-title')"
+                                    class="fixed inset-x-0 top-0 z-10 overflow-y-auto"
+                                    x-swipe:down="boatUpgrade = false"
+                                >
+                                    <!-- Overlay -->
+                                    <div x-show="boatUpgrade" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-50"></div>
+
+                                    <!-- Panel -->
+                                    <div
+                                        x-show="boatUpgrade" x-transition
+                                        x-on:click="boatUpgrade = false"
+                                        class="relative flex items-start justify-center min-h-screen p-4"
+                                    >
+                                        <div
+                                            x-on:click.stop
+                                            x-trap.noscroll.inert="boatUpgrade"
+                                            class="relative w-full max-w-5xl p-4 overflow-x-hidden overflow-y-auto bg-white shadow-lg rounded-xl "
+                                        >
+                                            <div class="absolute top-0 right-0 p-4 -mt-2 -mr-2">
+                                                <button x-on:click="boatUpgrade = false" class="items-center w-8 h-8 bg-white rounded-full outline-none ">
+                                                    <i class="fa-regular fa-circle-xmark"></i>
+                                                </button>
+                                            </div>
+                                            <div class="grid grid-cols-12 gap-4">
+                                                <div class="col-span-12 md:col-span-7">
+                                                    <img src="{{ featured_image }}" alt="{{ featured_image:alt }}" class="w-full">
+                                                </div>
+                                                <div class="col-span-12 md:space-y-4 md:col-span-5">
+                                                    <div class="flex flex-col">
+                                                        <div>
+                                                            {{ partial:/typography/h5 content="{{ title }}"  }}
+                                                        </div>
+
+                                                            {{ if upgrade_details }}
+                                                            {{ upgrade_details }}
+                                                            <div class="flex">
+                                                                {{ if inquire }}
+                                                                        {{ partial:/typography/h6 content="Inquire" }}
+                                                                    {{ else }}
+                                                                    {{ partial:/typography/h6 content="${{ rate }}.00" class="!m-0"}}
+                                                                    {{ if per_person }}
+                                                                        {{ partial:/typography/h6 content="/pp" class="!m-0" }}
+                                                                    {{ /if }}
+                                                                    {{ if tax }}
+                                                                        {{ partial:/typography/h6 content="+ tax" class="!m-0 pl-2" }}
+                                                                    {{ /if }}
+                                                                {{/if }}
+                                                            </div>
+                                                            {{ /upgrade_details }}
+                                                        {{ /if }}
+
+                                                    </div>
+
+
+
+
+
+
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-
                                 </div>
-                                {{ /upgradable_tours }}
                             </div>
+
+
+
+                            {{ /upgradable_tours }}
                         </div>
-                    {{ /if }}
+                    </div>
+                {{ /if }}
             </div>
             <div class="col-span-12 md:col-span-5">
                 {{ if boat_upgrades }}
@@ -184,8 +255,8 @@
                                     aria-modal="true"
                                     x-id="['modal-title']"
                                     :aria-labelledby="$id('modal-title')"
-                                    class="fixed inset-0 z-10 overflow-y-auto"
-                                    x-swipe.down="boatUpgrade = false"
+                                    class="fixed inset-x-0 top-0 z-10 overflow-y-auto"
+                                    x-swipe:down="boatUpgrade = false"
                                 >
                                     <!-- Overlay -->
                                     <div x-show="boatUpgrade" x-transition.opacity class="fixed inset-0 bg-black bg-opacity-50"></div>
@@ -194,7 +265,7 @@
                                     <div
                                         x-show="boatUpgrade" x-transition
                                         x-on:click="boatUpgrade = false"
-                                        class="relative flex items-center justify-center min-h-screen p-4"
+                                        class="relative flex items-start justify-center min-h-screen p-4"
                                     >
                                         <div
                                             x-on:click.stop
@@ -202,7 +273,7 @@
                                             class="relative w-full max-w-5xl p-4 overflow-x-hidden overflow-y-auto bg-white shadow-lg rounded-xl "
                                         >
                                             <div class="absolute top-0 right-0 p-4 -mt-2 -mr-2">
-                                                <button x-on:click="boatUpgrade = false" class="items-center w-8 h-8 bg-white rounded-full">
+                                                <button x-on:click="boatUpgrade = false" class="items-center w-8 h-8 bg-white rounded-full outline-none ">
                                                     <i class="fa-regular fa-circle-xmark"></i>
                                                 </button>
                                             </div>
@@ -285,7 +356,7 @@
                             {{ /boat_upgrades }}
                         </div>
                     </div>
-                    {{ /if }}
+                {{ /if }}
             </div>
         </div>
 

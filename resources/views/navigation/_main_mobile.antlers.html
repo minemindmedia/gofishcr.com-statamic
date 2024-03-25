@@ -4,81 +4,79 @@
 #}}
 
 <!-- /navigation/_main_mobile.antlers.html -->
-<nav
-    x-data="{ mobileNavOpen: false }"
-    class="px-4 py-4 lg:hidden"
-    aria-label="{{ trans:strings.main_navigation }}"
-    x-trap.inert.noscroll="mobileNavOpen"
-    @keyup.escape.stop.prevent="mobileNavOpen = false"
-    x-cloak
->
-    <button
-        @click.prevent.stop="mobileNavOpen = !mobileNavOpen"
-        class="fixed bottom-0 right-0 z-30 flex items-center justify-center w-16 h-16 mr-8 text-xs font-bold text-white rounded mb-safe bg-primary focus:outline-none focus-visible:ring-2 ring-primary ring-offset-2"
-        :aria-label="
-        mobileNavOpen
-            ? '{{ trans:strings.nav_close }}'
-            : '{{ trans:strings.nav_open }}'
-        "
-        :aria-expanded="mobileNavOpen"
-        x-text="mobileNavOpen ? '{{ trans:strings.close }}' : '{{ trans:strings.menu }}'"
-    ></button>
 
-    <div
-        class="fixed inset-0 z-20 flex flex-col justify-end px-8 pt-8 pb-12 bg-white"
-        x-show="mobileNavOpen"
-    >
-        <ul class="flex flex-col py-2 space-y-4 overflow-auto">
-            {{ nav:main max_depth="2" include_home="true" select="title|url" }}
-                <li
-                    {{ if children }}
-                        x-data="{ subnavOpen: false }"
-                        @focusin.window="!$refs.subnav.contains($event.target) && (subnavOpen = false)"
-                    {{ /if }}
-                    class="leading-none"
-                >
-                    <a
-                        class="w-full py-2 flex items-center space-x-1 text-lg font-bold hover:text-primary {{ is_current || is_parent ? 'text-primary' : 'text-neutral' }} focus:outline-none focus-visible:ring-2 ring-primary"
-                        {{ if children }}
-                            href="#"
-                            @click.prevent="subnavOpen = !subnavOpen"
-                            @click.outside="subnavOpen = false"
-                            :aria-label="subnavOpen
-                                ? '{{ trans:strings.subnav_close }}'
-                                : '{{ trans:strings.subnav_open }}'"
-                            :aria-expanded="subnavOpen"
-                        {{ else }}
-                            href="{{ url }}"
-                        {{ /if }}
-                    >
-                        <span>{{ title }}</span>
-                        {{ if children }}
-                            <div :class="{ 'scale-y-[-1]': subnavOpen }" class="motion-safe:transition-transform">
-                                {{ svg:chevron_down class="w-2 ml-1 overflow-visible stroke-current text-neutral" aria-hidden="true" sanitize="true" }}
-                            </div>
-                        {{ /if }}
-                    </a>
-                    {{ if children }}
-                        <ul
-                            x-show="subnavOpen"
-                            x-ref="subnav"
-                            class="flex flex-col items-stretch space-y-2"
-                            x-collapse
-                        >
-                            {{ children }}
-                                <li class="{{ first ?= 'mt-2' }}">
-                                    <a
-                                        class="block py-2 whitespace-nowrap font-bold hover:text-primary {{ is_current || is_parent ? 'text-primary' : 'text-neutral' }} focus:outline-none focus-visible:ring-2 ring-primary"
-                                        href="{{ url }}">
-                                        {{ title }}
-                                    </a>
-                                </li>
-                            {{ /children }}
-                        </ul>
-                    {{ /if }}
-                </li>
-            {{ /nav:main }}
-        </ul>
-    </div>
-</nav>
+
 <!-- End: /navigation/_main_mobile.antlers.html -->
+
+
+
+<div x-data="{ open: false }" class="flex justify-center">
+    <!-- Trigger -->
+    <span x-on:click="open = true">
+        <button class="flex items-center justify-center w-10 h-10 p-2 border border-orange-800 rounded-md lg:hidden">
+            <i class="text-orange-800 fa-solid fa-bars"></i>
+        </button>
+    </span>
+
+    <!-- Modal -->
+    <div
+        x-show="open"
+        x-transition:enter="ease-out duration-300"
+        x-transition:enter-start="opacity-0 scale-90"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="ease-in duration-200"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-90"
+        x-on:keydown.escape.prevent.stop="open = false"
+        role="dialog"
+        aria-modal="true"
+        x-id="['modal-title']"
+        :aria-labelledby="$id('modal-title')"
+        class="fixed inset-0 z-10"
+        x-swipe:right.threshold="100"
+    >
+
+        <!-- Full Screen Panel -->
+        <div
+            x-show="open" x-transition
+            x-on:click="open = false"
+            class="flex items-center justify-center w-full h-full"
+        >
+            <div
+                x-on:click.stop
+                x-trap.noscroll.inert="open"
+                class="w-full h-full px-4 py-6 bg-white"
+            >
+
+
+                <div class="flex items-center">
+
+                    <div class="flex-1">
+                        {{ partial:components/logo }}
+                    </div>
+                    <div>
+                        <button @click="open = false" class="flex items-center justify-center w-10 h-10 p-2 border border-orange-800 rounded-md lg:hidden">
+                            <i class="text-orange-800 fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+
+
+                <nav class="justify-end w-full mt-8 divide-y lg:flex divide-solid divide-brown-500">
+                    {{ nav:main max_depth="2" include_home="true" select="title|url" }}
+
+
+
+
+                        {{ partial:/typography/a content="{{ title }}" class="!mb-0" url="{{ url }}" class="flex items-center py-4 text-xl"  }}
+
+
+
+                    {{ /nav:main }}
+
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>

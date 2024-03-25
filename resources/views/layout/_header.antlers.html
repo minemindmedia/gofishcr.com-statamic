@@ -8,45 +8,273 @@
 
 
 
-<header class="w-full px-4 mt-6">
-
-    <div
-    class="
-    {{ if is_homepage || slug == "fishing-charters" || slug == "reservation" || collection:handle == "charters" || collection:handle == "packages" }}
-        max-w-5xl
-        mx-auto
-    {{ else }}
-        mx-12
-    {{ /if }}
-        "
-    >
-        <div class="flex items-center space-x-12">
-            <div class="w-48">
-                {{ partial:components/logo }}
+<header class="flex flex-col items-center w-full px-4 mt-6 md:px-16">
+<div class="flex w-full mb-4">
+    <div class="flex items-center flex-1 h-full">
+        {{ partial:components/logo }}
+    </div>
+    <div class="flex lg:hidden">
+        {{ partial:navigation/_main_mobile }}
+    </div>
+    <div class="hidden md:flex">
+        {{ partial:navigation/_main_desktop }}
+    </div>
+</div>
+{{ if !is_homepage }}
+<div class="flex w-full">
+    <div x-data="{ open: false }" class="flex justify-center w-full">
+        <!-- Trigger -->
+        <div x-on:click="open = true" :class="{'border border-b-0 rounded-b-none': isOpen, 'border': !isOpen}" class="flex w-full py-2 text-gray-400 bg-white border border-gray-400 rounded-md cursor-pointer">
+            <div class="flex items-center justify-center w-12 h-full">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </div>
-            <div class="w-full">
+            <div class="flex flex-col">
+                <div x-data="{ destination: sessionStorage.getItem('_gfcr_destination') || '' }">
+                    <div x-text="Alpine.store('booking').destination === '' ? 'Where to?' : Alpine.store('booking').destination" class="text-lg font-bold text-gray-600 rounded-md ">
+                    </div>
 
-                {{ if is_homepage }}
-                    homepage only
-                {{ /if }}
-
-                {{ if slug == 'charters' || slug == 'packages' }}
-                    {{ partial:components/booking-header }}
-                {{ /if }}
-
-
-                {{ if collection == 'charters' || collection == 'packages' && is_entry }}
-                    collection single entry only
-                {{ /if }}
-
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div x-data="{ arrival: sessionStorage.getItem('_gfcr_arrival_date') || '', departure: sessionStorage.getItem('_gfcr_departure_date') || '' }">
+                        <div x-show="arrival === '' || departure === ''" class="text-gray-600 rounded-md ">
+                            Add Dates
+                        </div>
+                        <div x-show="arrival !== '' && departure !== ''" class="text-gray-600 rounded-md ">
+                            <span x-text="new Date(arrival).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' - ' + new Date(departure).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })"></span>
+                        </div>
+                    </div>
+                    <i class="text-[3px] fa-solid fa-circle"></i>
+                    <div>
+                        <div x-show="Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children > 0" class="text-gray-600 rounded-md ">
+                            <span x-text="Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children == 1 ? '1 Guest' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children + ' Guests'"></span>
+                        </div>
+                        <div x-show="Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children == 0" class="text-gray-600 rounded-md ">
+                            Add Guests
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="flex-1 whitespace-nowrap">
-                {{ partial:navigation/main }}
+        </div>
+
+        <!-- Modal -->
+        <div
+            x-show="open"
+            style="display: none"
+            x-on:keydown.escape.prevent.stop="open = false; window.location.reload()"
+            role="dialog"
+            aria-modal="true"
+            x-id="['modal-title']"
+            :aria-labelledby="$id('modal-title')"
+            class="fixed inset-0 z-10"
+        >
+
+
+            <!-- Panel -->
+            <div
+                x-show="open" x-transition
+                x-on:click="open = false; window.location.reload()"
+                class="absolute inset-0 flex items-center justify-center"
+                @click.away="open = false; window.location.reload()"
+            >
+                <div
+                    x-on:click.stop
+                    x-trap.noscroll.inert="open"
+                    class="flex flex-col w-full h-full px-4 py-6 space-y-4 overflow-y-auto bg-white"
+                >
+
+                <div class="flex items-center mb-8">
+                    <div class="flex-1">
+                        {{ partial:components/logo }}
+                    </div>
+                    <div>
+                        <button @click="open = false; window.location.reload()" class="flex items-center justify-center w-10 h-10 p-2 border border-orange-800 rounded-md lg:hidden">
+                            <i class="text-orange-800 fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>
+
+
+
+
+                <div class="pb-4 mx-8">
+                    <!-- location picker -->
+                    {{ partial:/typography/h6 content="Your Location:" class="mb-2" }}
+                    <div x-data="{ selectedLocation: sessionStorage.getItem('_gfcr_destination') || '' }" class="bg-white border border-gray-200 rounded-md drop-shadow-sm">
+                        <div class="space-y-2">
+                            {{ collection:locations }}
+                            <div @click="Alpine.store('booking').setDestination('{{ title }}');" :class="{'bg-gray-200': Alpine.store('booking').destination === '{{ title }}'}" class="px-4 py-2 cursor-pointer hover:bg-gray-100">
+                                {{ title }}
+                            </div>
+                            {{ /collection:locations }}
+                        </div>
+                    </div>
+                <!-- end location picker -->
+                </div>
+
+                <div class="mx-8">
+                    <!-- date picker -->
+                    {{ partial:/typography/h6 content="Your Dates:" class="mb-2" }}
+                    <div x-data="{ date: '' }" class="flex justify-center w-full mb-4">
+                        <!-- Inline Flatpickr Calendar -->
+                        <div x-ref="calendar" x-flatpickr="date"></div>
+                    </div>
+
+
+                    <script>
+                    document.addEventListener("alpine:init", () => {
+                        Alpine.directive("flatpickr", (el, { value }) => {
+                        const options = {
+                            inline: true, // Render the calendar inline
+                            onChange: (selectedDates) => {
+                            if (Array.isArray(selectedDates) && selectedDates.length > 0) {
+                                value(el, selectedDates[0]); // Pass the selected date to Alpine.js
+                            }
+                            }
+                        };
+                        flatpickr(el, options);
+                        });
+                    });
+                    </script>
+
+                    <!-- end date picker -->
+                </div>
+
+                <div>
+
+
+                    <!-- guest picker -->
+
+
+                    <div class="mx-8">
+
+                        <div class="flex items-center mb-4">
+                            <div class="flex-1">
+                                {{ partial:/typography/h6 content="Your Guests:" class="mb42" }}
+                            </div>
+                            <div>
+                                <div  class="flex items-center justify-start w-full h-full space-x-2 text-left text-gray-600 bg-white rounded-md rounded-l-none px-09 focus:outline-none">
+                                    <i class="text-xl fa-solid fa-person"></i>
+                                    <span class="flex-1" x-text="Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 0 ? 'Add Guests' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children === 1 ? '1 Guest' : Alpine.store('guestPicker').adults + Alpine.store('guestPicker').children + ' Guests'"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                    <div class="p-2 border border-gray-200 rounded-md">
+                            <!-- Adults -->
+                    <div class="flex items-center px-2 py-2">
+                        <i class="mr-2 text-xl fa-solid fa-person"></i>
+                        <span x-text="Alpine.store('guestPicker').adults === 0 ? 'Add Adults' : Alpine.store('guestPicker').adults + ' Adult' + (Alpine.store('guestPicker').adults >= 2 ? 's' : '')" class="flex-1"></span>
+                        <div class="flex space-x-2">
+                            <button @click="Alpine.store('guestPicker').decrementAdults()" class="flex items-center justify-center w-6 h-6 px-2 py-1 border border-gray-400 rounded-full hover:bg-gray-100 focus:outline-none">
+                                <i class="text-sm fa-solid fa-minus"></i>
+                            </button>
+                            <button @click="Alpine.store('guestPicker').incrementAdults()" class="flex items-center justify-center w-6 h-6 px-2 py-1 border border-gray-400 rounded-full hover:bg-gray-100 focus:outline-none">
+                                <i class="text-sm fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Children -->
+                    <div class="flex items-center px-2 py-2">
+                        <i :class="Alpine.store('guestPicker').adults < 1 ? 'mr-2 text-xl fa-solid fa-child text-gray-300' : 'mr-2 text-xl fa-solid fa-child'" ></i>
+                        <span :class="Alpine.store('guestPicker').adults < 1 ? 'flex-1 text-gray-300' : 'flex-1'" x-text="Alpine.store('guestPicker').children === 0 ? 'Add Children' : Alpine.store('guestPicker').children + ' Child' + (Alpine.store('guestPicker').children >= 2 ? 'ren' : '')"></span>
+                        <div class="flex space-x-2">
+                            <button :disabled="Alpine.store('guestPicker').adults < 1" @click="Alpine.store('guestPicker').decrementChildren()" :class="Alpine.store('guestPicker').adults < 1 ? 'flex items-center justify-center w-6 h-6 px-2 py-1 border border-gray-300 rounded-full text-gray-300 focus:outline-none' : 'flex items-center justify-center w-6 h-6 px-2 py-1 border border-gray-400 rounded-full hover:bg-gray-100 focus:outline-none'">
+                                <i class="text-sm fa-solid fa-minus"></i>
+                            </button>
+                            <button :disabled="Alpine.store('guestPicker').adults < 1" @click="Alpine.store('guestPicker').incrementChildren()" :class="Alpine.store('guestPicker').adults < 1 ? 'flex items-center justify-center w-6 h-6 px-2 py-1 border border-gray-300 rounded-full text-gray-300 focus:outline-none' : 'flex items-center justify-center w-6 h-6 px-2 py-1 border border-gray-400 rounded-full hover:bg-gray-100 focus:outline-none'">
+                                <i class="text-sm fa-solid fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+
+                    </div>
+
+                    </div>
+
+
+
+                    <script>
+                        document.addEventListener('alpine:init', () => {
+                            Alpine.store('guestPicker', {
+                                adults: parseInt(sessionStorage.getItem('_gfcr_adults') || 0),
+                                children: parseInt(sessionStorage.getItem('_gfcr_children') || 0),
+                                message: '', // Added for inline message
+                                updateSessionStorage() {
+                                    sessionStorage.setItem('_gfcr_adults', this.adults);
+                                    sessionStorage.setItem('_gfcr_children', this.children);
+                                    sessionStorage.setItem('_gfcr_guests', this.adults + this.children);
+                                    this.checkSelection(); // Check selection after updating session storage
+                                },
+                                incrementAdults() {
+                                    this.adults++;
+                                    this.updateSessionStorage();
+                                },
+                                decrementAdults() {
+                                    this.adults = Math.max(0, this.adults - 1);
+                                    if (this.adults === 0) {
+                                        this.children = 0; // Reset children if no adults
+                                    }
+                                    this.updateSessionStorage();
+                                },
+                                incrementChildren() {
+                                    if (this.adults > 0) {
+                                        this.children++;
+                                        this.updateSessionStorage();
+                                    }
+                                },
+                                decrementChildren() {
+                                    this.children = Math.max(0, this.children - 1);
+                                    this.updateSessionStorage();
+                                },
+                                checkSelection() {
+                                    if (this.adults >= 1) {
+                                        this.message = ""; // Clear message if adults >= 1
+                                        return true; // Ensure there is a true statement
+                                    } else {
+                                        this.message = "Please select at least one adult."; // Show message if no adults selected
+                                        return false; // Ensure there is a true statement
+                                    }
+                                }
+                            });
+                        });
+                        </script>
+
+                    <!-- end guest picker -->
+
+
+                </div>
+
+
+                <button @click="open = false; window.location.reload()" class="w-full p-4 text-white rounded-md bg-brown-500">
+                    Done
+                </button>
+
+                </div>
             </div>
         </div>
     </div>
 
+</div>
+{{ /if }}
 </header>
 <!-- End: /layout/_header.antlers.html -->
 
 
+
+<script>
+    document.addEventListener('alpine:init', () => {
+        Alpine.store('booking', {
+            destination: sessionStorage.getItem('_gfcr_destination') || '',
+            setDestination(newDestination) {
+                this.destination = newDestination;
+                sessionStorage.setItem('_gfcr_destination', newDestination);
+            },
+            guests: parseInt(sessionStorage.getItem('_gfcr_guests') || 0),
+            setGuests(newGuests) {
+                this.guests = newGuests;
+                sessionStorage.setItem('_gfcr_guests', newGuests);
+            }
+        });
+    });
+    </script>
